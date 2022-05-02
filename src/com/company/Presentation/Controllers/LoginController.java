@@ -20,6 +20,4 @@ public class LoginController {
        return loginModel.login(loginView.getUser(), loginView.getPassword());
     }
 
-
-
 }

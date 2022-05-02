@@ -1,29 +1,26 @@
 package com.company.Presentation.Views;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class StartView extends JFrame {
+public class StartView extends JPanel {
+    private JButton signUp;
+    private JButton logIn;
 
-    private JButton SignUp;
-    private JButton LogIn;
+    public static final String START_LOGIN_BTN = "START_LOGIN_BTN";
+    public static final String START_SIGNUP_BTN = "START_SIGNUP_BTN";
 
     public StartView(){
-        //dimensiones de tu pantalla
-        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();     
-        setSize(size.width, size.height);
-        setLocationRelativeTo(null);    //para centrar la ventana
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        this.getContentPane().setLayout(new GridBagLayout()); // la interfaz tendra un GrindBag layout
+        this.setLayout(new GridBagLayout()); // la interfaz tendra un GrindBag layout
 
         JLabel title1 = new JLabel("AGE", SwingConstants.CENTER);
         JLabel title2 = new JLabel("ROYALE", SwingConstants.CENTER);
 
         GridBagConstraints constraints = new GridBagConstraints(); // necesario para el layout
-        this.getContentPane().setBackground(Color.DARK_GRAY);
+        this.setBackground(Color.DARK_GRAY);
 
-        this.getContentPane().add(title1);
+        this.add(title1);
         title1.setForeground(Color.YELLOW);
         title1.setFont(new Font("Helvetica", Font.BOLD, 100));
 
@@ -32,10 +29,10 @@ public class StartView extends JFrame {
         constraints.gridwidth =4; // el area que ocupa ancho
         constraints.gridheight =1; // el area que ocupa alto
         constraints.weightx = 1.0;
-        this.getContentPane().add(title1, constraints);
+        this.add(title1, constraints);
         constraints.weightx = 0.0;
 
-        this.getContentPane().add(title2);
+        this.add(title2);
         title2.setForeground(Color.YELLOW);
         title2.setFont(new Font("Helvetica", Font.BOLD, 100));
 
@@ -44,28 +41,30 @@ public class StartView extends JFrame {
         constraints.gridwidth =4; // el area que ocupa ancho
         constraints.gridheight =1; // el area que ocupa alto
         constraints.weightx = 1.0;
-        this.getContentPane().add(title2, constraints);
+        this.add(title2, constraints);
         constraints.weightx = 0.0;
 
-        //buttons
-        SignUp = new JButton("Sign Up");
-        SignUp.setFont(new Font("Helvetica", Font.PLAIN, 20));
+        //BUTTONS
+        signUp = new JButton("Sign Up");
+        signUp.setActionCommand(START_SIGNUP_BTN);
+        signUp.setFont(new Font("Helvetica", Font.PLAIN, 20));
         constraints.gridx= 2; 
         constraints.gridy=3; 
         constraints.gridwidth=1; 
         constraints.gridheight=1;
         constraints.weightx = 1.0;
-        this.getContentPane().add(SignUp, constraints);
+        this.add(signUp, constraints);
         constraints.weightx = 0.0;
 
-        LogIn = new JButton("Log In");
-        LogIn.setFont(new Font("Helvetica", Font.PLAIN, 20));
+        logIn = new JButton("Log In");
+        logIn.setActionCommand(START_LOGIN_BTN);
+        logIn.setFont(new Font("Helvetica", Font.PLAIN, 20));
         constraints.gridx= 1; 
         constraints.gridy=3; 
         constraints.gridwidth=1; 
         constraints.gridheight=1;
         constraints.weightx = 1.0;
-        this.getContentPane().add(LogIn, constraints);
+        this.add(logIn, constraints);
         constraints.weightx = 1.0;
 
         JLabel Register = new JLabel("I want to Sign up");
@@ -75,7 +74,7 @@ public class StartView extends JFrame {
         constraints.gridy=2; 
         constraints.gridwidth=1; 
         constraints.gridheight=1;
-        this.getContentPane().add(Register, constraints);
+        this.add(Register, constraints);
 
         JLabel Log = new JLabel("I want to Log in");
         Log.setFont(new Font("Helvetica", Font.BOLD, 30));
@@ -84,13 +83,11 @@ public class StartView extends JFrame {
         constraints.gridy=2; 
         constraints.gridwidth=1; 
         constraints.gridheight=1;
-        this.getContentPane().add(Log, constraints);
-    
-
-    }
-public static void main(String[] args){
-        StartView view = new StartView();
-        view.setVisible(true);
+        this.add(Log, constraints);
     }
 
+    public void registerController(ActionListener listener) {
+        logIn.addActionListener(listener);
+        signUp.addActionListener(listener);
+    }
 }

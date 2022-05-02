@@ -1,11 +1,12 @@
+package com.company.Presentation.Views;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 
 
-public class SignupView extends JFrame {
-
+public class SignupView extends JPanel {
     private JTextField userText;
     private JPasswordField passwordText;
     private JTextField emailText;
@@ -13,18 +14,16 @@ public class SignupView extends JFrame {
     private JButton signUp;
     private JButton goBack;
 
+    public static final String SIGNUP_BTN = "SIGNUP_BTN";
+    public static final String SIGNUP_BACK_BTN = "SIGNUP_BACK_BTN";
+
     public SignupView (){
-        super("Sign up Form");
 
-        //dimensiones de tu pantalla
-        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();     
-        setSize(size.width, size.height);
-        setLocationRelativeTo(null);    //para centrar la ventana
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Buttons
+        //BUTTONS
         signUp = new JButton("Sign up");
         goBack = new JButton("Go back");
+        signUp.setActionCommand(SIGNUP_BTN);
+        goBack.setActionCommand(SIGNUP_BACK_BTN);
         
         //JLabel 
         JLabel title = new JLabel("REGISTER FORM",SwingConstants.CENTER);
@@ -52,8 +51,7 @@ public class SignupView extends JFrame {
         passwordConfirmText = new JPasswordField(20);
         
         // recuadro grande, toda la pantalla
-        Container mainContainer = this.getContentPane();
-        mainContainer.setBackground(Color.DARK_GRAY);
+        this.setBackground(Color.DARK_GRAY);
         
         //bottom panel
         JPanel bottomPanel = new JPanel();
@@ -87,10 +85,14 @@ public class SignupView extends JFrame {
         gridJPanel.setBorder(new LineBorder(Color.BLACK, 10));
 
         //posicion 
-        mainContainer.add(title, BorderLayout.NORTH);
-        mainContainer.add(bottomPanel, BorderLayout.SOUTH);
-        mainContainer.add(gridJPanel, BorderLayout.CENTER);
+        this.add(title, BorderLayout.NORTH);
+        this.add(bottomPanel, BorderLayout.SOUTH);
+        this.add(gridJPanel, BorderLayout.CENTER);
+    }
 
+    public void registerController(ActionListener listener) {
+        signUp.addActionListener(listener);
+        goBack.addActionListener(listener);
     }
    
     public String getUser(){
@@ -106,8 +108,4 @@ public class SignupView extends JFrame {
         return passwordConfirmText.getText();
     }
 
-    public static void main(String[] args){
-        SignupView view = new SignupView();
-        view.setVisible(true);
-    }
 }

@@ -4,38 +4,34 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class LogoutView extends JFrame {
+public class LogoutView extends JPanel {
     private JTextField warningMesage;
-    private JButton LogoutButton;
-    private JButton Backbutton;
+    private JButton logoutButton;
+    private JButton backbutton;
+
+    public static final String LOGOUT_BTN = "LOGOUT_BTN";
+    public static final String LOGOUT_BACK_BTN = "LOGOUT_BACK_BTN";
 
     public LogoutView() throws HeadlessException {
         configurePanel();
-        configurationFrame();
-
-    }
-
-    private void configurationFrame() {
-        pack();
-        setTitle("Logout");
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void configurePanel() {
         JPanel main = new JPanel(new BorderLayout());
         JPanel center = new JPanel(new FlowLayout());
-
         JLabel title = new JLabel("Are you sure you want to logout?");
 
-        LogoutButton = new JButton("LOGOUT");
-        Backbutton = new JButton("BACK");
+        logoutButton = new JButton("LOGOUT");
+        backbutton = new JButton("BACK");
+
+        logoutButton.setActionCommand(LOGOUT_BTN);      //la frase que le pasara a los listeners
+        backbutton.setActionCommand(LOGOUT_BACK_BTN);
 
         Container buttons = new Container();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.PAGE_AXIS));
 
-        buttons.add(LogoutButton);
-        buttons.add(Backbutton);
+        buttons.add(logoutButton);
+        buttons.add(backbutton);
 
         title.setHorizontalAlignment(JLabel.CENTER);
 
@@ -46,8 +42,9 @@ public class LogoutView extends JFrame {
 
         add(main);
     }
+
     public void registerController(ActionListener listener){
-        LogoutButton.addActionListener(listener);
-        Backbutton.addActionListener(listener);
+        logoutButton.addActionListener(listener);
+        backbutton.addActionListener(listener);
     }
 }
