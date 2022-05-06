@@ -22,8 +22,8 @@ public class SignupView extends JPanel {
         //BUTTONS
         signUp = new JButton("Sign up");
         goBack = new JButton("Go back");
-        signUp.setActionCommand(SIGNUP_BTN);
-        goBack.setActionCommand(SIGNUP_BACK_BTN);
+        signUp.setActionCommand(String.valueOf(CardEnum.SIGNUP_BTN));
+        goBack.setActionCommand(String.valueOf(CardEnum.SIGNUP_BACK_BTN));
         
         //JLabel 
         JLabel title = new JLabel("REGISTER FORM",SwingConstants.CENTER);
@@ -90,8 +90,11 @@ public class SignupView extends JPanel {
         this.add(gridJPanel, BorderLayout.CENTER);
     }
 
-    public void registerController(ActionListener listener) {
+    public void registerSignUpController(ActionListener listener) {
         signUp.addActionListener(listener);
+    }
+
+    public void registerController(ActionListener listener) {
         goBack.addActionListener(listener);
     }
    

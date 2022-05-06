@@ -46,7 +46,7 @@ public class StartView extends JPanel {
 
         //BUTTONS
         signUp = new JButton("Sign Up");
-        signUp.setActionCommand(START_SIGNUP_BTN);
+        signUp.setActionCommand(String.valueOf(CardEnum.START_SIGNUP_BTN));
         signUp.setFont(new Font("Helvetica", Font.PLAIN, 20));
         constraints.gridx= 2; 
         constraints.gridy=3; 
@@ -57,7 +57,7 @@ public class StartView extends JPanel {
         constraints.weightx = 0.0;
 
         logIn = new JButton("Log In");
-        logIn.setActionCommand(START_LOGIN_BTN);
+        logIn.setActionCommand(String.valueOf(CardEnum.START_LOGIN_BTN));
         logIn.setFont(new Font("Helvetica", Font.PLAIN, 20));
         constraints.gridx= 1; 
         constraints.gridy=3; 

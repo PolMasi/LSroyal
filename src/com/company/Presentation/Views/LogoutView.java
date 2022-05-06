@@ -43,8 +43,11 @@ public class LogoutView extends JPanel {
         add(main);
     }
 
-    public void registerController(ActionListener listener){
+    public void registerLogoutController(ActionListener listener) {
         logoutButton.addActionListener(listener);
+    }
+
+    public void registerController(ActionListener listener){
         backbutton.addActionListener(listener);
     }
 }

@@ -1,8 +1,11 @@
 package com.company;
 
-import com.company.Business.LoginModel;
+import com.company.Business.UserModel;
+import com.company.Business.UserOption;
 import com.company.Persistence.UserDAO;
 import com.company.Presentation.Controllers.LoginController;
+import com.company.Presentation.Controllers.LogoutController;
+import com.company.Presentation.Controllers.SignUpController;
 import com.company.Presentation.MainController;
 import com.company.Presentation.MainView;
 import com.company.Presentation.Views.LoginView;
@@ -26,19 +29,30 @@ public class Main {
                 }
 
             }
+
+            @Override
+            public boolean validSignUp(String user, String pass, String mail) {
+                return true;
+            }
         };
 
-	    LoginModel loginModel = new LoginModel(userDAO);
         LoginView loginView = new LoginView();
-        LoginController loginController = new LoginController(loginModel, loginView);
-
-        LogoutView logoutView = new LogoutView();
         SignupView signupView = new SignupView();
         StartView startView = new StartView();
+        LogoutView logoutView = new LogoutView();
 
         MainView mainView = new MainView(loginView,logoutView,signupView, startView);
+        MainController mainController = new MainController(mainView);
+
+        UserOption userOption = new UserOption();
+        UserModel loginModel = new UserModel(userDAO, userOption);
+
+        LoginController loginController = new LoginController(loginModel, loginView, mainController);
+        SignUpController signUpController = new SignUpController(loginModel, signupView, mainController);
+        LogoutController logoutController = new LogoutController(loginModel, logoutView, mainController);
+
         mainView.setVisible(true);
-        MainController mainController = new MainController(loginController, mainView);
+
 
     }
 }

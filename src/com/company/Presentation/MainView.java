@@ -1,9 +1,6 @@
 package com.company.Presentation;
 
-import com.company.Presentation.Views.LoginView;
-import com.company.Presentation.Views.LogoutView;
-import com.company.Presentation.Views.SignupView;
-import com.company.Presentation.Views.StartView;
+import com.company.Presentation.Views.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,10 +45,10 @@ public class MainView extends JFrame {
     private void configureLayout() {
         cardLayout = new CardLayout();
         this.setLayout(cardLayout);     //asignamos a esta ventana el cardlayout
-        this.add(START_VIEW, startView);
-        this.add(LOGIN_VIEW, loginView);    //le asginamos una vista con una frase y cuando le pasamos la frase pasa la vista asociada
-        this.add(SIGNUP_VIEW, signupView);
-        this.add(LOGOUT_VIEW, logoutView);
+        this.add(String.valueOf(CardEnum.START_VIEW), startView);
+        this.add(String.valueOf(CardEnum.LOGIN_VIEW), loginView);    //le asginamos una vista con una frase y cuando le pasamos la frase pasa la vista asociada
+        this.add(String.valueOf(CardEnum.SIGNUP_VIEW), signupView);
+        this.add(String.valueOf(CardEnum.LOGOUT_VIEW), logoutView);
     }
 
     /**
@@ -71,5 +68,9 @@ public class MainView extends JFrame {
         logoutView.registerController(listener);
         startView.registerController(listener);
         signupView.registerController(listener);
+    }
+
+    public void showError(String error) {
+        JOptionPane.showMessageDialog(this, error);
     }
 }
