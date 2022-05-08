@@ -1,5 +1,10 @@
 package com.company.Business;
 
-public class PlayerModel {
+public class PlayerModel implements Runnable {
 
+
+    @Override
+    public void run() {
+
+    }
 }

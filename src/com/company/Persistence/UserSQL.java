@@ -26,6 +26,7 @@ public class UserSQL implements UserDAO {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(dbUrl, dbUser, password);
+
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

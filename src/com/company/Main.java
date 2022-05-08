@@ -3,7 +3,9 @@ package com.company;
 import com.company.Business.PlayerModel;
 import com.company.Business.UserModel;
 import com.company.Business.UserOption;
+import com.company.Persistence.Configuration;
 import com.company.Persistence.UserDAO;
+import com.company.Persistence.UserSQL;
 import com.company.Presentation.Controllers.BoardController;
 import com.company.Presentation.Controllers.LoginController;
 import com.company.Presentation.Controllers.LogoutController;
@@ -12,9 +14,16 @@ import com.company.Presentation.MainController;
 import com.company.Presentation.MainView;
 import com.company.Presentation.Views.*;
 
+import java.sql.DriverManager;
+
 public class Main {
 
     public static void main(String[] args) {
+
+        UserDAO userdao = new UserSQL("agebbdd", "localhost", "", "192.168.64.2", 3303);
+
+        Configuration configuration = new Configuration("files/offensive.json", "files/defensive.json");
+        configuration.loadOffensiveTroops();
 
         //Para comprovar
         UserDAO userDAO = new UserDAO() {
@@ -26,7 +35,6 @@ public class Main {
                 else{
                     return false;
                 }
-
             }
 
             @Override
@@ -45,7 +53,7 @@ public class Main {
         MainController mainController = new MainController(mainView);
 
         UserOption userOption = new UserOption();
-        UserModel loginModel = new UserModel(userDAO, userOption);
+        UserModel loginModel = new UserModel(userdao, userOption);
         PlayerModel boardModel = new PlayerModel();
 
         LoginController loginController = new LoginController(loginModel, loginView, mainController);

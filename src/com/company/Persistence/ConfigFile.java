@@ -12,11 +12,11 @@ public class ConfigFile {
     public static final String CONFIG_JSON = "config.json";
     private final Gson gson;
 
-    public ConfigFile(){
+    public ConfigFile() {
         gson = new Gson();
     }
 
-    public Optional<ConfigFile> getConfig(){
+    public Optional<ConfigFile> getConfig() {
         try {
             return Optional.of(gson.fromJson(Files.newBufferedReader(Paths.get(CONFIG_JSON)),ConfigFile.class));
         } catch (IOException exception) {
