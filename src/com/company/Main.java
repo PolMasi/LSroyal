@@ -1,6 +1,6 @@
 package com.company;
 
-import com.company.Business.BoardModel;
+import com.company.Business.PlayerModel;
 import com.company.Business.UserModel;
 import com.company.Business.UserOption;
 import com.company.Persistence.UserDAO;
@@ -46,7 +46,7 @@ public class Main {
 
         UserOption userOption = new UserOption();
         UserModel loginModel = new UserModel(userDAO, userOption);
-        BoardModel boardModel = new BoardModel();
+        PlayerModel boardModel = new PlayerModel();
 
         LoginController loginController = new LoginController(loginModel, loginView, mainController);
         SignUpController signUpController = new SignUpController(loginModel, signupView, mainController);

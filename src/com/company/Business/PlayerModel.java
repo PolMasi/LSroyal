@@ -1,5 +1,5 @@
 package com.company.Business;
 
-public class BoardModel {
+public class PlayerModel {
 
 }
