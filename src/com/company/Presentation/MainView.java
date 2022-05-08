@@ -11,6 +11,7 @@ public class MainView extends JFrame {
     private LogoutView logoutView;
     private SignupView signupView;
     private StartView startView;
+    private BoardView boardView;
 
     private CardLayout cardLayout;      // gestionaremos como una baraja de cartas y este tendra todas las vista(cartas)
 
@@ -18,14 +19,17 @@ public class MainView extends JFrame {
     public static final String LOGOUT_VIEW = "LOGOUT_VIEW";
     public static final String SIGNUP_VIEW = "SIGNUP_VIEW";
     public static final String START_VIEW = "START_VIEW";
+    public static final String BOARD_VIEW = "BOARD_VIEW";
 
     public static final String TITLE = "LSROYAL";
 
-    public MainView(LoginView loginView, LogoutView logoutView, SignupView signupView, StartView startView) {
+    public MainView(LoginView loginView, LogoutView logoutView, SignupView signupView,
+                    StartView startView, BoardView boardView) {
         this.startView = startView;
         this.loginView = loginView;
         this.logoutView = logoutView;
         this.signupView = signupView;
+        this.boardView = boardView;
         configureLayout();
         configurationFrame();
     }
@@ -45,6 +49,7 @@ public class MainView extends JFrame {
     private void configureLayout() {
         cardLayout = new CardLayout();
         this.setLayout(cardLayout);     //asignamos a esta ventana el cardlayout
+        this.add(MainView.BOARD_VIEW, boardView);
         this.add(String.valueOf(CardEnum.START_VIEW), startView);
         this.add(String.valueOf(CardEnum.LOGIN_VIEW), loginView);    //le asginamos una vista con una frase y cuando le pasamos la frase pasa la vista asociada
         this.add(String.valueOf(CardEnum.SIGNUP_VIEW), signupView);
