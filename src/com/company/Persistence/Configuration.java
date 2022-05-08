@@ -30,7 +30,7 @@ public class Configuration implements ConfigurationDAO{
     }
 
     @Override
-    public Offensive[] loadOffensiveTroops() {
+    public ArrayList<Offensive> loadOffensiveTroops() {
         ArrayList<Offensive> list = new ArrayList<>();
 
         try {
@@ -40,11 +40,11 @@ public class Configuration implements ConfigurationDAO{
             e.printStackTrace();
         }
 
-        return list.toArray(new Offensive[0]);
+        return list;
     }
 
     @Override
-    public Defensive[] loadDefensiveTroops() {
+    public ArrayList<Defensive> loadDefensiveTroops() {
         ArrayList<Defensive> list = new ArrayList<>();
 
         try {
@@ -54,6 +54,6 @@ public class Configuration implements ConfigurationDAO{
             e.printStackTrace();
         }
 
-        return list.toArray(new Defensive[0]);
+        return list;
     }
 }
