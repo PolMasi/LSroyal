@@ -20,7 +20,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        UserDAO userdao = new UserSQL("agebbdd", "localhost", "", "192.168.64.2", 3303);
+        //S'ha d'adaptar cadascu a la seva bbdd
+        UserDAO userdao = new UserSQL("agebbdd", "root", "", "jdbc:mysql://localhost:", 3306);
 
         Configuration configuration = new Configuration("files/offensive.json", "files/defensive.json");
         configuration.loadOffensiveTroops();

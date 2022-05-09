@@ -1,9 +1,6 @@
 package com.company.Persistence;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserSQL implements UserDAO {
     private final String dbName;
@@ -34,8 +31,31 @@ public class UserSQL implements UserDAO {
 
     @Override
     public boolean validLogin(String name, String password) {
-        return false;
+
+       /* PreparedStatement ps;
+        ResultSet rs;
+
+        String sql = "SELECT  Usuario, Contraseña, Mail FROM usuarios WHERE usuario = ? OR Mail = ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ;
+            ps.setString(1, name);
+            ps.setString(2, password);
+            ps.execute();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+
+
+        }
+
+*/     return false;
     }
+
+
 
     public boolean validSignUp(String user, String pass, String mail) {
         PreparedStatement ps;
