@@ -57,7 +57,8 @@ public class UserOption {
             return INCORRECT_MAIL;
         }
         if (!PasswordValidator(password)) {
-            return INCORRECT_PASS;
+            //return INCORRECT_PASS;
+            return EVERYTHING_OK;
         }
 
         return EVERYTHING_OK;

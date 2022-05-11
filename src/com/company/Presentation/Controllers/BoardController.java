@@ -13,16 +13,16 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class BoardController implements ActionListener {
-    PlayerModel boardModel;
     ComputerModel computerModel;
     BoardView boardView;
     MainController mainController;
     ScheduledExecutorService timer;
 
-    public BoardController(LogicModel logicModel, BoardView boardView, MainController mainController) {
+    public BoardController(ComputerModel computerModel, BoardView boardView, MainController mainController) {
 
         this.boardView = boardView;
         this.mainController = mainController;
+        this.computerModel = computerModel;
         boardView.configurePanel(this);
 
         timer = Executors.newScheduledThreadPool(1);

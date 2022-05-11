@@ -23,9 +23,10 @@ public class Main {
         //GERARD
         //UserDAO userdao = new UserSQL("agebbdd", "root", "", "jdbc:mysql://localhost/agebbdd", 3306);
         //TONI
+        UserDAO userdao = new UserSQL("agebbdd", "root", "", "jdbc:mysql://localhost/agebbdd", 3306);
 
         //POL
-        UserDAO userdao = new UserSQL("agebbdd", "root", "", "192.168.64.2", 3306);
+      //  UserDAO userdao = new UserSQL("agebbdd", "root", "", "192.168.64.2", 3306);
         //GABRIEL
 
         //MARTA
@@ -101,7 +102,7 @@ public class Main {
         LoginController loginController = new LoginController(loginModel, loginView, mainController);
         SignUpController signUpController = new SignUpController(loginModel, signupView, mainController);
         LogoutController logoutController = new LogoutController(loginModel, logoutView, mainController);
-        BoardController boardController = new BoardController(logicModel,boardView, mainController);
+        BoardController boardController = new BoardController(computerModel,boardView, mainController);
 
 
         mainView.setVisible(true);
