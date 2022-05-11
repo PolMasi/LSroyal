@@ -19,8 +19,18 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //S'ha d'adaptar cadascu a la seva bbdd
-        UserDAO userdao = new UserSQL("agebbdd", "root", "", "jdbc:mysql://localhost:", 3306);
+        //CONNEXIO BBDD
+        //GERARD
+        //UserDAO userdao = new UserSQL("agebbdd", "root", "", "jdbc:mysql://localhost:", 3306);
+        //TONI
+
+        //POL
+
+        //GABRIEL
+
+        //MARTA
+
+
 
         Configuration configuration = new Configuration("files/offensive.json", "files/defensive.json");
         configuration.loadOffensiveTroops();
