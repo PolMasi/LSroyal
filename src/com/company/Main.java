@@ -21,11 +21,11 @@ public class Main {
 
         //CONNEXIO BBDD
         //GERARD
-        //UserDAO userdao = new UserSQL("agebbdd", "root", "", "jdbc:mysql://localhost:", 3306);
+        //UserDAO userdao = new UserSQL("agebbdd", "root", "", "jdbc:mysql://localhost/agebbdd", 3306);
         //TONI
 
         //POL
-
+        UserDAO userdao = new UserSQL("agebbdd", "root", "", "192.168.64.2", 3306);
         //GABRIEL
 
         //MARTA

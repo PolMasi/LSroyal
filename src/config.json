@@ -1,5 +1,5 @@
 {
-  "dbUrl": "jdbc:mysql://localhost:3306",
+  "dbUrl": "192.168.64.2",
   "port": 3306,
   "dbName": "agebbdd",
   "dbUser": "root",
