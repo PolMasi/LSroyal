@@ -23,11 +23,12 @@ public class Main {
         //GERARD
         //UserDAO userdao = new UserSQL("agebbdd", "root", "", "jdbc:mysql://localhost/agebbdd", 3306);
         //TONI
-        UserDAO userdao = new UserSQL("agebbdd", "root", "", "jdbc:mysql://localhost/agebbdd", 3306);
+        //UserDAO userdao = new UserSQL("agebbdd", "root", "", "jdbc:mysql://localhost/agebbdd", 3306);
 
         //POL
-      //  UserDAO userdao = new UserSQL("agebbdd", "root", "", "192.168.64.2", 3306);
+        //UserDAO userdao = new UserSQL("agebbdd", "root", "", "192.168.64.2", 3306);
         //GABRIEL
+        UserDAO userdao = new UserSQL("agebbdd", "root", "", "jdbc:mysql://localhost/agebbdd", 3306);
 
         //MARTA
 
