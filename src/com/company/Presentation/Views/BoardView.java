@@ -3,6 +3,7 @@ package com.company.Presentation.Views;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.jar.JarEntry;
 
 public class BoardView extends JPanel {
     private GridLayout gridBoard;
@@ -47,7 +48,56 @@ public class BoardView extends JPanel {
 
         add(board, BorderLayout.CENTER);
         add(title, BorderLayout.NORTH);
-
     }
 
+    public void configureCards(String[] offensive, String[] defensive, ActionListener listener) {
+        JPanel flowLayout = new JPanel(new FlowLayout());
+        GridLayout defCards = new GridLayout(1, defensive.length/3);
+        GridLayout offCards = new GridLayout(1, offensive.length/3);
+
+        JPanel defPanel = new JPanel(defCards);
+        JPanel offPanel = new JPanel(offCards);
+        JPanel defCost = new JPanel(new FlowLayout());
+        JPanel offCost = new JPanel(new FlowLayout());
+
+        int cardNumber = 1;
+
+        for (int i = 0; i < defensive.length; i++) {
+            JButton iconDef = new JButton(String.valueOf(defensive[i].charAt(0)));
+            JButton iconOff = new JButton(String.valueOf(offensive[i].charAt(0)));
+
+            iconDef.setActionCommand("DEF"+cardNumber);
+            iconOff.setActionCommand("OFF"+cardNumber);
+
+            iconDef.addActionListener(listener);
+            iconOff.addActionListener(listener);
+
+            cardNumber++;
+
+            defPanel.add(iconDef);
+            offPanel.add(iconOff);
+            i++;
+            defCost.add(new JLabel(defensive[i]));
+            offCost.add(new JLabel(offensive[i]));
+            i++;
+        }
+
+        JPanel offBox = new JPanel();
+        offBox.setLayout(new BoxLayout(offBox, BoxLayout.PAGE_AXIS));
+        offBox.add(new JLabel("OFFENSIVES"));
+        offBox.add(offPanel);
+        offBox.add(offCost);
+
+        JPanel defBox = new JPanel();
+        defBox.setLayout(new BoxLayout(defBox, BoxLayout.PAGE_AXIS));
+        defBox.add(new JLabel("DEFENSIVES"));
+        defBox.add(defPanel);
+        defBox.add(defCost);
+
+        flowLayout.add(offBox);
+        flowLayout.add(defBox);
+
+        add(flowLayout, BorderLayout.SOUTH);
+
+    }
 }

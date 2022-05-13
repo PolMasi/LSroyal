@@ -36,11 +36,11 @@ public class ComputerModel implements Runnable {
         }
     }
     public void defenseTroop(){
-        System.out.println("defensa");
+        //System.out.println("defensa");
         int troop = selectTroop.nextInt(defensiveTroops.size());
         boolean invoked = false;
         Defensive defTroop = defensiveTroops.get(troop);
-        System.out.println("1." + defTroop.getCost());
+        //System.out.println("1." + defTroop.getCost());
         if(defTroop.getCost() > money){
             Collections.shuffle(defensiveTroops);
             for (Defensive d: defensiveTroops
@@ -48,7 +48,7 @@ public class ComputerModel implements Runnable {
                 if(d.getCost() <= money && !invoked){
                     invoked = true;
                     //invoke (d)
-                    System.out.println("2. new "+ d.getCost());
+                    //System.out.println("2. new "+ d.getCost());
                 }
             }
         }
@@ -59,11 +59,11 @@ public class ComputerModel implements Runnable {
 
     }
     public void attackTroop(){
-        System.out.println("ataque");
+        //System.out.println("ataque");
         int troop = selectTroop.nextInt(offensiveTroops.size());
         boolean invoked = false;
         Offensive offTroop = offensiveTroops.get(troop);
-        System.out.println("1. " + offTroop.getCost());
+        //System.out.println("1. " + offTroop.getCost());
         if(offTroop.getCost() > money) {
             Collections.shuffle(offensiveTroops);
             for (Offensive d : offensiveTroops
@@ -71,7 +71,7 @@ public class ComputerModel implements Runnable {
                 if (d.getCost() <= money && !invoked) {
                     invoked = true;
                     //invoke (d)
-                    System.out.println("2. new "+ d.getCost());
+                    //System.out.println("2. new "+ d.getCost());
                 }
             }
 
