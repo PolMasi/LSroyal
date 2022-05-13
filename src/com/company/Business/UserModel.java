@@ -50,7 +50,14 @@ public class UserModel {
 
         switch(userOption.validSignUp(user, password, passwordConfirmation, email)) {
             case UserOption.EVERYTHING_OK:
-                //TODO comprovar que ni el usuaurio ni el mail existen en la base de datos
+
+                userDAO.checkUserName(user);
+
+                if(!userDAO.checkUserName(user)){
+
+                    return UserOption.DUPLICATED_LOGIN;
+                }
+
                 if(userDAO.validSignUp(user, password, email)) {
                     setUser(userName);      //que usuario ha iniciado sesion
                     return UserOption.EVERYTHING_OK;

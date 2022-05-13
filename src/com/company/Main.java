@@ -21,37 +21,23 @@ public class Main {
 
         //CONNEXIO BBDD
         //GERARD
-        //UserDAO userdao = new UserSQL("agebbdd", "root", "", "jdbc:mysql://localhost/agebbdd", 3306);
+        UserDAO userdao = new UserSQL("agebbdd", "root", "", "localhost", 3306);
         //TONI
 
         //POL
-        UserDAO userdao = new UserSQL("agebbdd", "root", "", "localhost", 3306);
+        //UserDAO userdao = new UserSQL("agebbdd", "root", "", "localhost", 3306);
         //GABRIEL
 
         //MARTA
 
-
+        //PRUEBA DELETE
+        System.out.printf(String.valueOf(userdao.checkUserName("gerard")));
+        userdao.delete("gerard");
 
         Configuration configuration = new Configuration("files/offensive.json", "files/defensive.json");
         configuration.loadOffensiveTroops();
 
-        //Para comprovar
-        UserDAO userDAO = new UserDAO() {
-            @Override
-            public boolean validLogin(String name, String password) {
-                if(name.equals("Toni") && password.equals("hola")){
-                    return true;
-                }
-                else{
-                    return false;
-                }
-            }
 
-            @Override
-            public boolean validSignUp(String user, String pass, String mail) {
-                return true;
-            }
-        };
         ConfigurationDAO configurationDAO = new ConfigurationDAO() {
             @Override
             public ConfigFile loadConfigFile() {

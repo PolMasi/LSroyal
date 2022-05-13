@@ -13,6 +13,8 @@ public class UserOption {
     public  static final int EVERYTHING_OK = 0;
     public  static final int EMPTY_FIELD = 2;
     public  static final int INCORRECT_LOGIN = 7;
+    public  static final int DUPLICATED_LOGIN= 8;
+
 
     public boolean isEmail(String mail) {
         boolean result;
