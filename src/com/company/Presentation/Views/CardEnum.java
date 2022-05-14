@@ -10,8 +10,8 @@ public enum CardEnum {
      SIGNUP_BTN("SIGNUP_BTN"),
      SIGNUP_BACK_BTN("SIGNUP_BACK_BTN"),
      BUTTON_LOGIN("BUTTON_LOGIN"),
-     LOGIN_BACK_BTN("LOGIN_BACK_BTN");
-
+     LOGIN_BACK_BTN("LOGIN_BACK_BTN"),
+     START_DELETE_BTN("START_DELETE_BTN");
 
 
     private final String text;
