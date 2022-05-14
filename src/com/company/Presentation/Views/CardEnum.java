@@ -12,7 +12,9 @@ public enum CardEnum {
      BUTTON_LOGIN("BUTTON_LOGIN"),
      LOGIN_BACK_BTN("LOGIN_BACK_BTN");
 
-     private final String text;
+
+
+    private final String text;
      CardEnum(final String text) {
           this.text = text;
      }

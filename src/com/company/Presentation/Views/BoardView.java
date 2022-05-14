@@ -68,10 +68,10 @@ public class BoardView extends JPanel {
         FlowLayout flow = new FlowLayout();
         JPanel flowLayout = new JPanel(flow);
 
-        flowLayout.setBorder(BorderFactory.createEmptyBorder(0,80,0,0));
+        flowLayout.setBorder(BorderFactory.createEmptyBorder(0, 80, 0, 0));
 
-        GridLayout defCards = new GridLayout(1, defensive.length/3);
-        GridLayout offCards = new GridLayout(1, offensive.length/3);
+        GridLayout defCards = new GridLayout(1, defensive.length / 3);
+        GridLayout offCards = new GridLayout(1, offensive.length / 3);
 
         JPanel defPanel = new JPanel(defCards);
         JPanel offPanel = new JPanel(offCards);
@@ -86,8 +86,8 @@ public class BoardView extends JPanel {
             JButton iconDef = new JButton(String.valueOf(defensive[i].charAt(0)));
             JButton iconOff = new JButton(String.valueOf(offensive[i].charAt(0)));
 
-            iconDef.setActionCommand("DEF"+cardNumber);
-            iconOff.setActionCommand("OFF"+cardNumber);
+            iconDef.setActionCommand("DEF" + cardNumber);
+            iconOff.setActionCommand("OFF" + cardNumber);
 
             iconDef.addActionListener(listener);
             iconOff.addActionListener(listener);

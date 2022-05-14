@@ -91,3 +91,4 @@ public class StartView extends JPanel {
         signUp.addActionListener(listener);
     }
 }
+
