@@ -31,8 +31,8 @@ public class Main {
         //MARTA
 
         //PRUEBA DELETE
-        System.out.printf(String.valueOf(userdao.checkUserName("gerard")));
-        userdao.delete("gerard");
+        //System.out.printf(String.valueOf(userdao.checkUserName("gerard")));
+        //userdao.delete("gerard");
 
         Configuration configuration = new Configuration("files/offensive.json", "files/defensive.json");
         configuration.loadOffensiveTroops();

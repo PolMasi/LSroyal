@@ -6,9 +6,6 @@ import com.company.Presentation.Views.BoardView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class BoardController implements ActionListener {
     private LogicModel logicModel;
@@ -32,33 +29,41 @@ public class BoardController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
 
         if(e.getActionCommand().contains("OFF")) {
             int numCard = Integer.parseInt(String.valueOf(e.getActionCommand().charAt(3)));
-            System.out.println(logicModel.troopName(numCard-1, false));
-            if (logicModel.selectTroop(numCard, false)) {
+
+            //comprovar si tienes mana
+            if (logicModel.canSelectTroop(numCard, false)) {
                 //TODO marcar que hemos seleccionado la carta, quien haga la gameGUI
                 selectedCard = numCard;
                 selectedType = false;
+            }
+            else {
+                System.out.println("No tienes suficiente dinero!");
+                selectedCard = -1;      //no hay carta
             }
         }
 
         if(e.getActionCommand().contains("DEF")) {
             int numCard = Integer.parseInt(String.valueOf(e.getActionCommand().charAt(3)));
-            System.out.println(logicModel.troopName(numCard-1, true));
-            if (logicModel.selectTroop(numCard, true)) {
+            if (logicModel.canSelectTroop(numCard, true)) {
                 //TODO marcar que hemos seleccionado la carta, quien haga la gameGUI
                 selectedCard = numCard;
                 selectedType = true;
             }
+            else {
+                System.out.println("No tienes suficiente dinero!");
+                selectedCard = -1;
+            }
         }
-
-        System.out.println(selectedCard);
 
         if(selectedCard != -1) {
             if(e.getActionCommand().length() == 2) {
-                logicModel.invokeTroop(selectedCard-1, selectedType, true, e.getActionCommand());
+                if(logicModel.invokeTroop(selectedCard, selectedType, e.getActionCommand())) {
+                    logicModel.spendMoney(selectedCard, selectedType, true);
+                    selectedCard = -1;      //reinicia
+                }
             }
         }
     }

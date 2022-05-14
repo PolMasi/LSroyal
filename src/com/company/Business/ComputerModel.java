@@ -64,10 +64,10 @@ public class ComputerModel implements Runnable {
         boolean invoked = false;
         Offensive offTroop = offensiveTroops.get(troop);
         //System.out.println("1. " + offTroop.getCost());
+
         if(offTroop.getCost() > money) {
             Collections.shuffle(offensiveTroops);
-            for (Offensive d : offensiveTroops
-            ) {
+            for (Offensive d : offensiveTroops) {
                 if (d.getCost() <= money && !invoked) {
                     invoked = true;
                     //invoke (d)
@@ -76,16 +76,20 @@ public class ComputerModel implements Runnable {
             }
 
         }
-        else{
+        else {
             //invoke offTroop
         }
         counter = 0;
     }
+
     public void loadTroops(){
         offensiveTroops = configurationDAO.loadOffensiveTroops();
         defensiveTroops = configurationDAO.loadDefensiveTroops();
 
     }
 
+    public void addMoney(int money) {
+        this.money += money;
+    }
 
 }

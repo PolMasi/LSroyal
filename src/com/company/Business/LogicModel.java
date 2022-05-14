@@ -71,7 +71,7 @@ public class LogicModel {
         userHealth = 100;
     }
 
-    public void invokeTroop(int numCard, boolean type, boolean player, String coords) {
+    public boolean invokeTroop(int numCard, boolean type, String coords) {
         String cardName;
 
         if(type) {
@@ -80,16 +80,50 @@ public class LogicModel {
         else {
             cardName = listOffensive.get(numCard-1).getName();
         }
+
         System.out.println("Player is invoking "+cardName+" in coordinates "+coords);
+
+        if(coords.contains("5")) {
+            System.out.println("Valid position!");
+            return true;
+        }
+        else {
+            System.out.println("Invalid position!");
+            return false;
+        }
     }
 
-    public boolean selectTroop(int numCard, boolean type) {
+    public boolean canSelectTroop(int numCard, boolean type) {
         if(type) {
             return listDefensive.get(numCard-1).getCost() <= userMoney;
         }
         return listOffensive.get(numCard-1).getCost() <= userMoney;
     }
 
+    public int getCost(int numCard, boolean type) {
+        if(type) {
+            return listDefensive.get(numCard-1).getCost();
+        }
+        return listOffensive.get(numCard-1).getCost();
+    }
+
+    private void addMoney(int money, boolean player) {
+
+        if(player) {
+            userMoney += money;
+        }
+        else {
+            computerModel.addMoney(money);
+        }
+    }
+
+    public void spendMoney(int numCard, boolean type, boolean player) {
+        int cost;
+
+        cost = getCost(numCard, type);
+        addMoney(-cost, player);
+
+    }
 
 }
 
