@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Configuration implements ConfigurationDAO{
+public class Configuration implements ConfigurationDAO {
     private final Gson gson;
     private Reader offensive;
     private Reader defensive;
