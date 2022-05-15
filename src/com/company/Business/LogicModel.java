@@ -4,29 +4,34 @@ import com.company.Business.Entities.Defensive;
 import com.company.Business.Entities.Offensive;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class LogicModel {
+public class LogicModel implements Runnable {
     private ComputerModel computerModel;
-    private PlayerModel playerModel;
     private ArrayList<Offensive> listOffensive;
     private ArrayList<Defensive> listDefensive;
-    private ScheduledExecutorService timer;
+
+
+    private int counter;
+    private int computerHealth;
+    private int computerMoney;
+    private Random selectTroop;
 
     private int userHealth;
     private int userMoney;
 
-    public LogicModel(ComputerModel computerModel, PlayerModel playerModel, ArrayList<Offensive> listOffensive, ArrayList<Defensive> listDefensive) {
+    public LogicModel(ComputerModel computerModel, ArrayList<Offensive> listOffensive, ArrayList<Defensive> listDefensive) {
         this.computerModel = computerModel;
-        this.playerModel = playerModel;
         this.listOffensive = listOffensive;
         this.listDefensive = listDefensive;
+        this.selectTroop = new Random();
         startGame();
 
-        timer = Executors.newScheduledThreadPool(1);
-        timer.scheduleAtFixedRate(this.computerModel, 0, 1, TimeUnit.SECONDS);
+
     }
 
     public String[] setDefensiveCards() {
@@ -67,11 +72,13 @@ public class LogicModel {
     }
 
     public void startGame() {
+        computerMoney = 1;
+        computerHealth = 100;
         userMoney = 5;
         userHealth = 100;
     }
 
-    public boolean invokeTroop(int numCard, boolean type, String coords) {
+    public boolean invokeTroop(int numCard, boolean type, boolean player,String coords) {
         String cardName;
 
         if(type) {
@@ -80,17 +87,20 @@ public class LogicModel {
         else {
             cardName = listOffensive.get(numCard-1).getName();
         }
+        if(player){
+            System.out.println("Player is invoking "+cardName+" in coordinates "+coords);
 
-        System.out.println("Player is invoking "+cardName+" in coordinates "+coords);
-
-        if(coords.contains("5")) {
-            System.out.println("Valid position!");
-            return true;
+            if(coords.contains("5")) {
+                System.out.println("Valid position!");
+                return true;
+            }
+            else {
+                System.out.println("Invalid position!");
+                return false;
+            }
         }
-        else {
-            System.out.println("Invalid position!");
-            return false;
-        }
+        System.out.println("Computer is invoking "+cardName+" in coordinates"+coords);
+        return true;
     }
 
     public boolean canSelectTroop(int numCard, boolean type) {
@@ -123,6 +133,101 @@ public class LogicModel {
         cost = getCost(numCard, type);
         addMoney(-cost, player);
 
+    }
+
+    @Override
+    public void run() {
+        defenseTroop();
+
+        if(counter == 4){
+            attackTroop();
+        }
+    }
+    public void defenseTroop(){
+        //System.out.println("defensa");
+        int troop = selectTroop.nextInt(listDefensive.size());
+        boolean invoked = false;
+        Random coords = new Random();
+        String coordinates;
+
+        Defensive defTroop = listDefensive.get(troop);
+        //System.out.println("1." + defTroop.getCost());
+        if(defTroop.getCost() > computerMoney){
+            Collections.shuffle(listDefensive);
+            for (int i = 0; i < listDefensive.size(); i++) {
+
+                if(listDefensive.get(i).getCost() <= computerMoney && !invoked){
+                   do{
+                       coordinates = getCoordinate(coords.nextInt(4), coords.nextInt(7) );
+                       invoked = invokeTroop(i+1, true, false, coordinates);
+
+                   }while (!invoked);
+
+                    //System.out.println("2. new "+ d.getCost());
+                }
+            }
+        }
+        else{
+            do{
+                coordinates = getCoordinate(coords.nextInt(4), coords.nextInt(7) );
+                invoked = invokeTroop(troop+1, true, false, coordinates);
+            }while (!invoked);
+
+        }
+        counter++;
+
+    }
+    public void attackTroop(){
+        //System.out.println("ataque");
+        int troop = selectTroop.nextInt(listOffensive.size());
+        boolean invoked = false;
+        Random coords = new Random();
+        String coordinates;
+
+        Offensive offensive = listOffensive.get(troop);
+        //System.out.println("1." + defTroop.getCost());
+        if(offensive.getCost() > computerMoney){
+            Collections.shuffle(listDefensive);
+            for (int i = 0; i < listOffensive.size(); i++) {
+
+                if(listOffensive.get(i).getCost() <= computerMoney && !invoked){
+                    do{
+                        coordinates = getCoordinate(coords.nextInt(4), coords.nextInt(7) );
+                        invoked = invokeTroop(i+1, false, false, coordinates);
+
+                    }while (!invoked);
+
+                    //System.out.println("2. new "+ d.getCost());
+                }
+            }
+        }
+        else{
+            do{
+                coordinates = getCoordinate(coords.nextInt(4), coords.nextInt(7) );
+                invoked = invokeTroop(troop+1, false, false, coordinates);
+            }while (!invoked);
+
+        }
+        counter = 0;
+
+    }
+    private String getCoordinate(int x, int y){
+        String coords;
+        x = x+1;
+        y = y +1;
+
+        switch (y){
+            case 1-> coords = x+"a";
+            case 2-> coords = x+"b";
+            case 3-> coords = x+"c";
+            case 4-> coords = x+"d";
+            case 5-> coords = x+"e";
+            case 6-> coords = x+"f";
+            case 7-> coords = x+"g";
+            default -> coords = "error";
+
+        }
+        return coords;
     }
 
 }

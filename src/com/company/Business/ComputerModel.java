@@ -39,6 +39,9 @@ public class ComputerModel implements Runnable {
         //System.out.println("defensa");
         int troop = selectTroop.nextInt(defensiveTroops.size());
         boolean invoked = false;
+        Random coords = new Random();
+        String coordinates;
+
         Defensive defTroop = defensiveTroops.get(troop);
         //System.out.println("1." + defTroop.getCost());
         if(defTroop.getCost() > money){
@@ -47,7 +50,7 @@ public class ComputerModel implements Runnable {
                  ) {
                 if(d.getCost() <= money && !invoked){
                     invoked = true;
-                    //invoke (d)
+                    coordinates = getCoordinate(coords.nextInt(4), coords.nextInt(7) );
                     //System.out.println("2. new "+ d.getCost());
                 }
             }
@@ -92,4 +95,24 @@ public class ComputerModel implements Runnable {
         this.money += money;
     }
 
+    private String getCoordinate(int x, int y){
+        String coords;
+        x = x+1;
+        y = y +1;
+
+        switch (y){
+            case 1-> coords = x+"a";
+            case 2-> coords = x+"b";
+            case 3-> coords = x+"c";
+            case 4-> coords = x+"d";
+            case 5-> coords = x+"e";
+            case 6-> coords = x+"f";
+            case 7-> coords = x+"g";
+            default -> coords = "error";
+
+        }
+        return coords;
+    }
+
 }
+

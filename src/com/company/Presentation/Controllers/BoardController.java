@@ -6,12 +6,15 @@ import com.company.Presentation.Views.BoardView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class BoardController implements ActionListener {
     private LogicModel logicModel;
     private BoardView boardView;
     private MainController mainController;
-
+    private ScheduledExecutorService timer;
     private int selectedCard;
     private boolean selectedType;
 
@@ -22,7 +25,10 @@ public class BoardController implements ActionListener {
         this.selectedCard = -1;
         this.selectedType = false;
 
+        timer = Executors.newScheduledThreadPool(1);
+        timer.scheduleAtFixedRate(this.logicModel, 0, 1, TimeUnit.SECONDS);
         boardView.configurePanel(this);
+
         boardView.configureCards(logicModel.setOffensiveCards(), logicModel.setDefensiveCards(),this);
 
     }
@@ -60,7 +66,7 @@ public class BoardController implements ActionListener {
 
         if(selectedCard != -1) {
             if(e.getActionCommand().length() == 2) {
-                if(logicModel.invokeTroop(selectedCard, selectedType, e.getActionCommand())) {
+                if(logicModel.invokeTroop(selectedCard, selectedType, true, e.getActionCommand())) {
                     logicModel.spendMoney(selectedCard, selectedType, true);
                     selectedCard = -1;      //reinicia
                 }

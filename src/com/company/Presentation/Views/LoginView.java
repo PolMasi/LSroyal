@@ -22,10 +22,12 @@ public class LoginView extends JPanel {     //JFrame es una ventana //JPanel pan
         JPanel main = new JPanel(new BorderLayout());       // bordes
         JPanel center = new JPanel(new FlowLayout());       // arriba y abajo
         JPanel bottom = new JPanel();
+        setLayout(new BorderLayout());
 
         JLabel title = new JLabel("READY TO PLAY?");
         this.setBackground(Color.DARK_GRAY);
-
+        title.setFont(new Font("Helvetica", Font.BOLD, 100));
+        title.setForeground(Color.WHITE);
         loginButton = new JButton("ACCEDER");
         goBack = new JButton("Go back");
 
@@ -36,7 +38,7 @@ public class LoginView extends JPanel {     //JFrame es una ventana //JPanel pan
 
         user.setLayout(new BoxLayout(user, BoxLayout.PAGE_AXIS));
         password.setLayout(new BoxLayout(password, BoxLayout.PAGE_AXIS));
-        bottom.setLayout(new BoxLayout(bottom, BoxLayout.PAGE_AXIS));
+        bottom.setLayout(new FlowLayout());
 
         user.add(new JLabel("USUARI@"));
         userText = new JTextField(20);
@@ -49,23 +51,25 @@ public class LoginView extends JPanel {     //JFrame es una ventana //JPanel pan
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         goBack.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        bottom.add(loginButton);
         bottom.add(goBack);
+        bottom.add(loginButton);
+
 
         center.add(user);
         center.add(password);
-        center.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+
 
         title.setHorizontalAlignment(JLabel.CENTER);
         loginButton.setActionCommand(String.valueOf(CardEnum.BUTTON_LOGIN));
-
+        main.add(Box.createRigidArea(new Dimension(50, 100)), BorderLayout.NORTH);
         main.add(center, BorderLayout.CENTER);
-        main.add(title, BorderLayout.NORTH);
         main.add(bottom, BorderLayout.SOUTH);
-        main.add(Box.createRigidArea(new Dimension(20, 20)), BorderLayout.EAST);
-        main.add(Box.createRigidArea(new Dimension(20, 20)), BorderLayout.WEST);
 
-        add(main);
+        add(title, BorderLayout.NORTH);
+        add(Box.createRigidArea(new Dimension(300, 300)), BorderLayout.EAST);
+        add(Box.createRigidArea(new Dimension(300, 300)), BorderLayout.WEST);
+        add(Box.createRigidArea(new Dimension(300, 300)), BorderLayout.SOUTH);
+        add(main, BorderLayout.CENTER);
     }
 
     public void registerLoginController(ActionListener listener){
