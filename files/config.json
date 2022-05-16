@@ -1,0 +1,7 @@
+{"dataBase":{
+  "IP": "localhost",
+  "port": 3306,
+  "dbName": "agebbdd",
+  "dbUser": "root",
+  "password": ""
+}}
