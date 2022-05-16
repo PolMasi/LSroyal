@@ -1,6 +1,7 @@
 package com.company.Presentation;
 
 import com.company.Presentation.Views.LoginView;
+import com.company.Presentation.Views.MenuView;
 import com.company.Presentation.Views.SignupView;
 import com.company.Presentation.Views.StartView;
 
@@ -61,7 +62,9 @@ public class MainController implements ActionListener {
                 mainView.switchView(MainView.START_VIEW);
                 break;
 
-
+            case LoginView.BUTTON_LOGIN:
+                mainView.switchView(MainView.MENU_VIEW);
+                break;
 
         }
     }
