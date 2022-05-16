@@ -42,7 +42,7 @@ public class MainController implements ActionListener {
                 else{
                     JOptionPane.showMessageDialog(null, "Try again");
                 }
-                break;
+                 break;
             */
             case StartView.START_LOGIN_BTN:
                 mainView.switchView(MainView.LOGIN_VIEW);
