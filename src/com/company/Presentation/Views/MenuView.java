@@ -94,25 +94,6 @@ public class MenuView extends JPanel {
         constraints.weightx = 1.0;
 
 
-
-        /*
-        JLabel Register = new JLabel("I want to Sign up");
-        Register.setForeground(Color.WHITE);
-        Register.setFont(new Font("Helvetica", Font.BOLD, 30));
-        constraints.gridx= 2;
-        constraints.gridy=2;
-        constraints.gridwidth=1;
-        constraints.gridheight=1;
-        this.add(Register, constraints);
-
-        JLabel Log = new JLabel("I want to Log in");
-        Log.setFont(new Font("Helvetica", Font.BOLD, 30));
-        Log.setForeground(Color.WHITE);
-        constraints.gridx= 1;
-        constraints.gridy=2;
-        constraints.gridwidth=1;
-        constraints.gridheight=1;
-        this.add(Log, constraints);*/
     }
 
     public void registerMenuController(ActionListener listener) {
