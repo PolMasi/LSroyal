@@ -7,9 +7,11 @@ import javax.swing.*;
 public class StartView extends JPanel {
     private JButton signUp;
     private JButton logIn;
+    private JButton delete;
 
     public static final String START_LOGIN_BTN = "START_LOGIN_BTN";
     public static final String START_SIGNUP_BTN = "START_SIGNUP_BTN";
+    public static final String START_DELETE_BTN = "START_DELETE_BTN";
 
     public StartView(){
         this.setLayout(new GridBagLayout()); // la interfaz tendra un GrindBag layout
@@ -56,6 +58,17 @@ public class StartView extends JPanel {
         this.add(signUp, constraints);
         constraints.weightx = 0.0;
 
+        delete = new JButton("Delete user");
+        delete.setActionCommand(String.valueOf(CardEnum.START_DELETE_BTN));
+        delete.setFont(new Font("Helvetica", Font.PLAIN, 20));
+        constraints.gridx= 3;
+        constraints.gridy=3;
+        constraints.gridwidth=1;
+        constraints.gridheight=1;
+        constraints.weightx = 1.0;
+        this.add(delete, constraints);
+        constraints.weightx = 0.0;
+
         logIn = new JButton("Log In");
         logIn.setActionCommand(String.valueOf(CardEnum.START_LOGIN_BTN));
         logIn.setFont(new Font("Helvetica", Font.PLAIN, 20));
@@ -84,10 +97,20 @@ public class StartView extends JPanel {
         constraints.gridwidth=1; 
         constraints.gridheight=1;
         this.add(Log, constraints);
+
+        JLabel Del = new JLabel("I want to Delete a user");
+        Del.setFont(new Font("Helvetica", Font.BOLD, 30));
+        Del.setForeground(Color.WHITE);
+        constraints.gridx= 3;
+        constraints.gridy=2;
+        constraints.gridwidth=1;
+        constraints.gridheight=1;
+        this.add(Del, constraints);
     }
 
     public void registerController(ActionListener listener) {
         logIn.addActionListener(listener);
         signUp.addActionListener(listener);
+        delete.addActionListener(listener);
     }
 }
