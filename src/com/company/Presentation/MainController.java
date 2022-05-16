@@ -58,6 +58,12 @@ public class MainController implements ActionListener {
                 mainView.switchView(MainView.START_VIEW);
                 break;
 
+            case SignupView.SIGNUP_BTN:
+                mainView.switchView(MainView.MENU_VIEW);
+                break;
+
+
+
         }
     }
 }

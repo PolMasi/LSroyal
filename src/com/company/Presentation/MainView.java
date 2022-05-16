@@ -12,6 +12,8 @@ public class MainView extends JFrame {
     private SignupView signupView;
     private StartView startView;
     private BoardView boardView;
+    private MenuView menuView;
+
 
     private CardLayout cardLayout;      // gestionaremos como una baraja de cartas y este tendra todas las vista(cartas)
 
@@ -20,16 +22,19 @@ public class MainView extends JFrame {
     public static final String SIGNUP_VIEW = "SIGNUP_VIEW";
     public static final String START_VIEW = "START_VIEW";
     public static final String BOARD_VIEW = "BOARD_VIEW";
+    public static final String MENU_VIEW = "MENU_VIEW";
+
 
     public static final String TITLE = "LSROYAL";
 
     public MainView(LoginView loginView, LogoutView logoutView, SignupView signupView,
-                    StartView startView, BoardView boardView) {
+                    StartView startView, BoardView boardView, MenuView menuView) {
         this.startView = startView;
         this.loginView = loginView;
         this.logoutView = logoutView;
         this.signupView = signupView;
         this.boardView = boardView;
+        this.menuView = menuView;
         configureLayout();
         configurationFrame();
     }
@@ -54,6 +59,8 @@ public class MainView extends JFrame {
         this.add(String.valueOf(CardEnum.LOGIN_VIEW), loginView);    //le asginamos una vista con una frase y cuando le pasamos la frase pasa la vista asociada
         this.add(String.valueOf(CardEnum.SIGNUP_VIEW), signupView);
         this.add(String.valueOf(CardEnum.LOGOUT_VIEW), logoutView);
+        this.add(String.valueOf(CardEnum.MENU_VIEW), menuView);
+
     }
 
     /**
@@ -73,6 +80,7 @@ public class MainView extends JFrame {
         logoutView.registerController(listener);
         startView.registerController(listener);
         signupView.registerController(listener);
+        menuView.registerController(listener);
     }
 
     public void showError(String error) {

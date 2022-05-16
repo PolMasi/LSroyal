@@ -4,10 +4,7 @@ import com.company.Business.*;
 import com.company.Business.Entities.Defensive;
 import com.company.Business.Entities.Offensive;
 import com.company.Persistence.*;
-import com.company.Presentation.Controllers.BoardController;
-import com.company.Presentation.Controllers.LoginController;
-import com.company.Presentation.Controllers.LogoutController;
-import com.company.Presentation.Controllers.SignUpController;
+import com.company.Presentation.Controllers.*;
 import com.company.Presentation.MainController;
 import com.company.Presentation.MainView;
 import com.company.Presentation.Views.*;
@@ -90,8 +87,9 @@ public class Main {
         StartView startView = new StartView();
         LogoutView logoutView = new LogoutView();
         BoardView boardView = new BoardView();
+        MenuView menuView = new MenuView();
 
-        MainView mainView = new MainView(loginView,logoutView,signupView, startView, boardView);
+        MainView mainView = new MainView(loginView,logoutView,signupView, startView, boardView, menuView);
         MainController mainController = new MainController(mainView);
 
         UserOption userOption = new UserOption();
@@ -104,6 +102,8 @@ public class Main {
         SignUpController signUpController = new SignUpController(loginModel, signupView, mainController);
         LogoutController logoutController = new LogoutController(loginModel, logoutView, mainController);
         BoardController boardController = new BoardController(computerModel,boardView, mainController);
+        MenuController menuController = new MenuController(menuView, mainController);
+
 
 
         mainView.setVisible(true);
