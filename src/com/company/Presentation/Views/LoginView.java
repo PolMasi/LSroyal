@@ -20,15 +20,19 @@ public class LoginView extends JPanel {     //JFrame es una ventana //JPanel pan
 
     private void configurePanel() {
         JPanel main = new JPanel(new BorderLayout());       // bordes
-        JPanel center = new JPanel(new FlowLayout());       // arriba y abajo
+        JPanel center = new JPanel(new FlowLayout());// arriba y abajo
         JPanel bottom = new JPanel();
         setLayout(new BorderLayout());
 
+        //main.setBorder(new LineBorder(Color.ORANGE, 2));
+        main.setBackground(Color.DARK_GRAY);
+        center.setBackground(Color.LIGHT_GRAY);
+        bottom.setBackground(Color.DARK_GRAY);
         JLabel title = new JLabel("READY TO PLAY?");
         this.setBackground(Color.DARK_GRAY);
         title.setFont(new Font("Helvetica", Font.BOLD, 100));
-        title.setForeground(Color.WHITE);
-        loginButton = new JButton("ACCEDER");
+        title.setForeground(Color.YELLOW);
+        loginButton = new JButton("Let's play!");
         goBack = new JButton("Go back");
 
         goBack.setActionCommand(String.valueOf(CardEnum.LOGIN_BACK_BTN));
@@ -40,24 +44,27 @@ public class LoginView extends JPanel {     //JFrame es una ventana //JPanel pan
         password.setLayout(new BoxLayout(password, BoxLayout.PAGE_AXIS));
         bottom.setLayout(new FlowLayout());
 
-        user.add(new JLabel("USUARI@"));
+        //user.setFont(helvetica);
+        JLabel usernametext = new JLabel("USER");
+        usernametext.setFont(new Font("Helvetica", Font.PLAIN, 25));
+        user.add(usernametext);
         userText = new JTextField(20);
         user.add(userText);
 
-        password.add(new JLabel("CONTRASEÑA"));
+        JLabel passwordnametext = new JLabel("PASSWORD");
+        passwordnametext.setFont(new Font("Helvetica", Font.PLAIN, 25));
+        password.add(passwordnametext);
         passwordText  = new JPasswordField(20);
         password.add(passwordText);
 
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         goBack.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        bottom.add(goBack);
         bottom.add(loginButton);
-
+        bottom.add(goBack);
 
         center.add(user);
         center.add(password);
-
 
         title.setHorizontalAlignment(JLabel.CENTER);
         loginButton.setActionCommand(String.valueOf(CardEnum.BUTTON_LOGIN));

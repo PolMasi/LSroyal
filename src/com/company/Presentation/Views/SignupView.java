@@ -18,6 +18,7 @@ public class SignupView extends JPanel {
     public static final String SIGNUP_BACK_BTN = "SIGNUP_BACK_BTN";
 
     public SignupView (){
+        JPanel panel = new JPanel(new BorderLayout());
 
         //BUTTONS
         signUp = new JButton("Sign up");
@@ -34,7 +35,7 @@ public class SignupView extends JPanel {
         
         // font de las etiquetas y buttons
         title.setFont(new Font("Helvetica", Font.BOLD, 100));
-        title.setForeground(Color.WHITE);
+        title.setForeground(Color.YELLOW);
 
         name.setFont(new Font("Helvetica", Font.PLAIN, 20));
         email.setFont(new Font("Helvetica", Font.PLAIN, 20));
@@ -62,8 +63,8 @@ public class SignupView extends JPanel {
 
         // central panel
         JPanel gridJPanel = new JPanel();
-        gridJPanel.setLayout(new GridLayout(4,2,40,120));
-        gridJPanel.setBorder(new LineBorder(Color.BLACK, 3));
+        gridJPanel.setLayout(new GridLayout(4,2,15,10));
+        //gridJPanel.setBorder(new LineBorder(Color.BLACK, 1));
         gridJPanel.setBackground(Color.LIGHT_GRAY);
 
         //name
@@ -82,12 +83,15 @@ public class SignupView extends JPanel {
         gridJPanel.add(passwordConfirm);
         gridJPanel.add(passwordConfirmText);
         
-        gridJPanel.setBorder(new LineBorder(Color.BLACK, 10));
+        gridJPanel.setBorder(new LineBorder(Color.ORANGE, 2));
 
-        //posicion 
-        this.add(title, BorderLayout.NORTH);
-        this.add(bottomPanel, BorderLayout.SOUTH);
-        this.add(gridJPanel, BorderLayout.CENTER);
+        //posicion
+        panel.add(gridJPanel, BorderLayout.CENTER);
+        panel.add(bottomPanel, BorderLayout.SOUTH);
+        add(title, BorderLayout.NORTH);
+        add(panel, BorderLayout.CENTER);
+
+
     }
 
     public void registerSignUpController(ActionListener listener) {
