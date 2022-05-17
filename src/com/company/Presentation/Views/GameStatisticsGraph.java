@@ -54,7 +54,7 @@ public class GameStatisticsGraph extends JFrame {
         //LBL TROPS
         JLabel lblTropes = new JLabel("TROPES",SwingConstants.CENTER);
         lblTropes.setForeground(Color.YELLOW);
-        lblTropes.setFont(new Font("Helvetica", Font.BOLD, 40));
+        lblTropes.setFont(new Font("Helvetica", Font.BOLD, 15));
         constraints.gridx =5;
         constraints.gridy =3;
         constraints.gridwidth =2; // el area que ocupa ancho

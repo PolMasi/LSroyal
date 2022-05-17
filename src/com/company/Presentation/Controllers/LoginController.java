@@ -41,7 +41,7 @@ public class LoginController implements ActionListener {
         }
 
         if(userModel.login(loginView.getUser(), loginView.getPassword()) == UserOption.EVERYTHING_OK) {
-            mainController.switchView(MainView.START_VIEW);
+            mainController.switchView(MainView.MENU_VIEW);
         }
     }
 
