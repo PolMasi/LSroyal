@@ -7,8 +7,8 @@ import java.util.jar.JarEntry;
 
 public class BoardView extends JPanel {
     private GridLayout gridBoard;
-    private static final int ROWS = 8;
-    private static final int COLUMNS = 7;
+    public static final int ROWS = 8;
+    public static final int COLUMNS = 7;
 
     private JPanel[][] grids;
 

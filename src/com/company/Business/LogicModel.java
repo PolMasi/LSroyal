@@ -2,13 +2,12 @@ package com.company.Business;
 
 import com.company.Business.Entities.Defensive;
 import com.company.Business.Entities.Offensive;
+import com.company.Business.Entities.Troop;
+import com.company.Presentation.Views.BoardView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class LogicModel implements Runnable {
     private ComputerModel computerModel;
@@ -23,6 +22,9 @@ public class LogicModel implements Runnable {
 
     private int userHealth;
     private int userMoney;
+
+    //matriz de posicion de tropas
+    private Troop[][] matrixTroops;
 
     public LogicModel(ComputerModel computerModel, ArrayList<Offensive> listOffensive, ArrayList<Defensive> listDefensive) {
         this.computerModel = computerModel;
@@ -76,30 +78,51 @@ public class LogicModel implements Runnable {
         computerHealth = 100;
         userMoney = 5;
         userHealth = 100;
+        matrixTroops = new Troop[BoardView.ROWS][BoardView.COLUMNS];
     }
 
     public boolean invokeTroop(int numCard, boolean type, boolean player,String coords) {
-        String cardName;
+
+        Troop troop;
+        int[] coordinates = getIntCorrdinate(coords);
+
 
         if(type) {
-            cardName = listDefensive.get(numCard-1).getName();
+            troop = listDefensive.get(numCard-1);
         }
         else {
-            cardName = listOffensive.get(numCard-1).getName();
+            troop = listOffensive.get(numCard-1);
         }
-        if(player){
-            System.out.println("Player is invoking "+cardName+" in coordinates "+coords);
 
-            if(coords.contains("5")) {
+        if(matrixTroops[coordinates[0]][coordinates[1]] != null) {
+            return false;
+        }
+
+        if (player) {
+            System.out.println("Player is invoking " + troop.getName() + " in coordinates " + coords);
+
+            //TODO comprovar que el 5 este validando bien donde se puede poner la tropa
+            if (coords.contains("5")) {
                 System.out.println("Valid position!");
+
+                //pasar corrdenadas a numeros para la matriz
+
+                //llenar matriz tropas para saber donde se guarda
+                troop.setPlayer(player);
+                editMatrix(coordinates, troop);
+
                 return true;
-            }
-            else {
+            } else {
                 System.out.println("Invalid position!");
                 return false;
             }
         }
-        System.out.println("Computer is invoking "+cardName+" in coordinates"+coords);
+
+        //guardar informacion computer
+        troop.setPlayer(player);
+        editMatrix(coordinates, troop);
+
+        System.out.println("Computer is invoking "+troop.getName()+" in coordinates"+coords);
         return true;
     }
 
@@ -123,7 +146,7 @@ public class LogicModel implements Runnable {
             userMoney += money;
         }
         else {
-            computerModel.addMoney(money);
+            computerMoney += money;
         }
     }
 
@@ -140,7 +163,8 @@ public class LogicModel implements Runnable {
         defenseTroop();
 
         if(counter == 4){
-            attackTroop();
+            invokeComputerAtack();
+            passiveMoney();
         }
     }
     public void defenseTroop(){
@@ -162,6 +186,7 @@ public class LogicModel implements Runnable {
                        invoked = invokeTroop(i+1, true, false, coordinates);
 
                    }while (!invoked);
+                    addMoney(-defTroop.getCost(), false);
 
                     //System.out.println("2. new "+ d.getCost());
                 }
@@ -172,12 +197,14 @@ public class LogicModel implements Runnable {
                 coordinates = getCoordinate(coords.nextInt(4), coords.nextInt(7) );
                 invoked = invokeTroop(troop+1, true, false, coordinates);
             }while (!invoked);
+            addMoney(-defTroop.getCost(), false);
+
 
         }
         counter++;
 
     }
-    public void attackTroop(){
+    public void invokeComputerAtack(){
         //System.out.println("ataque");
         int troop = selectTroop.nextInt(listOffensive.size());
         boolean invoked = false;
@@ -196,8 +223,9 @@ public class LogicModel implements Runnable {
                         invoked = invokeTroop(i+1, false, false, coordinates);
 
                     }while (!invoked);
+                    addMoney(-offensive.getCost(), false);
 
-                    //System.out.println("2. new "+ d.getCost());
+                                        //System.out.println("2. new "+ d.getCost());
                 }
             }
         }
@@ -206,6 +234,7 @@ public class LogicModel implements Runnable {
                 coordinates = getCoordinate(coords.nextInt(4), coords.nextInt(7) );
                 invoked = invokeTroop(troop+1, false, false, coordinates);
             }while (!invoked);
+            addMoney(-offensive.getCost(), false);
 
         }
         counter = 0;
@@ -229,6 +258,54 @@ public class LogicModel implements Runnable {
         }
         return coords;
     }
+
+    private int[] getIntCorrdinate(String coordinate) {
+
+        int[]  coordinateInt;
+
+        coordinateInt = new int[2];
+
+        coordinateInt[0] = Integer.parseInt(String.valueOf(coordinate.charAt(0)));
+
+        switch (coordinate.charAt(1)){
+            case 'a'-> coordinateInt[1] = 1;
+            case 'b'-> coordinateInt[1] = 2;
+            case 'c'-> coordinateInt[1] = 3;
+            case 'd'-> coordinateInt[1] = 4;
+            case 'e'-> coordinateInt[1] = 5;
+            case 'f'-> coordinateInt[1] = 6;
+            case 'g'-> coordinateInt[1] = 7;
+
+        }
+
+        return coordinateInt;
+    }
+
+    private void passiveMoney() {
+
+        addMoney(3, true);
+        addMoney(3, false);
+    }
+
+    //funcion que edita matriz de troops para saber donde avanza la tropa
+    private void editMatrix(int[] coordinates, Troop troop) {
+
+        //eliminamios posiciondel restro
+        if(troop.getLastCoordinate()[0] != 0) {
+            matrixTroops[troop.getLastCoordinate()[0]][troop.getLastCoordinate()[1]] = null;
+        }
+
+        troop.setLastCoordinate(coordinates);
+
+        //actualizar posicion
+        matrixTroops[coordinates[0]][coordinates[1]] = troop;
+
+
+        //guradar lista de cambio sde tropa rastro
+    }
+
+
+
 
 }
 

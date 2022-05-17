@@ -28,6 +28,8 @@ public class Main {
 
             }
 
+            
+
             @Override
             public ArrayList<Offensive> loadOffensiveTroops() {
                 Offensive giant = new Offensive("giant", 1000, 5, 1);

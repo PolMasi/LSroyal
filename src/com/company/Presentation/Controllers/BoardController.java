@@ -31,6 +31,7 @@ public class BoardController implements ActionListener {
 
         boardView.configureCards(logicModel.setOffensiveCards(), logicModel.setDefensiveCards(),this);
 
+
     }
 
     @Override

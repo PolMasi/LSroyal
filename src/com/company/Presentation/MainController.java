@@ -62,9 +62,6 @@ public class MainController implements ActionListener {
                 mainView.switchView(MainView.START_VIEW);
                 break;
 
-            case LoginView.BUTTON_LOGIN:
-                mainView.switchView(MainView.MENU_VIEW);
-                break;
 
         }
     }

@@ -35,7 +35,7 @@ public class LoginController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         switch(userModel.login(loginView.getUser(), loginView.getPassword())) {
-            case UserOption.EVERYTHING_OK ->  mainController.switchView(MainView.START_VIEW);
+            case UserOption.EVERYTHING_OK ->  mainController.switchView(MainView.MENU_VIEW);
             case UserOption.EMPTY_FIELD -> mainController.showError("There is an empty field!");
             case UserOption.INCORRECT_LOGIN -> mainController.showError("Username or password incorrect!");
         }

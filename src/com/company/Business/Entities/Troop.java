@@ -5,12 +5,18 @@ public class Troop {
     private int health;
     private int cost;
     private int rank;
+    private int currentHealth;
+    private int[] lastCoordinate;
+    private boolean player;
 
     public Troop(String name, int health, int cost, int rank) {
         this.name = name;
         this.health = health;
         this.cost = cost;
         this.rank = rank;
+        this.currentHealth = this.health;
+        this.lastCoordinate = new int[2];
+
     }
 
     public int getCost() {
@@ -19,5 +25,25 @@ public class Troop {
 
     public String getName() {
         return name;
+    }
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public int[] getLastCoordinate() {
+        return lastCoordinate;
+    }
+
+    public void setLastCoordinate(int[] lastCoordinate) {
+        this.lastCoordinate = lastCoordinate;
+    }
+
+    public boolean isPlayer() {
+        return player;
+    }
+
+    public void setPlayer(boolean player) {
+        this.player = player;
     }
 }

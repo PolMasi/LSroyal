@@ -28,7 +28,13 @@ public class MenuController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        mainController.switchView(MainView.START_VIEW);
+        switch (e.getActionCommand()) {
+
+            case MenuView.PLAYGAME_BTN -> mainController.switchView(MainView.BOARD_VIEW);
+            case MenuView.EXIT_BTN -> mainController.switchView(MainView.START_VIEW);
+        }
+
+
 
     }
 }
