@@ -1,6 +1,6 @@
 {"dataBase":{
   "IP": "localhost",
-  "port": 3306,
+  "port": 3380,
   "dbName": "agebbdd",
   "dbUser": "root",
   "password": ""

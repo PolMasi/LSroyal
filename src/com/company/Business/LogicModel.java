@@ -10,10 +10,8 @@ import java.util.Collections;
 import java.util.Random;
 
 public class LogicModel implements Runnable {
-    private ComputerModel computerModel;
     private ArrayList<Offensive> listOffensive;
     private ArrayList<Defensive> listDefensive;
-
 
     private int counter;
     private int computerHealth;
@@ -26,14 +24,15 @@ public class LogicModel implements Runnable {
     //matriz de posicion de tropas
     private Troop[][] matrixTroops;
 
-    public LogicModel(ComputerModel computerModel, ArrayList<Offensive> listOffensive, ArrayList<Defensive> listDefensive) {
-        this.computerModel = computerModel;
+    public int getUserMoney() {
+        return userMoney;
+    }
+
+    public LogicModel(ArrayList<Offensive> listOffensive, ArrayList<Defensive> listDefensive) {
         this.listOffensive = listOffensive;
         this.listDefensive = listDefensive;
         this.selectTroop = new Random();
         startGame();
-
-
     }
 
     public String[] setDefensiveCards() {
@@ -77,15 +76,14 @@ public class LogicModel implements Runnable {
         computerMoney = 1;
         computerHealth = 100;
         userMoney = 5;
-        userHealth = 100;
+        userHealth = 99;
         matrixTroops = new Troop[BoardView.ROWS][BoardView.COLUMNS];
     }
 
     public boolean invokeTroop(int numCard, boolean type, boolean player,String coords) {
 
         Troop troop;
-        int[] coordinates = getIntCorrdinate(coords);
-
+        int[] coordinates = getIntCoordinate(coords);
 
         if(type) {
             troop = listDefensive.get(numCard-1);
@@ -102,13 +100,14 @@ public class LogicModel implements Runnable {
             System.out.println("Player is invoking " + troop.getName() + " in coordinates " + coords);
 
             //TODO comprovar que el 5 este validando bien donde se puede poner la tropa
-            if (coords.contains("5")) {
+            if (coords.contains("5") || coords.contains("6") || coords.contains("7") || coords.contains("8")) {
                 System.out.println("Valid position!");
 
                 //pasar corrdenadas a numeros para la matriz
 
                 //llenar matriz tropas para saber donde se guarda
                 troop.setPlayer(player);
+                System.out.println(coordinates);
                 editMatrix(coordinates, troop);
 
                 return true;
@@ -242,7 +241,7 @@ public class LogicModel implements Runnable {
     }
     private String getCoordinate(int x, int y){
         String coords;
-        x = x+1;
+        x = x +1;
         y = y +1;
 
         switch (y){
@@ -259,22 +258,28 @@ public class LogicModel implements Runnable {
         return coords;
     }
 
-    private int[] getIntCorrdinate(String coordinate) {
+    public int getComputerHealth() {
+        return computerHealth;
+    }
 
-        int[]  coordinateInt;
+    public int getUserHealth() {
+        return userHealth;
+    }
 
+    private int[] getIntCoordinate(String coordinate) {
+
+        int[] coordinateInt;
         coordinateInt = new int[2];
-
-        coordinateInt[0] = Integer.parseInt(String.valueOf(coordinate.charAt(0)));
+        coordinateInt[0] = Integer.parseInt(String.valueOf(coordinate.charAt(0)))-1;
 
         switch (coordinate.charAt(1)){
-            case 'a'-> coordinateInt[1] = 1;
-            case 'b'-> coordinateInt[1] = 2;
-            case 'c'-> coordinateInt[1] = 3;
-            case 'd'-> coordinateInt[1] = 4;
-            case 'e'-> coordinateInt[1] = 5;
-            case 'f'-> coordinateInt[1] = 6;
-            case 'g'-> coordinateInt[1] = 7;
+            case 'a'-> coordinateInt[1] = 0;
+            case 'b'-> coordinateInt[1] = 1;
+            case 'c'-> coordinateInt[1] = 2;
+            case 'd'-> coordinateInt[1] = 3;
+            case 'e'-> coordinateInt[1] = 4;
+            case 'f'-> coordinateInt[1] = 5;
+            case 'g'-> coordinateInt[1] = 6;
 
         }
 
@@ -302,6 +307,25 @@ public class LogicModel implements Runnable {
 
 
         //guradar lista de cambio sde tropa rastro
+    }
+
+    public String[][][] updateBoard() {
+        String[][][] board = new String[BoardView.ROWS][BoardView.COLUMNS][3];
+
+        for (int i = 0; i < BoardView.ROWS; i++) {
+            for (int j = 0; j < BoardView.COLUMNS; j++) {
+                if(matrixTroops[i][j] == null) {
+                    board[i][j] = null;
+                }
+                else {
+                    board[i][j][0] = matrixTroops[i][j].getName();
+                    board[i][j][1] = String.valueOf(matrixTroops[i][j].getRank());
+                    board[i][j][2] = String.valueOf(matrixTroops[i][j].isPlayer());
+                }
+            }
+        }
+
+        return board;
     }
 
 

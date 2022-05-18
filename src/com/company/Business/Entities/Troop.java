@@ -46,4 +46,8 @@ public class Troop {
     public void setPlayer(boolean player) {
         this.player = player;
     }
+
+    public int getRank() {
+        return rank;
+    }
 }

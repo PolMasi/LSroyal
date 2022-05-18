@@ -35,6 +35,7 @@ public class LoginView extends JPanel {     //JFrame es una ventana //JPanel pan
         loginButton = new JButton("Let's play!");
         goBack = new JButton("Go back");
 
+        loginButton.setActionCommand(String.valueOf(CardEnum.BUTTON_LOGIN));
         goBack.setActionCommand(String.valueOf(CardEnum.LOGIN_BACK_BTN));
 
         Container user = new Container();
@@ -67,7 +68,7 @@ public class LoginView extends JPanel {     //JFrame es una ventana //JPanel pan
         center.add(password);
 
         title.setHorizontalAlignment(JLabel.CENTER);
-        loginButton.setActionCommand(String.valueOf(CardEnum.BUTTON_LOGIN));
+        //loginButton.setActionCommand(String.valueOf(CardEnum.BUTTON_LOGIN));
         main.add(Box.createRigidArea(new Dimension(50, 100)), BorderLayout.NORTH);
         main.add(center, BorderLayout.CENTER);
         main.add(bottom, BorderLayout.SOUTH);

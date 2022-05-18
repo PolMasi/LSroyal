@@ -3,22 +3,39 @@ package com.company.Presentation.Views;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.jar.JarEntry;
 
 public class BoardView extends JPanel {
     private GridLayout gridBoard;
     public static final int ROWS = 8;
     public static final int COLUMNS = 7;
+    public static final String BOARD_TIMER = "BOARD_TIMER";
 
     private JPanel[][] grids;
-
     private JPanel game;
+
+    private DefaultBoundedRangeModel mLivesPLayer;
+    private DefaultBoundedRangeModel mLivesIA;
+    private DefaultBoundedRangeModel mTropesPlayer;
+    private DefaultBoundedRangeModel mTropesIA;
+
+    private JLabel lblMoneyTotal;
+
+    private Timer timer;
 
     public BoardView() {
         grids = new JPanel[ROWS][COLUMNS];
+        timer = new Timer(500, null);
+    }
+
+    public JPanel[][] getGrids() {
+        return grids;
     }
 
     public void configurePanel(ActionListener listener) {
+        //Cada x tiempo se avisa al controller y este actualiza el dinero
+        timer.addActionListener(listener);
+        timer.setActionCommand(BOARD_TIMER);
+
         gridBoard = new GridLayout(ROWS, COLUMNS);
         JPanel board = new JPanel(gridBoard);
         JLabel title = new JLabel("GAME");
@@ -51,7 +68,7 @@ public class BoardView extends JPanel {
                 grid.setActionCommand(button);
                 grid.addActionListener(listener);
 
-                grids[i][j].add(grid, BorderLayout.WEST);
+                grids[i][j].add(grid, BorderLayout.CENTER);
                 board.add(grids[i][j], BorderLayout.CENTER);
             }
         }
@@ -247,43 +264,69 @@ public class BoardView extends JPanel {
         this.add(informacion);
 
         // LBL dinero total
-        JLabel lblMoneyTotal = new JLabel("50"); // aqui hay que poner el dinero en directo
+        lblMoneyTotal = new JLabel("5"); // aqui hay que poner el dinero en directo
         lblMoneyTotal.setFont(new Font("Helvetica", Font.BOLD, 20));
         infoMoney.add(lblMoneyTotal);
 
         //LBL dinero $
         //JLabel lblMoneyIcon = new JLabel(new ImageIcon("dineroImagen.png"),SwingConstants.CENTER); // https://programmerclick.com/article/1422148280/
-        JLabel lblMoneyIcon = new JLabel("$");
-        lblMoneyIcon.setFont(new Font("Helvetica", Font.BOLD, 20));
+        ImageIcon moneyIcon = new ImageIcon("/files/Images/Moneda.png");
+        JLabel lblMoneyIcon = new JLabel(moneyIcon);
+        //lblMoneyIcon.setFont(new Font("Helvetica", Font.BOLD, 20));
         infoMoney.add(lblMoneyIcon);
 
-        JProgressBar PBlivesPlayer = new JProgressBar(0, 10); // AQUI EN EL TASK VA VINCULAT AMB EL JOC EN DIRECTE
-        PBlivesPlayer.setValue(2); // Aqui lo inicializo a 2. pero tendra que variar segun evolucione la partida
-        PBlivesPlayer.setStringPainted(true);
-        PBlivesPlayer.setOrientation(SwingConstants.VERTICAL);
-        infoLifes.add(PBlivesPlayer);
+        mLivesPLayer = new DefaultBoundedRangeModel();
+        mLivesPLayer.setMinimum(0);
+        mLivesPLayer.setMaximum(100);
+        mLivesPLayer.setValue(100);
+        JProgressBar pBlivesPlayer = new JProgressBar(mLivesPLayer); // AQUI EN EL TASK VA VINCULAT AMB EL JOC EN DIRECTE
+        pBlivesPlayer.setStringPainted(true);
+        pBlivesPlayer.setOrientation(SwingConstants.VERTICAL);
+        infoLifes.add(pBlivesPlayer);
 
-        JProgressBar PBlivesIA = new JProgressBar(0, 10);
-        PBlivesIA.setValue(0); // Aqui lo inicializo a 0. pero tendra que variar segun evolucione la partida
-        PBlivesIA.setStringPainted(true);
-        PBlivesIA.setOrientation(SwingConstants.VERTICAL);
-        infoLifes.add(PBlivesIA);
+        mLivesIA = new DefaultBoundedRangeModel();
+        mLivesIA.setMinimum(0);
+        mLivesIA.setMaximum(100);
+        mLivesIA.setValue(100);
+        JProgressBar pBlivesIA = new JProgressBar(mLivesIA);
+        pBlivesIA.setStringPainted(true);
+        pBlivesIA.setOrientation(SwingConstants.VERTICAL);
+        infoLifes.add(pBlivesIA);
 
-        JProgressBar PBtropesPlayer = new JProgressBar(0, 10);
-        PBtropesPlayer.setValue(5); // Aqui lo inicializo a 5. pero tendra que variar segun evolucione la partida
-        PBtropesPlayer.setStringPainted(true);
-        PBtropesPlayer.setOrientation(SwingConstants.VERTICAL);
-        infoTrops.add(PBtropesPlayer);
+        mTropesPlayer = new DefaultBoundedRangeModel();
+        mTropesPlayer.setMinimum(0);
+        mTropesPlayer.setMaximum(20);
+        mTropesPlayer.setValue(0);
+        JProgressBar pBtropesPlayer = new JProgressBar(mTropesPlayer);
+        pBtropesPlayer.setStringPainted(true);
+        pBtropesPlayer.setOrientation(SwingConstants.VERTICAL);
+        infoTrops.add(pBtropesPlayer);
 
-        JProgressBar PBtropesIA = new JProgressBar(0, 10);
-        PBtropesIA.setValue(3); // Aqui lo inicializo a 3. pero tendra que variar segun evolucione la partida
-        PBtropesIA.setStringPainted(true);
-        PBtropesIA.setOrientation(SwingConstants.VERTICAL);
-        infoTrops.add(PBtropesIA );
+        mTropesIA = new DefaultBoundedRangeModel();
+        mTropesIA .setMinimum(0);
+        mTropesIA .setMaximum(20);
+        mTropesIA .setValue(0);
+        JProgressBar pBtropesIA = new JProgressBar(mTropesIA);
+        pBtropesIA.setStringPainted(true);
+        pBtropesIA.setOrientation(SwingConstants.VERTICAL);
+        infoTrops.add(pBtropesIA);
         add(informacion);
+
+        timer.start();
+
     }
     // http://www.chuidiang.org/java/layout/GridBagLayout/GridBagLayout.php
 
+
+    public void updateLife(int userHealth, int computerHealth) {
+        mLivesPLayer.setValue(userHealth);
+        mLivesIA.setValue(computerHealth);
+    }
+
+    public void updateTroopCounter(int userTroops, int computerTroops) {
+        mTropesPlayer.setValue(userTroops);
+        mTropesIA.setValue(computerTroops);
+    }
 
     public void configureCards(String[] offensive, String[] defensive, ActionListener listener) {
 
@@ -305,7 +348,9 @@ public class BoardView extends JPanel {
             JPanel cardDef = new JPanel(new BorderLayout());
             JPanel cardOff = new JPanel(new BorderLayout());
 
-            JButton iconDef = new JButton(String.valueOf(defensive[i].charAt(0)));
+            ImageIcon offImage = new ImageIcon("/files/Images/Off1.png");
+
+            JButton iconDef = new JButton(offImage);
             JButton iconOff = new JButton(String.valueOf(offensive[i].charAt(0)));
 
             iconDef.setActionCommand("DEF" + cardNumber);
@@ -353,4 +398,10 @@ public class BoardView extends JPanel {
 
         game.add(flowLayout, BorderLayout.SOUTH);
     }
+
+    public void updateMoney(int money) {
+
+        lblMoneyTotal.setText(String.valueOf(money));
+    }
+
 }

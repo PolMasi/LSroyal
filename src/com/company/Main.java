@@ -28,8 +28,6 @@ public class Main {
 
             }
 
-            
-
             @Override
             public ArrayList<Offensive> loadOffensiveTroops() {
                 Offensive giant = new Offensive("giant", 1000, 5, 1);
@@ -67,8 +65,7 @@ public class Main {
 
         UserOption userOption = new UserOption();
         UserModel loginModel = new UserModel(userdao, userOption);
-        ComputerModel computerModel = new ComputerModel(configurationDAO);
-        LogicModel logicModel = new LogicModel(computerModel, configurationDAO.loadOffensiveTroops(), configurationDAO.loadDefensiveTroops());
+        LogicModel logicModel = new LogicModel(configurationDAO.loadOffensiveTroops(), configurationDAO.loadDefensiveTroops());
 
         LoginController loginController = new LoginController(loginModel, loginView, mainController);
         SignUpController signUpController = new SignUpController(loginModel, signupView, mainController);
