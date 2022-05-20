@@ -92,6 +92,8 @@ public class LogicModel implements Runnable {
             troop = listOffensive.get(numCard-1);
         }
 
+        troop.setLastCoordinate(new int[]{-1, -1});
+
         if(matrixTroops[coordinates[0]][coordinates[1]] != null) {
             return false;
         }
@@ -159,14 +161,32 @@ public class LogicModel implements Runnable {
 
     @Override
     public void run() {
+
+        System.out.println("run");
         defenseTroop();
+        if(counter == 3) {
+            moveTroops();
+        }
 
         if(counter == 4){
             invokeComputerAtack();
             passiveMoney();
         }
     }
-    public void defenseTroop(){
+
+    public void moveTroops() {
+
+        for (int i = 0; i < BoardView.ROWS; i++) {
+            for (int j = 0; j < BoardView.COLUMNS; j++) {
+                if (matrixTroops[i][j] != null) {
+                    editMatrix(matrixTroops[i][j].move(matrixTroops), matrixTroops[i][j]);
+                }
+            }
+        }
+    }
+
+
+    public void defenseTroop() {
         //System.out.println("defensa");
         int troop = selectTroop.nextInt(listDefensive.size());
         boolean invoked = false;
@@ -295,8 +315,9 @@ public class LogicModel implements Runnable {
     //funcion que edita matriz de troops para saber donde avanza la tropa
     private void editMatrix(int[] coordinates, Troop troop) {
 
+        System.out.println("editmatrix");
         //eliminamios posiciondel restro
-        if(troop.getLastCoordinate()[0] != 0) {
+        if(troop.getLastCoordinate()[0] != -1) {
             matrixTroops[troop.getLastCoordinate()[0]][troop.getLastCoordinate()[1]] = null;
         }
 
@@ -304,7 +325,6 @@ public class LogicModel implements Runnable {
 
         //actualizar posicion
         matrixTroops[coordinates[0]][coordinates[1]] = troop;
-
 
         //guradar lista de cambio sde tropa rastro
     }

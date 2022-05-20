@@ -31,7 +31,6 @@ public class BoardController implements ActionListener {
         timer.scheduleAtFixedRate(this.logicModel, 0, 1, TimeUnit.SECONDS);
         boardView.configurePanel(this);
         boardView.configureCards(logicModel.setOffensiveCards(), logicModel.setDefensiveCards(),this);
-
     }
 
     private String getCoords(int i, int j) {
@@ -80,8 +79,6 @@ public class BoardController implements ActionListener {
                 }
             }
         }
-        System.out.println(computerTroops);
-        System.out.println(userTroops);
         boardView.updateTroopCounter(userTroops, computerTroops);
     }
 

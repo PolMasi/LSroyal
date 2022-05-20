@@ -5,4 +5,9 @@ public class Defensive extends Troop {
     public Defensive(String name, int health, int cost, int rank) {
         super(name, health, cost, rank);
     }
+
+    public int[] move(Troop[][] matrixTroops) {
+        return getLastCoordinate();
+    }
+
 }

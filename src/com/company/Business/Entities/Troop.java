@@ -16,8 +16,13 @@ public class Troop {
         this.rank = rank;
         this.currentHealth = this.health;
         this.lastCoordinate = new int[2];
-
+        this.lastCoordinate[0] = -1;
     }
+
+    public int[] move(Troop[][] matrixTroops) {
+        return lastCoordinate;
+    }
+
 
     public int getCost() {
         return cost;
@@ -50,4 +55,5 @@ public class Troop {
     public int getRank() {
         return rank;
     }
+
 }
