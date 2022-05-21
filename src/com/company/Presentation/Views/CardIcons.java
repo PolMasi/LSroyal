@@ -1,7 +1,7 @@
 package com.company.Presentation.Views;
 
 public enum CardIcons {
-    GIANT("files/Images/Off1.png", "giant");
+    GIANT("files/Images/giant.png", "giant");
     private final String icon;
     private final String name;
 

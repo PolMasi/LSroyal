@@ -53,22 +53,19 @@ public class BoardController implements ActionListener {
     private void updateTable() {
         String[][][] board = logicModel.updateBoard();
         JPanel[][] panels = boardView.getGrids();
+        JButton[][] buttons = boardView.getGridButton();
 
         int userTroops = 0;
         int computerTroops = 0;
 
         for (int i = 0; i < BoardView.ROWS; i++) {
             for (int j = 0; j < BoardView.COLUMNS; j++) {
-                JButton button = new JButton();
-                button.addActionListener(this);
-                button.setActionCommand(getCoords(i, j));
-
                 if(board[i][j] == null) {
-                    panels[i][j].add(button, BorderLayout.CENTER);
                     panels[i][j].setBackground(Color.WHITE);
+                    buttons[i][j].setIcon(null);
                 }
                 else {
-                    button.setText(board[i][j][0]);
+                    buttons[i][j].setIcon(new ImageIcon(BoardView.ICON_PATH+board[i][j][0]+BoardView.ICON_EXT));
                     if(board[i][j][2] == "true") {
                         panels[i][j].setBackground(Color.GREEN);        //nosotros carta
                         userTroops++;
@@ -80,6 +77,7 @@ public class BoardController implements ActionListener {
                 }
             }
         }
+
         boardView.updateTroopCounter(userTroops, computerTroops);
     }
 

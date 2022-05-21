@@ -45,9 +45,9 @@ public class Main {
 
             @Override
             public ArrayList<Defensive> loadDefensiveTroops() {
-                Defensive giant = new Defensive("giant", 1000, 5, 1);
-                Defensive ibai = new Defensive("ibai", 1500, 6, 2);
-                Defensive vinijr = new Defensive("vinijr", 200, 2, 2);
+                Defensive giant = new Defensive("fio", 1000, 5, 1);
+                Defensive ibai = new Defensive("retro", 1500, 6, 2);
+                Defensive vinijr = new Defensive("defeo", 200, 2, 2);
                 ArrayList<Defensive> defense = new ArrayList<>();
                 defense.add(giant);
                 defense.add(ibai);

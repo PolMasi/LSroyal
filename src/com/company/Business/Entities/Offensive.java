@@ -6,6 +6,10 @@ public class Offensive extends Troop {
         super(name, health, cost, rank);
     }
 
+    public Offensive(Troop troop) {
+        super(troop);
+    }
+
     public synchronized int[] move(Troop[][] matrixTroops) {
         int[] position = this.getLastCoordinate();
         int direction;

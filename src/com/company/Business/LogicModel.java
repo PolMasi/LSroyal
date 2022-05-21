@@ -86,10 +86,10 @@ public class LogicModel implements Runnable {
         int[] coordinates = getIntCoordinate(coords);
 
         if(type) {
-            troop = listDefensive.get(numCard-1);
+            troop = new Defensive(listDefensive.get(numCard-1));
         }
         else {
-            troop = listOffensive.get(numCard-1);
+            troop = new Offensive(listOffensive.get(numCard-1));
         }
 
         troop.setLastCoordinate(new int[]{-1, -1});
@@ -111,7 +111,6 @@ public class LogicModel implements Runnable {
             }
         }
 
-        //guardar informacion computer
         troop.setPlayer(player);
         editMatrix(coordinates, troop);
 
@@ -165,10 +164,10 @@ public class LogicModel implements Runnable {
     }
 
     synchronized void moveTroops() {
-
         for (int i = 0; i < BoardView.ROWS; i++) {
             for (int j = 0; j < BoardView.COLUMNS; j++) {
                 if (matrixTroops[i][j] != null) {
+                    System.out.println("matrix: "+matrixTroops[i][j]);
                     editMatrix(matrixTroops[i][j].move(matrixTroops), matrixTroops[i][j]);
                 }
             }

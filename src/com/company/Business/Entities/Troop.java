@@ -19,10 +19,19 @@ public abstract class Troop extends Thread {
         this.lastCoordinate[0] = -1;
     }
 
+    public Troop(Troop troop) {
+        this.name = troop.name;
+        this.health = troop.health;
+        this.cost = troop.cost;
+        this.rank = troop.rank;
+        this.currentHealth = this.health;
+        this.lastCoordinate = new int[2];
+        this.lastCoordinate[0] = -1;
+    }
+
     public synchronized int[] move(Troop[][] matrixTroops) {
         return lastCoordinate;
     }
-
 
     public int getCost() {
         return cost;

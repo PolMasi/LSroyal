@@ -9,9 +9,13 @@ public class BoardView extends JPanel {
     public static final int ROWS = 8;
     public static final int COLUMNS = 7;
     public static final String BOARD_TIMER = "BOARD_TIMER";
+    public static final String ICON_PATH = "files/Images/";
+    public static final String ICON_EXT = ".png";
 
     private JPanel[][] grids;
+    private JButton[][] gridButton;
     private JPanel game;
+    private JPanel board;
 
     private DefaultBoundedRangeModel mLivesPLayer;
     private DefaultBoundedRangeModel mLivesIA;
@@ -25,10 +29,15 @@ public class BoardView extends JPanel {
     public BoardView() {
         grids = new JPanel[ROWS][COLUMNS];
         timer = new Timer(500, null);
+        gridButton = new JButton[ROWS][COLUMNS];
     }
 
     public JPanel[][] getGrids() {
         return grids;
+    }
+
+    public JButton[][] getGridButton() {
+        return gridButton;
     }
 
     public void configurePanel(ActionListener listener) {
@@ -37,7 +46,7 @@ public class BoardView extends JPanel {
         timer.setActionCommand(BOARD_TIMER);
 
         gridBoard = new GridLayout(ROWS, COLUMNS);
-        JPanel board = new JPanel(gridBoard);
+        board = new JPanel(gridBoard);
         JLabel title = new JLabel("GAME");
 
         title.setAlignmentX(CENTER_ALIGNMENT);
@@ -64,11 +73,11 @@ public class BoardView extends JPanel {
 
                 grids[i][j] = new JPanel(new BorderLayout());
 
-                JButton grid = new JButton();
-                grid.setActionCommand(button);
-                grid.addActionListener(listener);
+                gridButton[i][j] = new JButton();
+                gridButton[i][j].setActionCommand(button);
+                gridButton[i][j].addActionListener(listener);
 
-                grids[i][j].add(grid, BorderLayout.CENTER);
+                grids[i][j].add(gridButton[i][j], BorderLayout.CENTER);
                 board.add(grids[i][j], BorderLayout.CENTER);
             }
         }
@@ -259,7 +268,6 @@ public class BoardView extends JPanel {
         constraints.gridy =6;
         constraints.gridwidth =2; // el area que ocupa ancho
         constraints.gridheight =1; // el area que ocupa alto
-        //constraints.weightx = 1.0;
         informacion.add(lblMoney, constraints);
         this.add(informacion);
 
@@ -269,10 +277,7 @@ public class BoardView extends JPanel {
         infoMoney.add(lblMoneyTotal);
 
         //LBL dinero $
-        //JLabel lblMoneyIcon = new JLabel(new ImageIcon("dineroImagen.png"),SwingConstants.CENTER); // https://programmerclick.com/article/1422148280/
-        ImageIcon moneyIcon = new ImageIcon("/files/Images/Moneda.png");
-        JLabel lblMoneyIcon = new JLabel(moneyIcon);
-        //lblMoneyIcon.setFont(new Font("Helvetica", Font.BOLD, 20));
+        JLabel lblMoneyIcon = new JLabel(" $");
         infoMoney.add(lblMoneyIcon);
 
         mLivesPLayer = new DefaultBoundedRangeModel();
@@ -348,10 +353,11 @@ public class BoardView extends JPanel {
             JPanel cardDef = new JPanel(new BorderLayout());
             JPanel cardOff = new JPanel(new BorderLayout());
 
-            ImageIcon offImage = new ImageIcon("/files/Images/Off1.png");
+            Icon offImage = new ImageIcon(ICON_PATH+offensive[i]+ICON_EXT);
+            Icon defImage = new ImageIcon(ICON_PATH+defensive[i]+ICON_EXT);
 
-            JButton iconDef = new JButton(offImage);
-            JButton iconOff = new JButton(String.valueOf(offensive[i].charAt(0)));
+            JButton iconDef = new JButton(defImage);
+            JButton iconOff = new JButton(offImage);
 
             iconDef.setActionCommand("DEF" + cardNumber);
             iconOff.setActionCommand("OFF" + cardNumber);
