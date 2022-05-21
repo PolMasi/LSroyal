@@ -6,7 +6,7 @@ public class Offensive extends Troop {
         super(name, health, cost, rank);
     }
 
-    public int[] move(Troop[][] matrixTroops) {
+    public synchronized int[] move(Troop[][] matrixTroops) {
         int[] position = this.getLastCoordinate();
         int direction;
 
@@ -17,17 +17,36 @@ public class Offensive extends Troop {
             direction = 1;
         }
 
-        System.out.println("last position"+position[0]+position[1]);
+        System.out.println(getTroopName()+": last position"+position[0]+position[1]);
 
-        //Si hay alguien en rango de ataque no se mueve
-        if(matrixTroops[position[0]+getRank()*direction][position[1]] != null) {
-            System.out.println("dentro");
+        if(position[0]+getRank()*direction <= 0) {
+            System.out.println(getTroopName()+"final");
             return position;
         }
 
-        System.out.println("new position"+(position[0]+1)+position[1]);
-        //avance para delante
+        for (int i = 1; i < getRank()+1; i++) {
+            if(position[0]+i*direction >= 0) {
+                System.out.println(getTroopName()+": dentro1"+i);
+                if(matrixTroops[position[0]+i*direction][position[1]] != null) {
+                    System.out.println(getTroopName()+": stop"+i);
+                    return position;
+                }
+            }
+        }
+
+        if(position[0] == 0) {
+            System.out.println(getTroopName()+": Final");
+            return position;
+        }
+
+        System.out.println(getTroopName()+": new position"+(position[0]+direction)+position[1]);
+
         return new int[]{position[0] + direction, position[1]};
+
+    }
+
+    @Override
+    public void run() {
 
     }
 }

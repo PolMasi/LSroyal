@@ -40,7 +40,7 @@ public class LogicModel implements Runnable {
         int j = 0;
 
         for (int i = 0; i < listDefensive.size(); i++) {
-            defString[j] = listDefensive.get(i).getName();
+            defString[j] = listDefensive.get(i).getTroopName();
             j++;
             defString[j] = String.valueOf(listDefensive.get(i).getCost());
             j++;
@@ -55,7 +55,7 @@ public class LogicModel implements Runnable {
         int j = 0;
 
         for (int i = 0; i < listOffensive.size(); i++) {
-            offString[j] = listOffensive.get(i).getName();
+            offString[j] = listOffensive.get(i).getTroopName();
             j++;
             offString[j] = String.valueOf(listOffensive.get(i).getCost());
             j++;
@@ -67,9 +67,9 @@ public class LogicModel implements Runnable {
 
     public String troopName(int numCard, boolean type) {
         if (type) {
-            return listDefensive.get(numCard).getName();
+            return listDefensive.get(numCard).getTroopName();
         }
-        return listOffensive.get(numCard).getName();
+        return listOffensive.get(numCard).getTroopName();
     }
 
     public void startGame() {
@@ -99,22 +99,14 @@ public class LogicModel implements Runnable {
         }
 
         if (player) {
-            System.out.println("Player is invoking " + troop.getName() + " in coordinates " + coords);
-
-            //TODO comprovar que el 5 este validando bien donde se puede poner la tropa
             if (coords.contains("5") || coords.contains("6") || coords.contains("7") || coords.contains("8")) {
-                System.out.println("Valid position!");
-
-                //pasar corrdenadas a numeros para la matriz
-
-                //llenar matriz tropas para saber donde se guarda
                 troop.setPlayer(player);
-                System.out.println(coordinates);
+                System.out.println(troop.getTroopName()+coordinates);
                 editMatrix(coordinates, troop);
 
                 return true;
+
             } else {
-                System.out.println("Invalid position!");
                 return false;
             }
         }
@@ -123,7 +115,6 @@ public class LogicModel implements Runnable {
         troop.setPlayer(player);
         editMatrix(coordinates, troop);
 
-        System.out.println("Computer is invoking "+troop.getName()+" in coordinates"+coords);
         return true;
     }
 
@@ -162,7 +153,6 @@ public class LogicModel implements Runnable {
     @Override
     public void run() {
 
-        System.out.println("run");
         defenseTroop();
         if(counter == 3) {
             moveTroops();
@@ -174,7 +164,7 @@ public class LogicModel implements Runnable {
         }
     }
 
-    public void moveTroops() {
+    synchronized void moveTroops() {
 
         for (int i = 0; i < BoardView.ROWS; i++) {
             for (int j = 0; j < BoardView.COLUMNS; j++) {
@@ -313,9 +303,8 @@ public class LogicModel implements Runnable {
     }
 
     //funcion que edita matriz de troops para saber donde avanza la tropa
-    private void editMatrix(int[] coordinates, Troop troop) {
+   synchronized void editMatrix(int[] coordinates, Troop troop) {
 
-        System.out.println("editmatrix");
         //eliminamios posiciondel restro
         if(troop.getLastCoordinate()[0] != -1) {
             matrixTroops[troop.getLastCoordinate()[0]][troop.getLastCoordinate()[1]] = null;
@@ -338,7 +327,7 @@ public class LogicModel implements Runnable {
                     board[i][j] = null;
                 }
                 else {
-                    board[i][j][0] = matrixTroops[i][j].getName();
+                    board[i][j][0] = matrixTroops[i][j].getTroopName();
                     board[i][j][1] = String.valueOf(matrixTroops[i][j].getRank());
                     board[i][j][2] = String.valueOf(matrixTroops[i][j].isPlayer());
                 }

@@ -20,9 +20,9 @@ public class Main {
         Configuration configuration = new Configuration("files/offensive.json", "files/defensive.json", "files/config.json");
         configuration.loadOffensiveTroops();
         UserDAO userdao = new UserSQL(configuration.getName(), configuration.getUser(), configuration.getPassword(), configuration.getIP(), Integer.parseInt(configuration.getPort()));
-        GameSQL gameSQL = new GameSQL(configuration.getName(), configuration.getUser(), configuration.getPassword(), configuration.getIP(), Integer.parseInt(configuration.getPort()));
+        //GameSQL gameSQL = new GameSQL(configuration.getName(), configuration.getUser(), configuration.getPassword(), configuration.getIP(), Integer.parseInt(configuration.getPort()));
 
-        ArrayList<String[]> nombre = gameSQL.getMatchList("gerard4");
+        //ArrayList<String[]> nombre = gameSQL.getMatchList("gerard4");
 
 
         ConfigurationDAO configurationDAO = new ConfigurationDAO() {

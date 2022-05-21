@@ -1,6 +1,6 @@
 package com.company.Business.Entities;
 
-public class Troop {
+public abstract class Troop extends Thread {
     private String name;
     private int health;
     private int cost;
@@ -19,7 +19,7 @@ public class Troop {
         this.lastCoordinate[0] = -1;
     }
 
-    public int[] move(Troop[][] matrixTroops) {
+    public synchronized int[] move(Troop[][] matrixTroops) {
         return lastCoordinate;
     }
 
@@ -28,7 +28,7 @@ public class Troop {
         return cost;
     }
 
-    public String getName() {
+    public String getTroopName() {
         return name;
     }
 

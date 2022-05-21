@@ -65,6 +65,7 @@ public class BoardController implements ActionListener {
 
                 if(board[i][j] == null) {
                     panels[i][j].add(button, BorderLayout.CENTER);
+                    panels[i][j].setBackground(Color.WHITE);
                 }
                 else {
                     button.setText(board[i][j][0]);
