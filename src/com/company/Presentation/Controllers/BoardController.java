@@ -33,22 +33,6 @@ public class BoardController implements ActionListener {
         boardView.configureCards(logicModel.setOffensiveCards(), logicModel.setDefensiveCards(),this);
     }
 
-    private String getCoords(int i, int j) {
-        String button;
-
-        switch (j) {
-            case 0 -> button = i+"a";
-            case 1 -> button = i+"b";
-            case 2 -> button = i+"c";
-            case 3 -> button = i+"d";
-            case 4 -> button = i+"e";
-            case 5 -> button = i+"f";
-            case 6 -> button = i+"g";
-            default -> button = "0";
-        }
-
-        return button;
-    }
 
     private void updateTable() {
         String[][][] board = logicModel.updateBoard();

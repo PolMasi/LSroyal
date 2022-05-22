@@ -84,9 +84,9 @@ public class GameSQL implements GameDAO {
 
     public void matrixToJson(Troop[][] matrix){
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    //    Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        moveList.add(gson.toJson(matrix));
+//        moveList.add(gson.toJson(matrix));
 
 
     }

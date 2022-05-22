@@ -23,13 +23,13 @@ public class Offensive extends Troop {
 
         System.out.println(getTroopName()+": last position"+position[0]+position[1]);
 
-        if(position[0]+getRank()*direction <= 0) {
+        if(position[0]+getRank()*direction <= 0 || position[0]+getRank()*direction >= 7) {
             System.out.println(getTroopName()+"final");
             return position;
         }
 
         for (int i = 1; i < getRank()+1; i++) {
-            if(position[0]+i*direction >= 0) {
+            if(position[0]+i*direction >= 0 || position[0]+i*direction <= 7) {
                 System.out.println(getTroopName()+": dentro1"+i);
                 if(matrixTroops[position[0]+i*direction][position[1]] != null) {
                     System.out.println(getTroopName()+": stop"+i);
@@ -38,10 +38,7 @@ public class Offensive extends Troop {
             }
         }
 
-        if(position[0] == 0) {
-            System.out.println(getTroopName()+": Final");
-            return position;
-        }
+
 
         System.out.println(getTroopName()+": new position"+(position[0]+direction)+position[1]);
 

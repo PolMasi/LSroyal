@@ -397,7 +397,7 @@ public class BoardView extends JPanel {
         defBox.add(new JLabel("DEFENSIVES"));
         defBox.add(defPanel);
 
-        defBox.setBorder(BorderFactory.createEmptyBorder(0, 100, 0, 0));
+       // defBox.setBorder(BorderFactory.createEmptyBorder(0, 100, 0, 0));
 
         flowLayout.add(offBox);
         flowLayout.add(defBox);

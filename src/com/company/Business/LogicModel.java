@@ -2,6 +2,7 @@ package com.company.Business;
 
 import com.company.Business.Entities.Defensive;
 import com.company.Business.Entities.Offensive;
+import com.company.Business.Entities.Tower;
 import com.company.Business.Entities.Troop;
 import com.company.Persistence.GameDAO;
 import com.company.Presentation.Views.BoardView;
@@ -76,11 +77,27 @@ public class LogicModel implements Runnable {
     }
 
     public void startGame() {
-        computerMoney = 1;
+        computerMoney = 5;
         computerHealth = 100;
         userMoney = 5;
-        userHealth = 99;
+        userHealth = 100;
         matrixTroops = new Troop[BoardView.ROWS][BoardView.COLUMNS];
+        invokeTowers();
+    }
+    public void invokeTowers(){
+        for (int i = 0; i < BoardView.COLUMNS; i++) {
+            Troop tower = new Tower("tower", 1000,0,1);
+            tower.setPlayer(true);
+            tower.setLastCoordinate(new int[]{-1,-1});
+            matrixTroops[0][i] = tower;
+        }
+        for (int i = 0; i < BoardView.COLUMNS; i++) {
+            Troop tower = new Tower("tower", 1000,0,1);
+            tower.setPlayer(false);
+            tower.setLastCoordinate(new int[]{-1,-1});
+            matrixTroops[7][i] = tower;
+        }
+
     }
 
     public boolean invokeTroop(int numCard, boolean type, boolean player,String coords) {
@@ -102,6 +119,7 @@ public class LogicModel implements Runnable {
         }
 
         if (player) {
+            System.out.println(numCard+listDefensive.get(numCard-1).getTroopName());
             if (coords.contains("5") || coords.contains("6") || coords.contains("7") || coords.contains("8")) {
                 troop.setPlayer(player);
                 System.out.println(troop.getTroopName()+coordinates);
@@ -154,9 +172,10 @@ public class LogicModel implements Runnable {
 
     @Override
     public void run() {
-
-        defenseTroop();
+        System.out.println(counter);
+       counter++;
         if(counter == 3) {
+           // defenseTroop();
             moveTroops();
         }
 
@@ -167,10 +186,16 @@ public class LogicModel implements Runnable {
     }
 
     synchronized void moveTroops() {
+        final Troop[][] troop = new Troop[BoardView.ROWS][BoardView.COLUMNS];
         for (int i = 0; i < BoardView.ROWS; i++) {
             for (int j = 0; j < BoardView.COLUMNS; j++) {
-                if (matrixTroops[i][j] != null) {
-                    System.out.println("matrix: "+matrixTroops[i][j]);
+                troop[i][j] = matrixTroops[i][j];
+            }
+        }
+        for (int i = 1; i < BoardView.ROWS - 1; i++) {
+            for (int j = 0; j < BoardView.COLUMNS; j++) {
+                if (troop[i][j] != null) {
+                    System.out.println("matrix: "+i+j+" "+matrixTroops[i][j]);
                     editMatrix(matrixTroops[i][j].move(matrixTroops), matrixTroops[i][j]);
                 }
             }
@@ -188,7 +213,7 @@ public class LogicModel implements Runnable {
         Defensive defTroop = listDefensive.get(troop);
         //System.out.println("1." + defTroop.getCost());
         if(defTroop.getCost() > computerMoney){
-            Collections.shuffle(listDefensive);
+       //     Collections.shuffle(listDefensive);
             for (int i = 0; i < listDefensive.size(); i++) {
 
                 if(listDefensive.get(i).getCost() <= computerMoney && !invoked){
@@ -212,7 +237,7 @@ public class LogicModel implements Runnable {
 
 
         }
-        counter++;
+        //counter++;
 
     }
     public void invokeComputerAtack(){
@@ -225,7 +250,7 @@ public class LogicModel implements Runnable {
         Offensive offensive = listOffensive.get(troop);
         //System.out.println("1." + defTroop.getCost());
         if(offensive.getCost() > computerMoney){
-            Collections.shuffle(listDefensive);
+          //  Collections.shuffle(listDefensive);
             for (int i = 0; i < listOffensive.size(); i++) {
 
                 if(listOffensive.get(i).getCost() <= computerMoney && !invoked){
@@ -306,7 +331,7 @@ public class LogicModel implements Runnable {
 
     //funcion que edita matriz de troops para saber donde avanza la tropa
    synchronized void editMatrix(int[] coordinates, Troop troop) {
-
+       System.out.println("edit matrix"+coordinates[0]+coordinates[1]);
         //eliminamios posiciondel restro
         if(troop.getLastCoordinate()[0] != -1) {
             matrixTroops[troop.getLastCoordinate()[0]][troop.getLastCoordinate()[1]] = null;
