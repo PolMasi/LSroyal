@@ -3,6 +3,7 @@ package com.company.Business;
 import com.company.Business.Entities.Defensive;
 import com.company.Business.Entities.Offensive;
 import com.company.Business.Entities.Troop;
+import com.company.Persistence.GameDAO;
 import com.company.Presentation.Views.BoardView;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Random;
 public class LogicModel implements Runnable {
     private ArrayList<Offensive> listOffensive;
     private ArrayList<Defensive> listDefensive;
+    private GameDAO gamedao;
 
     private int counter;
     private int computerHealth;
@@ -28,9 +30,10 @@ public class LogicModel implements Runnable {
         return userMoney;
     }
 
-    public LogicModel(ArrayList<Offensive> listOffensive, ArrayList<Defensive> listDefensive) {
+    public LogicModel(ArrayList<Offensive> listOffensive, ArrayList<Defensive> listDefensive, GameDAO gamedao) {
         this.listOffensive = listOffensive;
         this.listDefensive = listDefensive;
+        this.gamedao = gamedao;
         this.selectTroop = new Random();
         startGame();
     }
@@ -314,7 +317,7 @@ public class LogicModel implements Runnable {
         //actualizar posicion
         matrixTroops[coordinates[0]][coordinates[1]] = troop;
 
-        //guradar lista de cambio sde tropa rastro
+        gamedao.matrixToJson(matrixTroops);
     }
 
     public String[][][] updateBoard() {

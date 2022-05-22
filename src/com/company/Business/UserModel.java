@@ -3,9 +3,13 @@ package com.company.Business;
 import com.company.Persistence.UserDAO;
 
 public class UserModel {
+
     private UserDAO userDAO;
-    private String userName;
     private UserOption userOption;
+
+    public String userName;
+
+
 
     public UserModel(UserDAO userDAO, UserOption userOption) {
         this.userDAO = userDAO;
