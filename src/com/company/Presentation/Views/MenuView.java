@@ -102,6 +102,8 @@ public class MenuView extends JPanel {
 
 
          */
+
+        //TODO FER QUE SIGUI LOGOUT
         exit = new JButton("Exit");
         exit.setActionCommand(String.valueOf(CardEnum.EXIT_BTN));
         exit.setFont(new Font("Helvetica", Font.PLAIN, 20));
