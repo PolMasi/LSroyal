@@ -33,9 +33,9 @@ public class Main {
 
             @Override
             public ArrayList<Offensive> loadOffensiveTroops() {
-                Offensive giant = new Offensive("giant", 1000, 5, 1);
-                Offensive ibai = new Offensive("ibai", 1500, 6, 2);
-                Offensive vinijr = new Offensive("vinijr", 200, 2, 2);
+                Offensive giant = new Offensive("giant", 1000, 5, 1, 300);
+                Offensive ibai = new Offensive("ibai", 1500, 6, 2, 400);
+                Offensive vinijr = new Offensive("vinijr", 200, 2, 2, 500);
                 ArrayList<Offensive> offense = new ArrayList<>();
                 offense.add(giant);
                 offense.add(ibai);
@@ -45,9 +45,9 @@ public class Main {
 
             @Override
             public ArrayList<Defensive> loadDefensiveTroops() {
-                Defensive giant = new Defensive("fio", 1000, 5, 1);
-                Defensive ibai = new Defensive("retro", 1500, 6, 2);
-                Defensive vinijr = new Defensive("defeo", 200, 2, 2);
+                Defensive giant = new Defensive("fio", 1000, 5, 1, 300);
+                Defensive ibai = new Defensive("retro", 1500, 6, 2, 400);
+                Defensive vinijr = new Defensive("defeo", 200, 2, 2, 500);
                 ArrayList<Defensive> defense = new ArrayList<>();
                 defense.add(giant);
                 defense.add(ibai);

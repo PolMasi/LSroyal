@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class MenuView extends JPanel {
+
+
     private JButton playGame;
     private JButton reproduce;
     private JButton ranking;
@@ -16,6 +18,8 @@ public class MenuView extends JPanel {
     public static final String EXIT_BTN = "EXIT_BTN";
 
     public MenuView(){
+
+
         this.setLayout(new BorderLayout()); // la interfaz tendra un GrindBag layout
 
         JLabel title1 = new JLabel("MAIN MENU", SwingConstants.CENTER);

@@ -5,11 +5,13 @@ public abstract class Troop extends Thread {
     private int health;
     private int cost;
     private int rank;
+    private int damage;
     private int currentHealth;
     private int[] lastCoordinate;
     private boolean player;
+    private boolean fight;
 
-    public Troop(String name, int health, int cost, int rank) {
+    public Troop(String name, int health, int cost, int rank, int damage) {
         this.name = name;
         this.health = health;
         this.cost = cost;
@@ -17,7 +19,12 @@ public abstract class Troop extends Thread {
         this.currentHealth = this.health;
         this.lastCoordinate = new int[2];
         this.lastCoordinate[0] = -1;
+        this.fight = false;
+        this.damage = damage;
     }
+
+
+
 
     public Troop(Troop troop) {
         this.name = troop.name;
@@ -27,6 +34,10 @@ public abstract class Troop extends Thread {
         this.currentHealth = this.health;
         this.lastCoordinate = new int[2];
         this.lastCoordinate[0] = -1;
+        this.fight = false;
+        this.damage = troop.damage;
+
+
     }
 
     public synchronized int[] move(Troop[][] matrixTroops) {
@@ -65,4 +76,19 @@ public abstract class Troop extends Thread {
         return rank;
     }
 
+    public void setFight(boolean fight) {
+        this.fight = fight;
+    }
+
+    public boolean isFight() {
+        return fight;
+    }
+
+    public void setCurrentHealth(int damage) {
+        this.currentHealth -= damage;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
 }
