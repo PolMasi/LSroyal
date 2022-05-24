@@ -1,5 +1,6 @@
 package com.company.Persistence;
 
+import com.company.Business.Entities.Offensive;
 import com.company.Business.Entities.Troop;
 import com.company.Business.UserModel;
 import com.google.gson.Gson;
@@ -7,6 +8,8 @@ import com.google.gson.GsonBuilder;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class GameSQL implements GameDAO {
 
@@ -82,17 +85,24 @@ public class GameSQL implements GameDAO {
 
 
 
-    public void matrixToJson(Troop[][] matrix){
+    public void matrixToJson(String[][][] matrix){
 
-    //    Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-//        moveList.add(gson.toJson(matrix));
+        Gson gson = new GsonBuilder()
+                //.registerTypeAdapter(Id.class, new IdTypeAdapter())
+                .enableComplexMapKeySerialization()
+                .serializeNulls()
+                .setPrettyPrinting()
+                .create();
+
+        //System.out.println(matrix[1][3]);
+        moveList.add(gson.toJson(matrix));
 
 
     }
 
 
-    public void saveMatrix(){
+    public void saveMovement(String movement, int gameID){
 
 
 
@@ -116,27 +126,94 @@ public class GameSQL implements GameDAO {
 
     }
 
-    public void createGame(String gameName, int result){
+    @Override
+    public boolean saveGame(String gameName, int result) {
+
+
+        if(!checkGameName(gameName)){
+
+            return false;
+
+        }
+        createGame(gameName,result);
+
+        for (String movement: moveList) {
+
+            //saveMovement(movement);
+
+        }
+              return true;
+    }
+
+    public int createGame(String gameName, int result){
 
         PreparedStatement ps;
+        ResultSet rs;
+        int ID = 0;
         String sql = "INSERT INTO partidas (nombre, resultado, usuario_ID) SELECT ?,?,?";
 
         try {
+
             ps = con.prepareStatement(sql);
             ps.setString(1, "'" + gameName + "'" );
             ps.setInt(2, result);
             /*ps.setString(3,);*/
             ps.execute();
 
+            sql = "SELECT ID FROM partidas WHERE usuario_ID = ? AND nombre LIKE ?";
 
+            ps = con.prepareStatement(sql);
+            //ps.setInt(1,);
+            ps.setString(2,"'" + gameName + "'");
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+
+                ID = rs.getInt("ID");
+
+            }
+
+            return ID;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
 
         }
 
-
+            return ID;
     }
+
+    private boolean checkGameName(String name) {
+
+        PreparedStatement ps;
+        ResultSet rs;
+        int result = 0;
+
+        String sql = "SELECT COUNT(*) as count FROM partidas WHERE nombre like ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ;
+            ps.setString(1, name);
+            rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+                result = rs.getInt("count");
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+
+        }
+        System.out.println(result);
+        return result <= 0;
+    }
+
+
 
 
 

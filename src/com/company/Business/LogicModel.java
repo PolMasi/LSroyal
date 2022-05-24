@@ -381,11 +381,11 @@ public class LogicModel implements Runnable {
                 matrixTroops[coordinates[0]][coordinates[1]] = troop;
             }
 
-        gamedao.matrixToJson(matrixTroops);
+        //gamedao.matrixToJson(matrixTroops);
     }
 
     public String[][][] updateBoard() {
-        String[][][] board = new String[BoardView.ROWS][BoardView.COLUMNS][3];
+        String[][][] board = new String[BoardView.ROWS][BoardView.COLUMNS][4];
 
         for (int i = 0; i < BoardView.ROWS; i++) {
             for (int j = 0; j < BoardView.COLUMNS; j++) {
@@ -396,10 +396,12 @@ public class LogicModel implements Runnable {
                     board[i][j][0] = matrixTroops[i][j].getTroopName();
                     board[i][j][1] = String.valueOf(matrixTroops[i][j].getRank());
                     board[i][j][2] = String.valueOf(matrixTroops[i][j].isPlayer());
+                    board[i][j][3] = String.valueOf(matrixTroops[i][j].getCurrentHealth());
                 }
             }
         }
 
+        gamedao.matrixToJson(board);
         return board;
     }
 

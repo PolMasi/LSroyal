@@ -25,6 +25,7 @@ public class Main {
         //ArrayList<String[]> nombre = gameSQL.getMatchList("gerard4");
 
 
+
         ConfigurationDAO configurationDAO = new ConfigurationDAO() {
             @Override
             public void loadConfigFile() {
