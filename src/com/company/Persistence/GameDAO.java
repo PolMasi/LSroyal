@@ -7,7 +7,8 @@ import java.util.ArrayList;
 public interface GameDAO {
 
     ArrayList<String[]> getMatchList(String userName);
-    void matrixToJson(Troop[][] matrix);
-    void saveMatrix();
+    void matrixToJson(String [][][] matrix);
+    void saveMovement(String movement, int gameID);
+    boolean saveGame(String name, int result);
 
 }
