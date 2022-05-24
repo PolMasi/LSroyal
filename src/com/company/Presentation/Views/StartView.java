@@ -19,7 +19,7 @@ public class StartView extends JPanel {
         JLabel title1 = new JLabel("AGE", SwingConstants.CENTER);
         JLabel title2 = new JLabel("ROYALE", SwingConstants.CENTER);
 
-        GridBagConstraints constraints = new GridBagConstraints(); // necesario para el layout
+        GridBagConstraints constraints = new GridBagConstraints();// necesario para el layout
         this.setBackground(Color.DARK_GRAY);
 
         this.add(title1);

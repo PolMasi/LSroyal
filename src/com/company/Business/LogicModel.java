@@ -86,16 +86,16 @@ public class LogicModel implements Runnable {
     }
     public void invokeTowers(){
         for (int i = 0; i < BoardView.COLUMNS; i++) {
-            Troop tower = new Tower("tower", 1000,0,1, 300);
+            Troop tower = new Tower("torres", 1000,0,1, 300);
             tower.setPlayer(true);
             tower.setLastCoordinate(new int[]{-1,-1});
-            matrixTroops[0][i] = tower;
+            matrixTroops[0][3] = tower;
         }
         for (int i = 0; i < BoardView.COLUMNS; i++) {
-            Troop tower = new Tower("tower", 1000,0,1, 300);
+            Troop tower = new Tower("torres", 1000,0,1, 300);
             tower.setPlayer(false);
             tower.setLastCoordinate(new int[]{-1,-1});
-            matrixTroops[7][i] = tower;
+            matrixTroops[7][3] = tower;
         }
 
     }
