@@ -18,6 +18,10 @@ public class MainController implements ActionListener {
         mainView.setListeners(this);
     }
 
+    public void setBoardController(ActionListener listener) {
+        mainView.setBoardListener(listener);
+    }
+
     /**
      * Funcion para cambiar la vista desde el controller
      * @param view
@@ -33,6 +37,10 @@ public class MainController implements ActionListener {
     public String showInput(String text){
 
         return mainView.showInputPopUp(text);
+    }
+
+    public int showConfirm(String text, String[] questions) {
+        return mainView.showConfirmPopUp(text, questions);
     }
 
     @Override

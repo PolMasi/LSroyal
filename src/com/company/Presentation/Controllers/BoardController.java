@@ -2,7 +2,9 @@ package com.company.Presentation.Controllers;
 
 import com.company.Business.LogicModel;
 import com.company.Presentation.MainController;
+import com.company.Presentation.MainView;
 import com.company.Presentation.Views.BoardView;
+import com.company.Presentation.Views.MenuView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +21,15 @@ public class BoardController implements ActionListener {
     private ScheduledExecutorService timer;
     private int selectedCard;
     private boolean selectedType;
+    private boolean endGame;
+
+    public static final String INSTRUCTIONS = "Damage the enemy towers to win the game. Avoid the enemies from damaging your towers or else you will lose. Best luck!";
+    public static final String[] CONFIRM = {"Okey!"};
+    public static final String[] SAVE_OPTIONS = {"Yes", "No"};
+    public static final String WIN = "Congratulations! You have won!";
+    public static final String LOSE = "Sorry! You have lose!";
+    public static final String SAVE = " Do you want to save the game?";
+    public static final String LEAVE = "Are you sure you want leave the game? This game will count as lose";
 
     public BoardController(LogicModel logicModel, BoardView boardView, MainController mainController) {
         this.boardView = boardView;
@@ -27,8 +38,7 @@ public class BoardController implements ActionListener {
         this.selectedCard = -1;
         this.selectedType = false;
 
-        timer = Executors.newScheduledThreadPool(1);
-        timer.scheduleAtFixedRate(this.logicModel, 0, 1, TimeUnit.SECONDS);
+        mainController.setBoardController(this);
         boardView.configurePanel(this);
         boardView.configureCards(logicModel.setOffensiveCards(), logicModel.setDefensiveCards(),this);
     }
@@ -52,26 +62,80 @@ public class BoardController implements ActionListener {
                     buttons[i][j].setIcon(new ImageIcon(BoardView.ICON_PATH+board[i][j][0]+BoardView.ICON_EXT));
                     if(board[i][j][2] == "true") {
                         panels[i][j].setBackground(Color.GREEN);        //nosotros carta
-                        userTroops++;
+                        if (i != 7) {
+                            userTroops++;
+                        }
                     }
                     else {
                         panels[i][j].setBackground(Color.RED);          //carta enemigo
-                        computerTroops++;
+                        if (i != 0) {
+                            computerTroops++;
+                        }
                     }
                 }
             }
         }
 
         boardView.updateTroopCounter(userTroops, computerTroops);
+        updateLife();
     }
 
     private void updateLife() {
-        boardView.updateLife(logicModel.getUserHealth(), logicModel.getComputerHealth());
+        int userHealth = logicModel.getUserHealth();
+        int computerHealth = logicModel.getComputerHealth();
+
+        boardView.updateLife(userHealth, computerHealth);
+
+        if ((userHealth <= 0 || computerHealth <= 0) && !endGame) {
+            boardView.setTimer(false);
+            endGame = true;
+            endGame(userHealth > 0);
+        }
     }
 
+    private void endGame(boolean win) {
+        String text;
+
+        timer.shutdown();
+
+        if(win) {
+            text = WIN;
+        }
+        else {
+            text = LOSE;
+        }
+
+        text = text + SAVE;
+
+        if (mainController.showConfirm(text, SAVE_OPTIONS) == 0) {
+            System.out.println("Saving game");
+        }
+
+        mainController.switchView(MainView.MENU_VIEW);
+
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        if (e.getActionCommand().equals(MenuView.PLAYGAME_BTN)) {
+            endGame = false;
+            boardView.setTimer(true);
+            logicModel.startGame();
+            if (mainController.showConfirm(INSTRUCTIONS, CONFIRM) == 0) {
+                timer = Executors.newScheduledThreadPool(1);
+                timer.scheduleAtFixedRate(this.logicModel, 0, 1, TimeUnit.SECONDS);
+            }
+        }
+
+        if(e.getActionCommand().equals(BoardView.BOARD_BACK)) {
+            if (mainController.showConfirm(LEAVE, SAVE_OPTIONS) == 0) {
+                timer.shutdown();
+                boardView.setTimer(false);
+                endGame = true;
+                mainController.switchView(MainView.MENU_VIEW);
+            }
+        }
 
         if(e.getActionCommand().equals(BoardView.BOARD_TIMER)) {
             boardView.updateMoney(logicModel.getUserMoney());

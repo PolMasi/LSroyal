@@ -9,6 +9,7 @@ public class BoardView extends JPanel {
     public static final int ROWS = 8;
     public static final int COLUMNS = 7;
     public static final String BOARD_TIMER = "BOARD_TIMER";
+    public static final String BOARD_BACK  = "BOARD_BACK";
     public static final String ICON_PATH = "files/Images/";
     public static final String ICON_EXT = ".png";
 
@@ -16,6 +17,7 @@ public class BoardView extends JPanel {
     private JButton[][] gridButton;
     private JPanel game;
     private JPanel board;
+    private JButton back;
 
     private DefaultBoundedRangeModel mLivesPLayer;
     private DefaultBoundedRangeModel mLivesIA;
@@ -38,6 +40,15 @@ public class BoardView extends JPanel {
 
     public JButton[][] getGridButton() {
         return gridButton;
+    }
+
+    public void setTimer(boolean t) {
+        if (t) {
+            timer.start();
+        }
+        else {
+            timer.stop();
+        }
     }
 
     public void configurePanel(ActionListener listener) {
@@ -280,10 +291,15 @@ public class BoardView extends JPanel {
         JLabel lblMoneyIcon = new JLabel(" $");
         infoMoney.add(lblMoneyIcon);
 
+        back = new JButton("Go back");
+        back.setActionCommand(BOARD_BACK);
+        back.addActionListener(listener);
+        infoMoney.add(back);
+
         mLivesPLayer = new DefaultBoundedRangeModel();
         mLivesPLayer.setMinimum(0);
-        mLivesPLayer.setMaximum(100);
-        mLivesPLayer.setValue(100);
+        mLivesPLayer.setMaximum(4000);
+        mLivesPLayer.setValue(4000);
         JProgressBar pBlivesPlayer = new JProgressBar(mLivesPLayer); // AQUI EN EL TASK VA VINCULAT AMB EL JOC EN DIRECTE
         pBlivesPlayer.setStringPainted(true);
         pBlivesPlayer.setOrientation(SwingConstants.VERTICAL);
@@ -291,8 +307,8 @@ public class BoardView extends JPanel {
 
         mLivesIA = new DefaultBoundedRangeModel();
         mLivesIA.setMinimum(0);
-        mLivesIA.setMaximum(100);
-        mLivesIA.setValue(100);
+        mLivesIA.setMaximum(4000);
+        mLivesIA.setValue(4000);
         JProgressBar pBlivesIA = new JProgressBar(mLivesIA);
         pBlivesIA.setStringPainted(true);
         pBlivesIA.setOrientation(SwingConstants.VERTICAL);

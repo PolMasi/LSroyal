@@ -135,7 +135,10 @@ public class MenuView extends JPanel {
         playGame.addActionListener(listener);
         reproduce.addActionListener(listener);
         ranking.addActionListener(listener);
+    }
 
+    public void registerBoardController(ActionListener listener) {
+        playGame.addActionListener(listener);
     }
 
 

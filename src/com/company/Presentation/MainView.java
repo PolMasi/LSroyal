@@ -56,13 +56,14 @@ public class MainView extends JFrame {
     private void configureLayout() {
         cardLayout = new CardLayout();
         this.setLayout(cardLayout);     //asignamos a esta ventana el cardlayout
-        this.add(MainView.BOARD_VIEW, boardView);
+        //this.add(MainView.BOARD_VIEW, boardView);
+        this.add(String.valueOf(CardEnum.MENU_VIEW), menuView);
         this.add(String.valueOf(CardEnum.START_VIEW), startView);
         this.add(String.valueOf(CardEnum.LOGIN_VIEW), loginView);    //le asginamos una vista con una frase y cuando le pasamos la frase pasa la vista asociada
         this.add(String.valueOf(CardEnum.SIGNUP_VIEW), signupView);
         this.add(String.valueOf(CardEnum.LOGOUT_VIEW), logoutView);
-        this.add(String.valueOf(CardEnum.MENU_VIEW), menuView);
-        //this.add(MainView.BOARD_VIEW, boardView);
+        //this.add(String.valueOf(CardEnum.MENU_VIEW), menuView);
+        this.add(MainView.BOARD_VIEW, boardView);
     }
 
     /**
@@ -83,6 +84,15 @@ public class MainView extends JFrame {
         startView.registerController(listener);
         signupView.registerController(listener);
         menuView.registerController(listener);
+
+    }
+
+    public void setBoardListener(ActionListener listener) {
+        menuView.registerBoardController(listener);
+    }
+
+    public int showConfirmPopUp(String text, String[] questions) {
+        return JOptionPane.showOptionDialog(this, text, null, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, questions, questions[0]);
 
     }
 

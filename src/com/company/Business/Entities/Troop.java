@@ -1,6 +1,6 @@
 package com.company.Business.Entities;
 
-public abstract class Troop extends Thread {
+public abstract class Troop {
     private String name;
     private int health;
     private int cost;
@@ -23,9 +23,6 @@ public abstract class Troop extends Thread {
         this.damage = damage;
     }
 
-
-
-
     public Troop(Troop troop) {
         this.name = troop.name;
         this.health = troop.health;
@@ -36,7 +33,6 @@ public abstract class Troop extends Thread {
         this.lastCoordinate[0] = -1;
         this.fight = false;
         this.damage = troop.damage;
-
 
     }
 

@@ -78,24 +78,28 @@ public class LogicModel implements Runnable {
 
     public void startGame() {
         computerMoney = 5;
-        computerHealth = 100;
+        computerHealth = 4000;
         userMoney = 5;
-        userHealth = 100;
+        userHealth = 4000;
         matrixTroops = new Troop[BoardView.ROWS][BoardView.COLUMNS];
         invokeTowers();
     }
+
     public void invokeTowers(){
+        Troop tower = new Tower("torres", 1000,0,2, 300);
+
         for (int i = 0; i < BoardView.COLUMNS; i++) {
-            Troop tower = new Tower("torres", 1000,0,1, 300);
-            tower.setPlayer(true);
-            tower.setLastCoordinate(new int[]{-1,-1});
-            matrixTroops[0][3] = tower;
+            Tower t = new Tower(tower);
+            t.setPlayer(false);
+            t.setLastCoordinate(new int[]{-1,-1});
+            matrixTroops[0][i] = t;
         }
+
         for (int i = 0; i < BoardView.COLUMNS; i++) {
-            Troop tower = new Tower("torres", 1000,0,1, 300);
-            tower.setPlayer(false);
-            tower.setLastCoordinate(new int[]{-1,-1});
-            matrixTroops[7][3] = tower;
+            Tower t = new Tower(tower);
+            t.setPlayer(true);
+            t.setLastCoordinate(new int[]{-1,-1});
+            matrixTroops[7][i] = t;
         }
 
     }
@@ -197,14 +201,16 @@ public class LogicModel implements Runnable {
 
     synchronized void moveTroops() {
         final Troop[][] troop = new Troop[BoardView.ROWS][BoardView.COLUMNS];
-        for (int i = 0; i < BoardView.ROWS; i++) {
+
+        for (int i = 1; i < BoardView.ROWS - 1; i++) {
             for (int j = 0; j < BoardView.COLUMNS; j++) {
                 troop[i][j] = matrixTroops[i][j];
             }
         }
+
         for (int i = 1; i < BoardView.ROWS - 1; i++) {
             for (int j = 0; j < BoardView.COLUMNS; j++) {
-                if (troop[i][j] != null) {
+                if (troop[i][j] != null && matrixTroops[i][j] != null) {
                     //System.out.println("matrix: "+i+j+" "+matrixTroops[i][j]);
                     editMatrix(matrixTroops[i][j].move(matrixTroops), matrixTroops[i][j]);
                 }
@@ -335,23 +341,31 @@ public class LogicModel implements Runnable {
 
     private void passiveMoney() {
 
-        addMoney(3, true);
-        addMoney(3, false);
+        addMoney(2, true);
+        addMoney(2, false);
     }
 
     private void fight (int[] coordinates, Troop troop) {
 
         matrixTroops[coordinates[0]][coordinates[1]].setCurrentHealth(troop.getDamage());
         System.out.println(matrixTroops[coordinates[0]][coordinates[1]].getCurrentHealth()+ "vida");
+
+        if (matrixTroops[coordinates[0]][coordinates[1]].getTroopName() == "torres") {
+            if (matrixTroops[coordinates[0]][coordinates[1]].isPlayer()) {
+                userHealth -= troop.getDamage();
+            }
+            else {
+                computerHealth -= troop.getDamage();
+            }
+        }
     }
 
     //funcion que edita matriz de troops para saber donde avanza la tropa
    synchronized void editMatrix(int[] coordinates, Troop troop) {
 
-
-       //System.out.println("edit matrix"+coordinates[0]+coordinates[1]);
-
-
+            if (troop == null) {
+                return;
+            }
 
             //eliminamios posiciondel restro
             if (troop.getLastCoordinate()[0] != -1) {
@@ -359,24 +373,19 @@ public class LogicModel implements Runnable {
             }
 
             if (troop.isFight()) {
-
-                System.out.println(troop.getTroopName()+"is fiting");
-                    fight(coordinates,troop );
-
+                System.out.println(troop.getTroopName()+"is fighting");
+                fight(coordinates,troop );
                 if(matrixTroops[coordinates[0]][coordinates[1]].getCurrentHealth() <= 0) {
                     //si esta muerta la elimnamos
                     matrixTroops[coordinates[0]][coordinates[1]] = null;
                     System.out.println("muerto");
                 }
-
                 System.out.println(troop.getDamage());
-                matrixTroops[troop.getLastCoordinate()[0]][troop.getLastCoordinate()[0]] = troop;
-
+                matrixTroops[troop.getLastCoordinate()[0]][troop.getLastCoordinate()[1]] = troop;
+                System.out.println("tropa quedar"+troop.getLastCoordinate()[0]+troop.getLastCoordinate()[1]);
 
             } else {
-
                 troop.setLastCoordinate(coordinates);
-
                 //actualizar posicion
                 matrixTroops[coordinates[0]][coordinates[1]] = troop;
             }

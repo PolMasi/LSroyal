@@ -13,7 +13,6 @@ public class Defensive extends Troop {
     public int[] move(Troop[][] matrixTroops) {
 
         int[] position = this.getLastCoordinate();
-
         int direction;
 
         this.setFight(false);
@@ -27,19 +26,13 @@ public class Defensive extends Troop {
 
         for (int i = 1; i < getRank()+1; i++) {
             if(position[0]+i*direction >= 0 || position[0]+i*direction <= 7) {
-
-                System.out.println(getTroopName()+": dentro1"+i);
+                //System.out.println(getTroopName()+": dentro1"+i);
                 if(matrixTroops[position[0]+i*direction][position[1]] != null) {
-
                     if(matrixTroops[position[0]+i*direction][position[1]].isPlayer() != this.isPlayer()) {
-
                         this.setFight(true);
-
                         return new int[]{position[0]+i*direction,position[1]};
-
                     }
-
-                    System.out.println(getTroopName()+": stop"+i);
+                    //System.out.println(getTroopName()+": stop"+i);
                     return position;
                 }
             }
