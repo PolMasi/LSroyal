@@ -20,7 +20,7 @@ public class MenuView extends JPanel {
     public MenuView(){
 
 
-        this.setLayout(new BorderLayout()); // la interfaz tendra un GrindBag layout
+        this.setLayout(new BorderLayout()); // la interfaz tendra un layout
 
         JLabel title1 = new JLabel("MAIN MENU", SwingConstants.CENTER);
 
@@ -56,7 +56,7 @@ public class MenuView extends JPanel {
         FlowLayout flowLayout =  new FlowLayout();
         JPanel buttons = new JPanel(flowLayout);
         buttons.setBackground(Color.DARK_GRAY);
-
+        JPanel center = new JPanel(new BorderLayout());
 
         //BUTTONS
         playGame = new JButton("Play");
@@ -94,24 +94,24 @@ public class MenuView extends JPanel {
         ranking.setActionCommand(String.valueOf(CardEnum.RANKING_BTN));
         ranking.setFont(new Font("Helvetica", Font.PLAIN, 20));
         buttons.add(ranking);
+        center.add(buttons,BorderLayout.NORTH);
 
-        /*
-        constraints.gridx= 1;
-        constraints.gridy=3;
-        constraints.gridwidth=1;
-        constraints.gridheight=1;
-        constraints.weightx = 1.0;
-        this.add(ranking, constraints);
-        constraints.weightx = 1.0;
+        JPanel logoutPanel = new JPanel();
+        logoutPanel.setBackground(Color.DARK_GRAY);
 
-
-         */
-
+        JPanel Panelvacio = new JPanel();
+        Panelvacio.setBackground(Color.DARK_GRAY);
+        //center.add(Box.createRigidArea(new Dimension(100, 1000)), BorderLayout.NORTH);
+        center.add(Panelvacio, BorderLayout.NORTH);
         //TODO FER QUE SIGUI LOGOUT
-        exit = new JButton("Exit");
+        exit = new JButton("Log out");
         exit.setActionCommand(String.valueOf(CardEnum.EXIT_BTN));
         exit.setFont(new Font("Helvetica", Font.PLAIN, 20));
-        buttons.add(exit);
+        exit.setBackground(Color.RED);
+        exit.setBorderPainted(true);
+        logoutPanel.add(exit);
+        center.add(logoutPanel,BorderLayout.SOUTH);
+
 
         /*
         constraints.gridx= 1;
@@ -123,10 +123,11 @@ public class MenuView extends JPanel {
         constraints.weightx = 1.0;
 
          */
-        add(buttons, BorderLayout.CENTER);
+        this.add(buttons, BorderLayout.CENTER);
+        this.add(logoutPanel, BorderLayout.SOUTH);
         add(Box.createRigidArea(new Dimension(300, 300)), BorderLayout.EAST);
         add(Box.createRigidArea(new Dimension(300, 300)), BorderLayout.WEST);
-        add(Box.createRigidArea(new Dimension(300, 300)), BorderLayout.SOUTH);
+        //add(Box.createRigidArea(new Dimension(300, 300)), BorderLayout.SOUTH);
 
 
     }

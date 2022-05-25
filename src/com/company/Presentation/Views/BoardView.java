@@ -64,6 +64,7 @@ public class BoardView extends JPanel {
 
         setLayout(new GridLayout(1,2));
 
+
         game = new JPanel(new BorderLayout());
 
         for (int i = 0; i < ROWS; i++) {
@@ -139,8 +140,10 @@ public class BoardView extends JPanel {
         informacion.add(jpvacio2, constraints);
         constraints.weighty = 0.0;
 
+
+
         // Jpanels vacio
-        JPanel jpvacio3 = new JPanel();
+        JPanel jpvacio3 = new JPanel(new BorderLayout());
         jpvacio3.setBackground(Color.DARK_GRAY);
         constraints.gridx =0;
         constraints.gridy =10;
@@ -149,6 +152,15 @@ public class BoardView extends JPanel {
         constraints.weightx = 1.0;
         informacion.add(jpvacio3, constraints);
         constraints.weightx = 0.0;
+
+        // Go back
+        back = new JButton("Go back");
+        back.setActionCommand(BOARD_BACK);
+        back.addActionListener(listener);
+        back.setBackground(Color.WHITE);
+        back.setBorderPainted(false);
+        jpvacio3.add(back, BorderLayout.EAST);
+
 
         // Titulo
         JLabel lblinfo = new JLabel("Information",SwingConstants.CENTER);
@@ -291,11 +303,6 @@ public class BoardView extends JPanel {
         JLabel lblMoneyIcon = new JLabel(" $");
         infoMoney.add(lblMoneyIcon);
 
-        back = new JButton("Go back");
-        back.setActionCommand(BOARD_BACK);
-        back.addActionListener(listener);
-        infoMoney.add(back);
-
         mLivesPLayer = new DefaultBoundedRangeModel();
         mLivesPLayer.setMinimum(0);
         mLivesPLayer.setMaximum(4000);
@@ -303,6 +310,8 @@ public class BoardView extends JPanel {
         JProgressBar pBlivesPlayer = new JProgressBar(mLivesPLayer); // AQUI EN EL TASK VA VINCULAT AMB EL JOC EN DIRECTE
         pBlivesPlayer.setStringPainted(true);
         pBlivesPlayer.setOrientation(SwingConstants.VERTICAL);
+        //pBlivesPlayer.setBackground(Color.CYAN);
+       // pBlivesPlayer.setOpaque(true);
         infoLifes.add(pBlivesPlayer);
 
         mLivesIA = new DefaultBoundedRangeModel();
