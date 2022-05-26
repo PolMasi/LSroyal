@@ -1,5 +1,9 @@
 package com.company.Persistence;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.*;
 
 public class UserSQL implements UserDAO {
@@ -10,14 +14,16 @@ public class UserSQL implements UserDAO {
     private final String dbUrl;
     private final int port;
     private Connection con;
+    private String userID;
 
-    public UserSQL(String dbName, String dbUser, String password, String dbIP, int port) {
+    public UserSQL(String dbName, String dbUser, String password, String dbIP, int port, String userID) {
         this.dbName = dbName;
         this.dbUser = dbUser;
         this.password = password;
         this.dbIP = dbIP;
         this.dbUrl = "jdbc:mysql://" + dbIP + ":" + port + "/" + dbName;
         this.port = port;
+        this.userID = userID;
         getConexion();
     }
 
@@ -140,7 +146,7 @@ public class UserSQL implements UserDAO {
         ResultSet rs;
         String result = null;
 
-        String sql = "SELECT Usuario as user FROM usuarios WHERE (Usuario like ? or Mail like ?)";
+        String sql = "SELECT Usuario as user, ID FROM usuarios WHERE (Usuario like ? or Mail like ?)";
 
         try {
             ps = con.prepareStatement(sql);
@@ -153,6 +159,7 @@ public class UserSQL implements UserDAO {
             while (rs.next()) {
 
                 result = rs.getString("user");
+                saveUserID(rs.getInt("ID"));
 
             }
 
@@ -168,7 +175,41 @@ public class UserSQL implements UserDAO {
 
     }
 
+    @Override
+    public int userID() {
+
+        try {
+            FileReader reader = new FileReader(userID);
+
+            return Character.getNumericValue(reader.read());
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
+
+    private void saveUserID(int ID){
+
+        try {
+            PrintWriter writer = new PrintWriter(userID);
+            writer.print(ID);
+            writer.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    }
+
+
 
 
 

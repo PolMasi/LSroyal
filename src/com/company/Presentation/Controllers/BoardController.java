@@ -1,6 +1,7 @@
 package com.company.Presentation.Controllers;
 
 import com.company.Business.LogicModel;
+import com.company.Persistence.GameDAO;
 import com.company.Presentation.MainController;
 import com.company.Presentation.MainView;
 import com.company.Presentation.Views.BoardView;
@@ -30,6 +31,8 @@ public class BoardController implements ActionListener {
     public static final String LOSE = "Sorry! You have lose!";
     public static final String SAVE = " Do you want to save the game?";
     public static final String LEAVE = "Are you sure you want leave the game? This game will count as lose";
+    public static final String GAME_NAME = "Please, enter the name of the saved game:";
+    public static final String GAME_NAME_EXIST = "There is already a game with that name";
 
     public BoardController(LogicModel logicModel, BoardView boardView, MainController mainController) {
         this.boardView = boardView;
@@ -89,16 +92,24 @@ public class BoardController implements ActionListener {
         if ((userHealth <= 0 || computerHealth <= 0) && !endGame) {
             boardView.setTimer(false);
             endGame = true;
-            endGame(userHealth > 0);
+            if(userHealth > 0){
+
+                endGame(1);
+
+            }else{
+
+                endGame(0);
+            }
+
         }
     }
 
-    private void endGame(boolean win) {
+    private void endGame(int win) {
         String text;
 
         timer.shutdown();
 
-        if(win) {
+        if(win == 1) {
             text = WIN;
         }
         else {
@@ -108,7 +119,17 @@ public class BoardController implements ActionListener {
         text = text + SAVE;
 
         if (mainController.showConfirm(text, SAVE_OPTIONS) == 0) {
+
             System.out.println("Saving game");
+            String gameName = mainController.showInput(GAME_NAME);
+            while(!logicModel.saveGame(gameName, win)){
+
+                gameName = mainController.showInput(GAME_NAME_EXIST);
+
+
+            }
+
+
         }
 
         mainController.switchView(MainView.MENU_VIEW);

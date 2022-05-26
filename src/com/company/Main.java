@@ -19,7 +19,7 @@ public class Main {
 
         Configuration configuration = new Configuration("files/offensive.json", "files/defensive.json", "files/config.json");
         configuration.loadOffensiveTroops();
-        UserDAO userdao = new UserSQL(configuration.getName(), configuration.getUser(), configuration.getPassword(), configuration.getIP(), Integer.parseInt(configuration.getPort()));
+        UserDAO userdao = new UserSQL(configuration.getName(), configuration.getUser(), configuration.getPassword(), configuration.getIP(), Integer.parseInt(configuration.getPort()), "files/user.txt");
         GameDAO gamedao = new GameSQL(configuration.getName(), configuration.getUser(), configuration.getPassword(), configuration.getIP(), Integer.parseInt(configuration.getPort()));
 
         //ArrayList<String[]> nombre = gameSQL.getMatchList("gerard4");
@@ -69,7 +69,7 @@ public class Main {
 
         UserOption userOption = new UserOption();
         UserModel loginModel = new UserModel(userdao, userOption);
-        LogicModel logicModel = new LogicModel(configurationDAO.loadOffensiveTroops(), configurationDAO.loadDefensiveTroops(), gamedao);
+        LogicModel logicModel = new LogicModel(configurationDAO.loadOffensiveTroops(), configurationDAO.loadDefensiveTroops(), gamedao, userdao);
 
         LoginController loginController = new LoginController(loginModel, loginView, mainController);
         SignUpController signUpController = new SignUpController(loginModel, signupView, mainController);

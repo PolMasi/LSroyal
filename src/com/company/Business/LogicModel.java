@@ -5,6 +5,7 @@ import com.company.Business.Entities.Offensive;
 import com.company.Business.Entities.Tower;
 import com.company.Business.Entities.Troop;
 import com.company.Persistence.GameDAO;
+import com.company.Persistence.UserDAO;
 import com.company.Presentation.Views.BoardView;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class LogicModel implements Runnable {
     private ArrayList<Offensive> listOffensive;
     private ArrayList<Defensive> listDefensive;
     private GameDAO gamedao;
+    private UserDAO userDAO;
 
     private int counter;
     private int computerHealth;
@@ -31,10 +33,11 @@ public class LogicModel implements Runnable {
         return userMoney;
     }
 
-    public LogicModel(ArrayList<Offensive> listOffensive, ArrayList<Defensive> listDefensive, GameDAO gamedao) {
+    public LogicModel(ArrayList<Offensive> listOffensive, ArrayList<Defensive> listDefensive, GameDAO gamedao, UserDAO userDAO) {
         this.listOffensive = listOffensive;
         this.listDefensive = listDefensive;
         this.gamedao = gamedao;
+        this.userDAO = userDAO;
         this.selectTroop = new Random();
         startGame();
     }
@@ -83,6 +86,7 @@ public class LogicModel implements Runnable {
         userHealth = 4000;
         matrixTroops = new Troop[BoardView.ROWS][BoardView.COLUMNS];
         invokeTowers();
+        System.out.println(userDAO.userID());
     }
 
     public void invokeTowers(){
@@ -414,7 +418,12 @@ public class LogicModel implements Runnable {
         return board;
     }
 
+    public boolean saveGame(String gameName, int win){
 
+      return  gamedao.saveGame(userDAO.userID(), gameName, win);
+
+
+    }
 
 
 }

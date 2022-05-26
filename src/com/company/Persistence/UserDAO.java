@@ -6,5 +6,6 @@ public interface UserDAO {
     boolean checkUserName(String name);
     boolean delete(String user);
     String getUserName(String mail);
+    int userID();
 
 }

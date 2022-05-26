@@ -102,32 +102,31 @@ public class GameSQL implements GameDAO {
     }
 
 
-    public void saveMovement(String movement, int gameID){
+    public void saveMovement(int gameID, String movement){
 
 
 
-        /*PreparedStatement ps;
-        String sql = "INSERT INTO usuarios (Usuario, Contraseña, Mail) VALUES (?, ?, ?)";
+        PreparedStatement ps;
+        String sql = "INSERT INTO movimientos (partida_ID, estado) VALUES (?, ?)";
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, user);
-            ps.setString(2, pass);
-            ps.setString(3, mail);
+            ps.setInt(1, gameID);
+            ps.setString(2, movement);
             ps.execute();
 
-            return true;
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return false;
-        }*/
+
+        }
 
 
     }
 
     @Override
-    public boolean saveGame(String gameName, int result) {
+    public boolean saveGame(int userID, String gameName, int result) {
 
 
         if(!checkGameName(gameName)){
@@ -135,17 +134,19 @@ public class GameSQL implements GameDAO {
             return false;
 
         }
-        createGame(gameName,result);
+
+        int gameID = createGame(userID, gameName,result);
+
 
         for (String movement: moveList) {
 
-            //saveMovement(movement);
+            saveMovement(gameID, movement);
 
         }
               return true;
     }
 
-    public int createGame(String gameName, int result){
+    public int createGame(int userID, String gameName, int result){
 
         PreparedStatement ps;
         ResultSet rs;
@@ -157,13 +158,13 @@ public class GameSQL implements GameDAO {
             ps = con.prepareStatement(sql);
             ps.setString(1, "'" + gameName + "'" );
             ps.setInt(2, result);
-            /*ps.setString(3,);*/
+            ps.setInt(3,userID);
             ps.execute();
 
             sql = "SELECT ID FROM partidas WHERE usuario_ID = ? AND nombre LIKE ?";
 
             ps = con.prepareStatement(sql);
-            //ps.setInt(1,);
+            ps.setInt(1,userID);
             ps.setString(2,"'" + gameName + "'");
             rs = ps.executeQuery();
 
