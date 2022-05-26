@@ -1,9 +1,6 @@
 package com.company.Presentation;
 
-import com.company.Presentation.Views.LoginView;
-import com.company.Presentation.Views.MenuView;
-import com.company.Presentation.Views.SignupView;
-import com.company.Presentation.Views.StartView;
+import com.company.Presentation.Views.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,7 +66,8 @@ public class MainController implements ActionListener {
             case LoginView.LOGIN_BACK_BTN:
                 mainView.switchView(MainView.START_VIEW);
                 break;
-
+            case RankingView
+                    .RANKING_BACK:
             case LoginView.BUTTON_LOGIN:
                 mainView.switchView(MainView.MENU_VIEW);
                 break;

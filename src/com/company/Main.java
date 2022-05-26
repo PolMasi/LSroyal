@@ -22,6 +22,7 @@ public class Main {
         UserDAO userdao = new UserSQL(configuration.getName(), configuration.getUser(), configuration.getPassword(), configuration.getIP(), Integer.parseInt(configuration.getPort()), "files/user.txt");
         GameDAO gamedao = new GameSQL(configuration.getName(), configuration.getUser(), configuration.getPassword(), configuration.getIP(), Integer.parseInt(configuration.getPort()));
 
+
         //ArrayList<String[]> nombre = gameSQL.getMatchList("gerard4");
 
 
@@ -63,8 +64,9 @@ public class Main {
         LogoutView logoutView = new LogoutView();
         BoardView boardView = new BoardView();
         MenuView menuView = new MenuView();
+        RankingView rankingView = new RankingView();
 
-        MainView mainView = new MainView(loginView,logoutView,signupView, startView, boardView, menuView);
+        MainView mainView = new MainView(loginView,logoutView,signupView, startView, boardView, menuView, rankingView);
         MainController mainController = new MainController(mainView);
 
         UserOption userOption = new UserOption();
@@ -75,7 +77,7 @@ public class Main {
         SignUpController signUpController = new SignUpController(loginModel, signupView, mainController);
         LogoutController logoutController = new LogoutController(loginModel, logoutView, mainController);
         BoardController boardController = new BoardController(logicModel,boardView, mainController);
-        MenuController menuController = new MenuController(menuView, mainController);
+        MenuController menuController = new MenuController(menuView, loginModel, mainController, rankingView);
         startView.registerDeleteController(logoutController);
 
         mainView.setVisible(true);

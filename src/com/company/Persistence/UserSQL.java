@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class UserSQL implements UserDAO {
     private final String dbName;
@@ -14,7 +15,7 @@ public class UserSQL implements UserDAO {
     private final String dbUrl;
     private final int port;
     private Connection con;
-    private String userID;
+    private String userIDpath;
 
     public UserSQL(String dbName, String dbUser, String password, String dbIP, int port, String userID) {
         this.dbName = dbName;
@@ -23,7 +24,7 @@ public class UserSQL implements UserDAO {
         this.dbIP = dbIP;
         this.dbUrl = "jdbc:mysql://" + dbIP + ":" + port + "/" + dbName;
         this.port = port;
-        this.userID = userID;
+        this.userIDpath = userID;
         getConexion();
     }
 
@@ -72,13 +73,53 @@ public class UserSQL implements UserDAO {
 
     public boolean validSignUp(String user, String pass, String mail) {
         PreparedStatement ps;
-        String sql = "INSERT INTO usuarios (Usuario, Contraseña, Mail) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO usuarios (Usuario, Contraseña, Mail, Victorias, Partidas) VALUES (?, ?, ?, 0, 0)";
 
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, user);
             ps.setString(2, pass);
             ps.setString(3, mail);
+            ps.execute();
+
+            return true;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public boolean addVictory(int userID) {
+
+        PreparedStatement ps;
+        //comando sql
+        String sql = "UPDATE usuarios SET Victorias = Victorias + 1 WHERE ID = ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, userID);
+            ps.execute();
+
+            return true;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public boolean addGame(int userID) {
+
+        PreparedStatement ps;
+        //comando sql
+        String sql = "UPDATE usuarios SET Partidas = Partidas + 1 WHERE ID = ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, userID);
             ps.execute();
 
             return true;
@@ -179,7 +220,7 @@ public class UserSQL implements UserDAO {
     public int userID() {
 
         try {
-            FileReader reader = new FileReader(userID);
+            FileReader reader = new FileReader(userIDpath);
 
             return Character.getNumericValue(reader.read());
 
@@ -195,13 +236,52 @@ public class UserSQL implements UserDAO {
     private void saveUserID(int ID){
 
         try {
-            PrintWriter writer = new PrintWriter(userID);
+            PrintWriter writer = new PrintWriter(userIDpath);
             writer.print(ID);
             writer.close();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+
+    }
+
+    public ArrayList<String[]> getRanking() {
+
+        PreparedStatement ps;
+        ResultSet rs;
+        ArrayList<String[]> result = new ArrayList<>();
+
+        String sql = "SELECT Usuario, Victorias, Victorias/Jugadas AS Ratio FROM usuarios ORDER BY Ratio DESC;";
+
+        try {
+            ps = con.prepareStatement(sql);
+
+
+            rs = ps.executeQuery();
+
+
+
+            while (rs.next()) {
+                String[] results = new String[3];
+
+                results[0] = rs.getString("Usuario");
+                results[1] = String.valueOf(rs.getInt("Victorias"));
+                results[2] = String.valueOf(rs.getInt("Ratio"));
+
+                result.add(results);
+            }
+
+
+        } catch (SQLException throwables) {
+
+            throwables.printStackTrace();
+            return null;
+
+        }
+
+        return result;
 
 
     }

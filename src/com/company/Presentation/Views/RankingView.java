@@ -4,16 +4,24 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 //http://codejavu.blogspot.com/2013/10/ejemplo-jtable.html
 // http://www.chuidiang.org/java/layout/GridBagLayout/GridBagLayout.php
 // https://docs.oracle.com/javase/tutorial/uiswing/components/table.html
 
 // FALTA PODER CLICKAR SOBRE UN USUARI, I QUE SORTI LA INFO DE LS PARTIDES GUARDADES.
-public class RankingView extends JFrame {
+public class RankingView extends JPanel {
     //private GridLayout gridBoard;
-    JPanel board;
-    JButton back ;
-    JTable table1;
+    private JPanel board;
+    private JButton back ;
+    private DefaultTableModel model;
+    private String[][] data ;
+    private JTable table1;
+    private static final String titulos[] = { "Player", "Wins", "Average" };
+    public static final String RANKING_BACK = "RANKING_BACK";
+
+
     public RankingView() {
 
         board = new JPanel(new BorderLayout());
@@ -36,36 +44,14 @@ public class RankingView extends JFrame {
         superiorPanel.add(refresh, BorderLayout.SOUTH);
 
         back = new JButton("BACK");
+        back.setActionCommand(RANKING_BACK);
         superiorPanel.add(back, BorderLayout.EAST);
         board.add(superiorPanel, BorderLayout.NORTH);
 
-        String[][] data = {  //     prova per veure si funciona realment aixo ha d'anar conectat a la bbdd
-                { "Kundan Kumar Jha", "4031", "CSE" },
-                { "Anand Jha", "6014", "IT" },
-                { "Kundan Kumar Jha", "4031", "CSE" },
-                { "Anand Jha", "6014", "IT" },
-                { "Kundan Kumar Jha", "4031", "CSE" },
-                { "Anand Jha", "6014", "IT" },
-                { "Kundan Kumar Jha", "4031", "CSE" },
-                { "Anand Jha", "6014", "IT" },
-                { "Kundan Kumar Jha", "4031", "CSE" },
-                { "Anand Jha", "6014", "IT" },{ "Kundan Kumar Jha", "4031", "CSE" },
-                { "Anand Jha", "6014", "IT" },
-                { "Kundan Kumar Jha", "4031", "CSE" },
-                { "Anand Jha", "6014", "IT" },
-                { "Kundan Kumar Jha", "4031", "CSE" },
-                { "Anand Jha", "6014", "IT" },
-                { "Kundan Kumar Jha", "4031", "CSE" },
-                { "Anand Jha", "6014", "IT" },
-                { "Kundan Kumar Jha", "4031", "CSE" },
-                { "Anand Jha", "6014", "IT" },
-                { "Kundan Kumar Jha", "4031", "CSE" },
-                { "Se acabo", "6014", "IT" }
-        };
+
         // GERARD, HE POSAT AQUESTA STRING TAN LLARGA PER FER PROVES, REALMENT ON S'OBTE LA INFO DE LA BBDD ES EN EL METODE obtieneMariz()
         // String data[][] = obtieneMariz();
-        String titulos[] = { "Player", "Wins", "Average" };
-        TableModel model = new DefaultTableModel(data, titulos);
+        model = new DefaultTableModel(data, titulos);
         table1 = new JTable(model);
         table1.getTableHeader().setToolTipText("Click to sort"); // si l'usuari posa el ratoli a sobre de la columna, li indica aixo
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
@@ -75,28 +61,18 @@ public class RankingView extends JFrame {
         board.add(table, BorderLayout.CENTER);
         add(board);
     }
-    // GERARD, AQUI HAS DE TREBALLAR TU, AMB LA BBDD, AQUEST EXEMPLE ESTA TRET D'UNA WEB QUE HE POSAT AL PRINCIPI
 
-   /* private String[][] obtieneMariz() {
-        PersonaDao miPersonaDao = new PersonaDao();*/
-        /**
-         * llamamos al metodo que retorna la info de la BD y la almacena en la
-         * lista
-         */
-       // ArrayList< PersonaVo > miLista = miPersonaDao.buscarUsuariosConMatriz();
-        /**
-         * como sabemos que son 5 campos, definimos ese valor por defecto para
-         * las columnas las filas dependen de los registros retornados
-         */
-       /* String informacion[][] = new String[miLista.size()][5];
+    public void updateTable(String[][] table) {
 
-        for (int x = 0; x < informacion.length; x++) {
-            informacion[x][0] = miLista.get(x).getIdPersona() + "";
-            informacion[x][1] = miLista.get(x).getNombrePersona() + "";
-            informacion[x][2] = miLista.get(x).getProfesionPersona() + "";
-            informacion[x][3] = miLista.get(x).getEdadPersona() + "";
-            informacion[x][4] = miLista.get(x).getTelefonoPersona() + "";
-        }
-        return informacion;
-    }*/
+        model = new DefaultTableModel(table, titulos);
+        table1 = new JTable(model);
+        model.fireTableDataChanged();
+        table1.repaint();
+    }
+
+    public void  registerController(ActionListener listener) {
+
+        back.addActionListener(listener);
+    }
+
 }
