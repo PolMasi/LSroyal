@@ -9,13 +9,14 @@ import com.company.Presentation.MainController;
 import com.company.Presentation.MainView;
 import com.company.Presentation.Views.*;
 
-import java.sql.DriverManager;
 import java.util.ArrayList;
 
+/**
+ * Realitzem totes les comandes per poder executar el programa
+ */
 public class Main {
 
     public static void main(String[] args) {
-
 
         Configuration configuration = new Configuration("files/offensive.json", "files/defensive.json", "files/config.json");
         configuration.loadOffensiveTroops();
@@ -24,9 +25,8 @@ public class Main {
 
         //ArrayList<String[]> nombre = gameSQL.getMatchList("gerard4");
 
-
-
         ConfigurationDAO configurationDAO = new ConfigurationDAO() {
+
             @Override
             public void loadConfigFile() {
 
@@ -79,7 +79,6 @@ public class Main {
         startView.registerDeleteController(logoutController);
 
         mainView.setVisible(true);
-
 
     }
 }

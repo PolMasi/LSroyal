@@ -5,8 +5,8 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 //http://codejavu.blogspot.com/2013/10/ejemplo-jtable.html
-// http://www.chuidiang.org/java/layout/GridBagLayout/GridBagLayout.php
-// https://docs.oracle.com/javase/tutorial/uiswing/components/table.html
+//http://www.chuidiang.org/java/layout/GridBagLayout/GridBagLayout.php
+//https://docs.oracle.com/javase/tutorial/uiswing/components/table.html
 
 // FALTA PODER CLICKAR SOBRE UN USUARI, I QUE SORTI LA INFO DE LS PARTIDES GUARDADES.
 public class RankingView extends JFrame {

@@ -8,27 +8,39 @@ import com.company.Presentation.Views.StartView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Serveix per canviar de vistes segons el buto que es premi
+ */
 public class MainController implements ActionListener {
     private MainView mainView;
 
-
+    /**
+     * Inicialitzem la classe mainView
+     * @param mainView classe de totes les vistes
+     */
     public MainController(MainView mainView) {
         this.mainView = mainView;
 
         mainView.setListeners(this);
     }
 
+    /**
+     * Asignem el listener al controller del taulell
+     * @param listener parametre per sabes on estem
+     */
     public void setBoardController(ActionListener listener) {
         mainView.setBoardListener(listener);
     }
 
     /**
-     * Funcion para cambiar la vista desde el controller
+     * Funcio per canviar de vista desde el controller
      * @param view
      */
     public void switchView(String view) {
         mainView.switchView(view);
     }
+
+
 
     public void showError(String error) {
         mainView.showError(error);

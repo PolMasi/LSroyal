@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Configurem totes les vistes del videojoc per poder canviar en funcio de les voluntats de lusuari
+ */
 public class MainView extends JFrame {
     private LoginView loginView;
     private LogoutView logoutView;
@@ -13,7 +16,6 @@ public class MainView extends JFrame {
     private StartView startView;
     private BoardView boardView;
     private MenuView menuView;
-
 
     private CardLayout cardLayout;      // gestionaremos como una baraja de cartas y este tendra todas las vista(cartas)
 
@@ -27,7 +29,15 @@ public class MainView extends JFrame {
     public static final String TITLE = "LSROYAL";
     public static final String DELETE_MSG = "If you want to delete an account. Please enter your username:";
 
-
+    /**
+     * Constructor on inicialitzem totes les vistes
+     * @param loginView vista de inicar sessio
+     * @param logoutView vista de sortir sessio
+     * @param signupView vista per registrarse
+     * @param startView vista principal per recaudar dades de lusuari
+     * @param boardView vista on es fa tota la logica del joc
+     * @param menuView vista del menu principal del joc
+     */
     public MainView(LoginView loginView, LogoutView logoutView, SignupView signupView,
                     StartView startView, BoardView boardView, MenuView menuView) {
         this.startView = startView;
@@ -50,9 +60,6 @@ public class MainView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);     //que pasara cuando cierres la pantalla //Acabar el programa
     }
 
-    /**
-     * Añadimos todas las vistas al cardlayout
-     */
     private void configureLayout() {
         cardLayout = new CardLayout();
         this.setLayout(cardLayout);     //asignamos a esta ventana el cardlayout
@@ -68,15 +75,15 @@ public class MainView extends JFrame {
 
     /**
      * Cambiar de vista
-     * @param view String que identifica la vista que hay que cambiar
+     * @param view String que identifica la vista que sha de canviar
      */
     public void switchView(String view) {
         cardLayout.show(getContentPane(),view);
     }
 
     /**
-     * Asignar el mismo listener a todas las vistas
-     * @param listener
+     * Assignem el mateix listener a totes les vistes
+     * @param listener paramatre per saber on estem
      */
     public void setListeners(ActionListener listener){
         loginView.registerController(listener);
@@ -87,19 +94,38 @@ public class MainView extends JFrame {
 
     }
 
+    /**
+     * Assginem el listener a la taulell
+     * @param listener paramatre per saber on estem
+     */
     public void setBoardListener(ActionListener listener) {
         menuView.registerBoardController(listener);
     }
 
+    /**
+     * Mostrar un pop
+     * @param text String on escriurem les instruccions
+     * @param questions String amb les diferents opcions
+     * @return retorna les dades introduides
+     */
     public int showConfirmPopUp(String text, String[] questions) {
         return JOptionPane.showOptionDialog(this, text, null, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, questions, questions[0]);
 
     }
 
+    /**
+     * Mostrar un erorr
+     * @param error String amb lerror cometes
+     */
     public void showError(String error) {
         JOptionPane.showMessageDialog(this, error);
     }
 
+    /**
+     * Mostrar un PopUp
+     * @param text String del text que es vol informar
+     * @return retorna una String amb el missatge
+     */
     public String showInputPopUp(String text){
 
         String message = JOptionPane.showInputDialog(this, text);
