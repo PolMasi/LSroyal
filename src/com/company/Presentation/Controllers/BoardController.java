@@ -92,9 +92,14 @@ public class BoardController implements ActionListener {
         if ((userHealth <= 0 || computerHealth <= 0) && !endGame) {
             boardView.setTimer(false);
             endGame = true;
+
+            //sumamos un total de partidas jugadas del usuario
+            logicModel.addGame();
             if(userHealth > 0){
 
+                logicModel.addVictory();
                 endGame(1);
+
 
             }else{
 

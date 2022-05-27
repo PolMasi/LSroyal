@@ -425,6 +425,16 @@ public class LogicModel implements Runnable {
 
     }
 
+    public void addVictory() {
+
+        userDAO.addVictory(userDAO.userID());
+    }
+
+    public void addGame() {
+
+        userDAO.addGame(userDAO.userID());
+    }
+
 
 }
 

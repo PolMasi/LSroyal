@@ -2,6 +2,8 @@ package com.company.Business;
 
 import com.company.Persistence.UserDAO;
 
+import java.util.ArrayList;
+
 public class UserModel {
 
     private UserDAO userDAO;
@@ -111,6 +113,18 @@ public class UserModel {
     }
 
 
+    //convertimos de array list a matriz
+    public String[][] getRanking () {
+
+        ArrayList<String[]> list =userDAO.getRanking();
+
+        String[][] matrix = new String[list.size()][3];
+
+        for (int i = 0; i < list.size(); i++) {
+            matrix[i] = list.get(i);
+        }
+        return matrix;
+    }
 
 
 }

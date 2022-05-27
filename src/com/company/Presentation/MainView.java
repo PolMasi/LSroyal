@@ -16,6 +16,7 @@ public class MainView extends JFrame {
     private StartView startView;
     private BoardView boardView;
     private MenuView menuView;
+    private RankingView rankingView;
 
     private CardLayout cardLayout;      // gestionaremos como una baraja de cartas y este tendra todas las vista(cartas)
 
@@ -25,6 +26,8 @@ public class MainView extends JFrame {
     public static final String START_VIEW = "START_VIEW";
     public static final String BOARD_VIEW = "BOARD_VIEW";
     public static final String MENU_VIEW = "MENU_VIEW";
+    public static final String RANKING_VIEW = "RANKING_VIEW";
+
 
     public static final String TITLE = "LSROYAL";
     public static final String DELETE_MSG = "If you want to delete an account. Please enter your username:";
@@ -39,13 +42,14 @@ public class MainView extends JFrame {
      * @param menuView vista del menu principal del joc
      */
     public MainView(LoginView loginView, LogoutView logoutView, SignupView signupView,
-                    StartView startView, BoardView boardView, MenuView menuView) {
+                    StartView startView, BoardView boardView, MenuView menuView, RankingView rankingView) {
         this.startView = startView;
         this.loginView = loginView;
         this.logoutView = logoutView;
         this.signupView = signupView;
         this.boardView = boardView;
         this.menuView = menuView;
+        this.rankingView = rankingView;
 
         configureLayout();
         configurationFrame();
@@ -71,6 +75,7 @@ public class MainView extends JFrame {
         this.add(String.valueOf(CardEnum.LOGOUT_VIEW), logoutView);
         this.add(String.valueOf(CardEnum.MENU_VIEW), menuView);
         this.add(MainView.BOARD_VIEW, boardView);
+        this.add(MainView.RANKING_VIEW, rankingView);
     }
 
     /**
@@ -91,6 +96,7 @@ public class MainView extends JFrame {
         startView.registerController(listener);
         signupView.registerController(listener);
         menuView.registerController(listener);
+        rankingView.registerController(listener);
 
     }
 
