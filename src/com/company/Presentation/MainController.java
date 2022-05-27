@@ -78,8 +78,7 @@ public class MainController implements ActionListener {
             case LoginView.LOGIN_BACK_BTN:
                 mainView.switchView(MainView.START_VIEW);
                 break;
-            case RankingView
-                    .RANKING_BACK:
+            case RankingView.RANKING_BACK:
             case LoginView.BUTTON_LOGIN:
                 mainView.switchView(MainView.MENU_VIEW);
                 break;
