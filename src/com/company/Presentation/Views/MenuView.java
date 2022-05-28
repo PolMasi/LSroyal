@@ -155,6 +155,12 @@ public class MenuView extends JPanel {
         playGame.addActionListener(listener);
     }
 
+    public void registerGameListController(ActionListener listener){
+
+        reproduce.addActionListener(listener);
+
+    }
+
 
 
 }

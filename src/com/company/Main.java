@@ -9,6 +9,7 @@ import com.company.Presentation.MainController;
 import com.company.Presentation.MainView;
 import com.company.Presentation.Views.*;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -64,19 +65,22 @@ public class Main {
         BoardView boardView = new BoardView();
         MenuView menuView = new MenuView();
         RankingView rankingView = new RankingView();
+        GameListView gameListView = new GameListView();
 
-        MainView mainView = new MainView(loginView, signupView, startView, boardView, menuView, rankingView);
+        MainView mainView = new MainView(loginView, signupView, startView, boardView, menuView, rankingView, gameListView);
         MainController mainController = new MainController(mainView);
 
         UserOption userOption = new UserOption();
         UserModel loginModel = new UserModel(userdao, userOption);
         LogicModel logicModel = new LogicModel(configurationDAO.loadOffensiveTroops(), configurationDAO.loadDefensiveTroops(), gamedao, userdao);
+        SwingUtilities.invokeLater(logicModel);
+
 
         LoginController loginController = new LoginController(loginModel, loginView, mainController);
         SignUpController signUpController = new SignUpController(loginModel, signupView, mainController);
         BoardController boardController = new BoardController(logicModel,boardView, mainController);
         MenuController menuController = new MenuController(menuView, loginModel, mainController, rankingView);
-
+        GameListController gameListController = new GameListController(logicModel, gameListView, mainController);
         mainView.setVisible(true);
 
     }

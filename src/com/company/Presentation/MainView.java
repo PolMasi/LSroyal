@@ -16,6 +16,7 @@ public class MainView extends JFrame {
     private BoardView boardView;
     private MenuView menuView;
     private RankingView rankingView;
+    private GameListView gameListView;
 
     private CardLayout cardLayout;      // gestionaremos como una baraja de cartas y este tendra todas las vista(cartas)
 
@@ -26,6 +27,7 @@ public class MainView extends JFrame {
     public static final String BOARD_VIEW = "BOARD_VIEW";
     public static final String MENU_VIEW = "MENU_VIEW";
     public static final String RANKING_VIEW = "RANKING_VIEW";
+    public static final String GAMELIST_VIEW = "GAMELIST_VIEW";
 
 
     public static final String TITLE = "LSROYAL";
@@ -39,14 +41,14 @@ public class MainView extends JFrame {
      * @param boardView vista on es fa tota la logica del joc
      * @param menuView vista del menu principal del joc
      */
-    public MainView(LoginView loginView, SignupView signupView,
-                    StartView startView, BoardView boardView, MenuView menuView, RankingView rankingView) {
+    public MainView(LoginView loginView, SignupView signupView, StartView startView, BoardView boardView, MenuView menuView, RankingView rankingView, GameListView gameListView) {
         this.startView = startView;
         this.loginView = loginView;
         this.signupView = signupView;
         this.boardView = boardView;
         this.menuView = menuView;
         this.rankingView = rankingView;
+        this.gameListView = gameListView;
 
         configureLayout();
         configurationFrame();
@@ -72,6 +74,7 @@ public class MainView extends JFrame {
         this.add(MainView.MENU_VIEW, menuView);
         this.add(MainView.BOARD_VIEW, boardView);
         this.add(MainView.RANKING_VIEW, rankingView);
+        this.add(MainView.GAMELIST_VIEW, gameListView);
     }
 
     /**
@@ -102,7 +105,18 @@ public class MainView extends JFrame {
      */
     public void setBoardListener(ActionListener listener) {
         menuView.registerBoardController(listener);
+
+
     }
+
+    public void setGameListListener(ActionListener listener){
+
+        menuView.registerGameListController(listener);
+
+
+    }
+
+
 
     /**
      * Mostrar un pop

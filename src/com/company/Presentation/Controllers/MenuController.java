@@ -56,6 +56,8 @@ public class MenuController implements ActionListener {
             mainController.switchView(MainView.RANKING_VIEW);
             break;
 
+            case MenuView.REPRODUCE_BTN:  mainController.switchView(MainView.GAMELIST_VIEW);
+
         }
 
 

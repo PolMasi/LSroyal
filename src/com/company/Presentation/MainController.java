@@ -29,6 +29,12 @@ public class MainController implements ActionListener {
         mainView.setBoardListener(listener);
     }
 
+
+    public void setGameListController(ActionListener actionListener){
+
+        mainView.setGameListListener(actionListener);
+
+    }
     /**
      * Funcio per canviar de vista desde el controller
      * @param view

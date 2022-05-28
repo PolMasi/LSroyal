@@ -436,5 +436,18 @@ public class LogicModel implements Runnable {
     }
 
 
+    public String [][] getGames(){
+
+        ArrayList<String[]> list = gamedao.getSavedGames(userDAO.userID());
+
+        String[][] matrix = new String[list.size()][4];
+
+        for (int i = 0; i < list.size(); i++) {
+            matrix[i] = list.get(i);
+        }
+        return matrix;
+
+
+    }
 }
 

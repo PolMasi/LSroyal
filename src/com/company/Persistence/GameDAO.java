@@ -10,5 +10,6 @@ public interface GameDAO {
     void matrixToJson(String [][][] matrix);
     void saveMovement(int gameID, String movement);
     boolean saveGame(int userID, String name, int result);
+    ArrayList <String []> getSavedGames(int userID);
 
 }

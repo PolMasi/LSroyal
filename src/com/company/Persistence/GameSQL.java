@@ -215,7 +215,50 @@ public class GameSQL implements GameDAO {
     }
 
 
+  public ArrayList <String []> getSavedGames(int userID){
+
+      PreparedStatement ps;
+      ResultSet rs;
+      ArrayList<String[]> result = new ArrayList<>();
+
+      String sql = "SELECT ID, nombre, fecha, resultado FROM partidas WHERE usuario_ID = ?;";
+
+      try {
+          ps = con.prepareStatement(sql);
+          ps.setInt(1, userID);
+          rs = ps.executeQuery();
+
+
+
+          while (rs.next()) {
+              String[] results = new String[4];
+
+              results[0] = String.valueOf(rs.getInt("ID"));
+              results[1] = rs.getString("nombre");
+              results[2] = rs.getString("fecha");
+              results[3] = String.valueOf(rs.getInt("resultado"));
+
+              result.add(results);
+          }
+
+
+      } catch (SQLException throwables) {
+
+          throwables.printStackTrace();
+          return null;
+
+      }
+
+      return result;
+
+
+  }
+
+
 
 
 
 }
+
+
+
