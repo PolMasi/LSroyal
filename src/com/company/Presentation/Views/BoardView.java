@@ -391,8 +391,8 @@ public class BoardView extends JPanel {
 
     /**
      * configuaricó de la cartas que es poden invocar
-     * @param offensive array de strign amb la informacion de les cartes ofesives
-     * @param defensive array de strign amb la informacion de les cartes defensives
+     * @param offensive array de string amb la informacion de les cartes ofesives
+     * @param defensive array de string amb la informacion de les cartes defensives
      * @param listener paramete per saber on estem
      */
     public void configureCards(String[] offensive, String[] defensive, ActionListener listener) {

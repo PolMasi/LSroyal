@@ -15,10 +15,10 @@ import java.awt.event.ActionListener;
 public class LoginController implements ActionListener {
     private UserModel userModel;
     private LoginView loginView;
-    private MainController mainController;      //TODO
+    private MainController mainController;
 
     /**
-     *
+     * Constructor on inicialitzem
      * @param userModel conté la informació del ususaris
      * @param loginView conté la informació de la vista del log in
      * @param mainController conte informació el controlador principal de les vistes
