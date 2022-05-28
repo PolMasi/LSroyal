@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Cotrol del panel del taulell de la partida
+ */
 public class BoardView extends JPanel {
     private GridLayout gridBoard;
     public static final int ROWS = 8;
@@ -28,20 +31,35 @@ public class BoardView extends JPanel {
 
     private Timer timer;
 
+    /**
+     * Constructor del joc
+     */
     public BoardView() {
         grids = new JPanel[ROWS][COLUMNS];
         timer = new Timer(500, null);
         gridButton = new JButton[ROWS][COLUMNS];
     }
 
+    /**
+     * getter de la parrilla
+     * @return la parrilla
+     */
     public JPanel[][] getGrids() {
         return grids;
     }
 
+    /**
+     * getter del boto de la partidda
+     * @return el boto
+     */
     public JButton[][] getGridButton() {
         return gridButton;
     }
 
+    /**
+     * Cotrolar el temps de joc
+     * @param t boolean que controla un if else
+     */
     public void setTimer(boolean t) {
         if (t) {
             timer.start();
@@ -51,6 +69,10 @@ public class BoardView extends JPanel {
         }
     }
 
+    /**
+     * configurar el panel del joc
+     * @param listener paramete per saber on estem
+     */
     public void configurePanel(ActionListener listener) {
         //Cada x tiempo se avisa al controller y este actualiza el dinero
         timer.addActionListener(listener);
@@ -347,17 +369,32 @@ public class BoardView extends JPanel {
     }
     // http://www.chuidiang.org/java/layout/GridBagLayout/GridBagLayout.php
 
-
+    /**
+     * Actulitza la vida de les torres de la partida
+     * @param userHealth enter amb el valor de la nostre torre
+     * @param computerHealth enter amb el valor de la torre de la computadora
+     */
     public void updateLife(int userHealth, int computerHealth) {
         mLivesPLayer.setValue(userHealth);
         mLivesIA.setValue(computerHealth);
     }
 
+    /**
+     * Actualitza la vida de les cartes de la partida
+     * @param userTroops enter amb el valor dels nostres personatges
+     * @param computerTroops enter amb el valor del personatges de la computadora
+     */
     public void updateTroopCounter(int userTroops, int computerTroops) {
         mTropesPlayer.setValue(userTroops);
         mTropesIA.setValue(computerTroops);
     }
 
+    /**
+     * configuaricó de la cartas que es poden invocar
+     * @param offensive array de strign amb la informacion de les cartes ofesives
+     * @param defensive array de strign amb la informacion de les cartes defensives
+     * @param listener paramete per saber on estem
+     */
     public void configureCards(String[] offensive, String[] defensive, ActionListener listener) {
 
         FlowLayout flow = new FlowLayout();
@@ -430,6 +467,10 @@ public class BoardView extends JPanel {
         game.add(flowLayout, BorderLayout.SOUTH);
     }
 
+    /**
+     * Actualitza continuament els del joc
+     * @param money enter amb el vlaor del diners
+     */
     public void updateMoney(int money) {
 
         lblMoneyTotal.setText(String.valueOf(money));

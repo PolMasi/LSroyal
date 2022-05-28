@@ -11,6 +11,10 @@ import java.util.ArrayList;
 //https://docs.oracle.com/javase/tutorial/uiswing/components/table.html
 
 // FALTA PODER CLICKAR SOBRE UN USUARI, I QUE SORTI LA INFO DE LS PARTIDES GUARDADES.
+
+/**
+ * Mostra el ranking de les partides jugades per numero de victories
+ */
 public class RankingView extends JPanel {
     //private GridLayout gridBoard;
     private JPanel board;
@@ -21,7 +25,9 @@ public class RankingView extends JPanel {
     private static final String titulos[] = { "Player", "Wins", "Average" };
     public static final String RANKING_BACK = "RANKING_BACK";
 
-
+    /**
+     * Contructor de la funció on es configura el panel
+     */
     public RankingView() {
 
         board = new JPanel(new BorderLayout());
@@ -62,6 +68,10 @@ public class RankingView extends JPanel {
         add(board);
     }
 
+    /**
+     * Actualizar el valor de la taula
+     * @param table array doble de string per situar el valor de la taula correctament
+     */
     public void updateTable(String[][] table) {
 
         model = new DefaultTableModel(table, titulos);
@@ -70,6 +80,10 @@ public class RankingView extends JPanel {
         table1.repaint();
     }
 
+    /**
+     * Cotrola un boto de sortida del panel
+     * @param listener paramete per saber on estem
+     */
     public void  registerController(ActionListener listener) {
 
         back.addActionListener(listener);

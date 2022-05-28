@@ -9,6 +9,9 @@ import com.company.Presentation.Views.SignupView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Controlar la funcionalitat del sign up
+ */
 public class SignUpController implements ActionListener {
     private SignupView signupView;
     private UserModel userModel;
@@ -16,6 +19,12 @@ public class SignUpController implements ActionListener {
 
     //TODO funcion mostrar error usuario
 
+    /**
+     * Constructor del sign up
+     * @param userModel conté la informació del ususaris
+     * @param signupView coné informació de la vista del sign up
+     * @param mainController conte informació el controlador principal de les vistes
+     */
     public SignUpController(UserModel userModel, SignupView signupView, MainController mainController) {
         this.signupView = signupView;
         this.userModel = userModel;
@@ -23,10 +32,17 @@ public class SignUpController implements ActionListener {
         registerSignUpListener();
     }
 
+    /**
+     * Boto per el registre del sign up
+     */
     public void registerSignUpListener() {
         this.signupView.registerSignUpController(this);
     }
 
+    /**
+     * mostra mistges depenent de la acció y el event actual al sign up
+     * @param e variable per controlar la acció
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 

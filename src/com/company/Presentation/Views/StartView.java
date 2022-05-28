@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+/**
+ * Controlar la pantalla d'inici
+ */
 public class StartView extends JPanel {
     private JButton signUp;
     private JButton logIn;
@@ -11,6 +14,9 @@ public class StartView extends JPanel {
     public static final String START_LOGIN_BTN = "START_LOGIN_BTN";
     public static final String START_SIGNUP_BTN = "START_SIGNUP_BTN";
 
+    /**
+     * Contructor de la funció on es configura el panel
+     */
     public StartView(){
         this.setLayout(new GridBagLayout()); // la interfaz tendra un GrindBag layout
 
@@ -90,6 +96,10 @@ public class StartView extends JPanel {
 
     }
 
+    /**
+     * Control de los botons del log in i el sign up
+     * @param listener paramete per saber on estem
+     */
     public void registerController(ActionListener listener) {
         logIn.addActionListener(listener);
         signUp.addActionListener(listener);

@@ -17,6 +17,12 @@ public class LoginController implements ActionListener {
     private LoginView loginView;
     private MainController mainController;      //TODO
 
+    /**
+     *
+     * @param userModel conté la informació del ususaris
+     * @param loginView conté la informació de la vista del log in
+     * @param mainController conte informació el controlador principal de les vistes
+     */
     public LoginController(UserModel userModel, LoginView loginView, MainController mainController) {
         this.userModel = userModel;
         this.loginView = loginView;
@@ -31,6 +37,10 @@ public class LoginController implements ActionListener {
         this.loginView.registerLoginController(this);
     }
 
+    /**
+     * mostra mistges depenent de la acció y el event actual al sign up
+     * @param e variable per controlar la acció
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 

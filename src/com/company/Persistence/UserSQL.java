@@ -7,6 +7,9 @@ import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * gestió de la base de dades
+ */
 public class UserSQL implements UserDAO {
     private final String dbName;
     private final String dbUser;
@@ -17,6 +20,15 @@ public class UserSQL implements UserDAO {
     private Connection con;
     private String userIDpath;
 
+    /**
+     * Constructor de la clase sql
+     * @param dbName Nom del usuari
+     * @param dbUser Usuari que ha introduit el
+     * @param password Contrasenya del usuari
+     * @param dbIP
+     * @param port
+     * @param userID
+     */
     public UserSQL(String dbName, String dbUser, String password, String dbIP, int port, String userID) {
         this.dbName = dbName;
         this.dbUser = dbUser;

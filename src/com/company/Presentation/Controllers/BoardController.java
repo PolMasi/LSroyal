@@ -15,6 +15,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Gestiona el comportament de la vista del joc
+ */
 public class BoardController implements ActionListener {
     private LogicModel logicModel;
     private BoardView boardView;
@@ -34,6 +37,12 @@ public class BoardController implements ActionListener {
     public static final String GAME_NAME = "Please, enter the name of the saved game:";
     public static final String GAME_NAME_EXIST = "There is already a game with that name";
 
+    /**
+     * Constructor del la partida
+     * @param logicModel conté la informació de com funcionen les cartes
+     * @param boardView conte informació de la vista del joc
+     * @param mainController conte informació el controlador principal de les vistes
+     */
     public BoardController(LogicModel logicModel, BoardView boardView, MainController mainController) {
         this.boardView = boardView;
         this.mainController = mainController;
@@ -46,7 +55,9 @@ public class BoardController implements ActionListener {
         boardView.configureCards(logicModel.setOffensiveCards(), logicModel.setDefensiveCards(),this);
     }
 
-
+    /**
+     * Actulitza el taulell
+     */
     private void updateTable() {
         String[][][] board = logicModel.updateBoard();
         JPanel[][] panels = boardView.getGrids();
@@ -83,6 +94,9 @@ public class BoardController implements ActionListener {
         updateLife();
     }
 
+    /**
+     * Actilizar la vida de les torres
+     */
     private void updateLife() {
         int userHealth = logicModel.getUserHealth();
         int computerHealth = logicModel.getComputerHealth();
@@ -109,6 +123,10 @@ public class BoardController implements ActionListener {
         }
     }
 
+    /**
+     * Acabar la partida
+     * @param win enter amb un valor que depen si ha guanyat o perdut l'usuari
+     */
     private void endGame(int win) {
         String text;
 
@@ -140,7 +158,10 @@ public class BoardController implements ActionListener {
         mainController.switchView(MainView.MENU_VIEW);
 
     }
-
+    /**
+     * mostra mistges depenent de la acció y el event actual al menu
+     * @param e variable per controlar la acció
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 

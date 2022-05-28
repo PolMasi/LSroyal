@@ -11,6 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Cotrol del panel de la lista de partides
+ */
 public class GameListView extends JPanel {
 
     private JPanel board;
@@ -22,13 +25,20 @@ public class GameListView extends JPanel {
     private static final String titulos[] = {"ID","Name", "Date", "Win" };
     public static final String GAMELIST_BACK = "GAMELIST_BACK";
 
-
+    /**
+     * Contructor de la llista de partides
+     */
     public GameListView (){
 
         configurePanel(data, null);
 
     }
 
+    /**
+     * Configuració del panel
+     * @param dataM array doble per la informació de les patides
+     * @param listener paramete per saber on estem
+     */
     public void configurePanel(String [][] dataM, ActionListener listener){
 
         this.removeAll();
@@ -67,6 +77,10 @@ public class GameListView extends JPanel {
 
     }
 
+    /**
+     * Actualitza la taula de dades
+     * @param tableM array doble per la informació de les patides
+     */
     public void updateTable(String[][] tableM) {
 
         data = tableM;
@@ -98,6 +112,10 @@ public class GameListView extends JPanel {
 
     }
 
+    /**
+     * Boto per sortir d'aquest panel
+     * @param listener paramete per saber on estem
+     */
     public void  registerController(ActionListener listener) {
 
         back.addActionListener(listener);

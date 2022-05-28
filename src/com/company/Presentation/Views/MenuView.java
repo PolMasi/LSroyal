@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Panel de la vista del menu del joc
+ */
 public class MenuView extends JPanel {
 
 
@@ -21,6 +24,10 @@ public class MenuView extends JPanel {
     public static final String LOGOUT_BTN = "LOGOUT_BTN";
     public static final String DELETE_BTN = "DELETE_BTN";
 
+
+    /**
+     * Contructor de la funció on es configura el panel
+     */
     public MenuView(){
 
 
@@ -143,6 +150,10 @@ public class MenuView extends JPanel {
 
     }
 
+    /**
+     * Control de botons de jugar la partida, reprodir una partida, el ranking, logout i borrar un usuari
+     * @param listener paramete per saber on estem
+     */
     public void registerMenuController(ActionListener listener) {
         playGame.addActionListener(listener);
         reproduce.addActionListener(listener);
@@ -151,10 +162,18 @@ public class MenuView extends JPanel {
         delete.addActionListener(listener);
     }
 
+    /**
+     * Control del boto per jugar la partida
+     * @param listener paramete per saber on estem
+     */
     public void registerBoardController(ActionListener listener) {
         playGame.addActionListener(listener);
     }
 
+    /**
+     * Cotrol del boto per reproduir la partida
+     * @param listener paramete per saber on estem
+     */
     public void registerGameListController(ActionListener listener){
 
         reproduce.addActionListener(listener);

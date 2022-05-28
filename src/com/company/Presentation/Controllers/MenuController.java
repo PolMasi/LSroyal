@@ -10,6 +10,9 @@ import com.company.Presentation.Views.RankingView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Cotrola la funcinalitat del menu
+ */
 public class MenuController implements ActionListener {
     private MenuView menuView;
     private UserModel userModel;
@@ -19,7 +22,13 @@ public class MenuController implements ActionListener {
     private final static String DELETE_TEXT = "If you want to delete your account write your username:";
     private final static String[] LOGOUT_OPT = {"YES","NO"};
 
-
+    /**
+     * Constructor de la clase MenuCotroller
+     * @param menuView conté la informació de la vista del menu
+     * @param userModel  conté la informació del ususaris
+     * @param mainController conte informació el controlador principal de les vistes
+     * @param rankingView conté la informació de la vista del ranking
+     */
     public MenuController(MenuView menuView, UserModel  userModel, MainController mainController, RankingView rankingView) {
         this.menuView = menuView;
         this.userModel = userModel;
@@ -28,10 +37,17 @@ public class MenuController implements ActionListener {
         registerMenuViewListener();
     }
 
+    /**
+     * Boto per el registre del menu principal
+     */
     public void registerMenuViewListener() {
         this.menuView.registerMenuController(this);
     }
 
+    /**
+     * mostra mistges depenent de la acció y el event actual al menu
+     * @param e variable per controlar la acció
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 

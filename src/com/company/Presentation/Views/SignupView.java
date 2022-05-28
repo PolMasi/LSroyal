@@ -5,7 +5,9 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 
-
+/**
+ * Controlar la pantalla de sign up
+ */
 public class SignupView extends JPanel {
     private JTextField userText;
     private JPasswordField passwordText;
@@ -17,6 +19,9 @@ public class SignupView extends JPanel {
     public static final String SIGNUP_BTN = "SIGNUP_BTN";
     public static final String SIGNUP_BACK_BTN = "SIGNUP_BACK_BTN";
 
+    /**
+     * Contructor de la funció on es configura el panel
+     */
     public SignupView (){
         JPanel panel = new JPanel(new BorderLayout());
 
@@ -94,26 +99,58 @@ public class SignupView extends JPanel {
 
     }
 
+    /**
+     * Controla el boto de registre del sign up
+     * @param listener paramete per saber on estem
+     */
     public void registerSignUpController(ActionListener listener) {
         signUp.addActionListener(listener);
     }
 
+    /**
+     * Controla el boto de sortir del panel
+     * @param listener paramete per saber on estem
+     */
     public void registerController(ActionListener listener) {
         goBack.addActionListener(listener);
     }
-   
+
+    /**
+     * getter del user
+     * @return user
+     */
     public String getUser(){
         return userText.getText();
     }
+
+    /**
+     * getter del mail
+     * @return mail
+     */
     public String getEmail(){
         return emailText.getText();
     }
+
+
+    /**
+     * getter de la contrasenya
+     * @return la contraseña amagada
+     */
     public String getPassword(){
         return passwordText.getText();
     }
+
+    /**
+     * getter de la confirmació de contrasenya
+     * @return la confirmació de la contrasenya amagada
+     */
     public String getPasswordConfirm(){
         return passwordConfirmText.getText();
     }
+
+    /**
+     * Eliminar la informació escrita previament una vegada se cambia de frame
+     */
     public void clear(){userText.setText(""); emailText.setText(""); passwordText.setText(""); passwordConfirmText.setText("");}
 
 }

@@ -29,7 +29,10 @@ public class MainController implements ActionListener {
         mainView.setBoardListener(listener);
     }
 
-
+    /**
+     * Asignem el listener per controlar la lista de la partida
+     * @param actionListener per detectar y manejar events d'acció
+     */
     public void setGameListController(ActionListener actionListener){
 
         mainView.setGameListListener(actionListener);
@@ -44,20 +47,38 @@ public class MainController implements ActionListener {
     }
 
 
-
+    /**
+     * Mostra un misatge d'error
+     * @param error string que conté l'error
+     */
     public void showError(String error) {
         mainView.showError(error);
     }
 
+    /**
+     * Mostra un missatge
+     * @param text string que conté informació
+     * @return la informació
+     */
     public String showInput(String text){
 
         return mainView.showInputPopUp(text);
     }
 
+    /**
+     * mostra missatge de confirmació
+     * @param text string que conté informació
+     * @param questions array de strings que conté preguntes
+     * @return la informació y les preguntes
+     */
     public int showConfirm(String text, String[] questions) {
         return mainView.showConfirmPopUp(text, questions);
     }
 
+    /**
+     * Organiza les distintes posibles opcions
+     * @param e controlar el switch de les opcions
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){

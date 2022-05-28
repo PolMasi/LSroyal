@@ -54,6 +54,9 @@ public class MainView extends JFrame {
         configurationFrame();
     }
 
+    /**
+     * configura la pantalla
+     */
     private void configurationFrame() {
         pack();     //dejarlo compacto
         setTitle(TITLE);
@@ -63,6 +66,9 @@ public class MainView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);     //que pasara cuando cierres la pantalla //Acabar el programa
     }
 
+    /**
+     * diseny de la  cardlayout
+     */
     private void configureLayout() {
         cardLayout = new CardLayout();
         this.setLayout(cardLayout);     //asignamos a esta ventana el cardlayout
@@ -109,6 +115,10 @@ public class MainView extends JFrame {
 
     }
 
+    /**
+     * Assignem el listener a la lista de la partida
+     * @param listener paramete per saber on estem
+     */
     public void setGameListListener(ActionListener listener){
 
         menuView.registerGameListController(listener);

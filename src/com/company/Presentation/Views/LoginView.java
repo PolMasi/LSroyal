@@ -5,6 +5,9 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Control del panel de la vista del log in
+ */
 public class LoginView extends JPanel {     //JFrame es una ventana //JPanel panel dentro de la ventana
     private JTextField userText;
     private JPasswordField passwordText;
@@ -14,10 +17,17 @@ public class LoginView extends JPanel {     //JFrame es una ventana //JPanel pan
     public static final String BUTTON_LOGIN = "BUTTON_LOGIN";
     public static final String LOGIN_BACK_BTN = "LOGIN_BACK_BTN";
 
+    /**
+     * declara la configuració
+     * @throws HeadlessException usat per declarar execepcions que poden succeir enla excució del programa
+     */
     public LoginView() throws HeadlessException {
         configurePanel();
     }
 
+    /**
+     * Configuració del panel del log in
+     */
     private void configurePanel() {
         JPanel main = new JPanel(new BorderLayout());       // bordes
         JPanel center = new JPanel(new FlowLayout());// arriba y abajo
@@ -81,21 +91,40 @@ public class LoginView extends JPanel {     //JFrame es una ventana //JPanel pan
 
     }
 
+    /**
+     * Boto que acciona el registre del login
+     * @param listener paramete per saber on estem
+     */
     public void registerLoginController(ActionListener listener){
         loginButton.addActionListener(listener);
     }
 
+    /**
+     * Boto per sortir d'actes panel
+     * @param listener paramete per saber on estem
+     */
     public void registerController(ActionListener listener) {
         goBack.addActionListener(listener);
     }
 
+    /**
+     * getter del usuari
+     * @return el usuari
+     */
     public String getUser(){
         return userText.getText();
     }
 
+    /**
+     * getter de la contrasenya
+     * @return la contrsenya amagada
+     */
     public String getPassword(){
         return passwordText.getText();
     }
 
+    /**
+     * Eliminar la informació escrita previament una vegada se cambia de frame
+     */
     public void clear(){userText.setText(""); passwordText.setText("");}
 }
