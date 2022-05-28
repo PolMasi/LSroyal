@@ -23,8 +23,8 @@ public class SignupView extends JPanel {
         //BUTTONS
         signUp = new JButton("Sign up");
         goBack = new JButton("Go back");
-        signUp.setActionCommand(String.valueOf(CardEnum.SIGNUP_BTN));
-        goBack.setActionCommand(String.valueOf(CardEnum.SIGNUP_BACK_BTN));
+        signUp.setActionCommand(SignupView.SIGNUP_BTN);
+        goBack.setActionCommand(SignupView.SIGNUP_BACK_BTN);
         
         //JLabel 
         JLabel title = new JLabel("REGISTER FORM",SwingConstants.CENTER);
@@ -114,5 +114,6 @@ public class SignupView extends JPanel {
     public String getPasswordConfirm(){
         return passwordConfirmText.getText();
     }
+    public void clear(){userText.setText(""); emailText.setText(""); passwordText.setText(""); passwordConfirmText.setText("");}
 
 }

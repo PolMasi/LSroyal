@@ -12,5 +12,6 @@ public interface UserDAO {
     boolean addVictory(int userID);
     boolean addGame(int userID);
     ArrayList<String[]> getRanking();
+    void logOutUserID();
 
 }

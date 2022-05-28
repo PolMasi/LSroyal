@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
  */
 public class MainView extends JFrame {
     private LoginView loginView;
-    private LogoutView logoutView;
     private SignupView signupView;
     private StartView startView;
     private BoardView boardView;
@@ -35,17 +34,15 @@ public class MainView extends JFrame {
     /**
      * Constructor on inicialitzem totes les vistes
      * @param loginView vista de inicar sessio
-     * @param logoutView vista de sortir sessio
      * @param signupView vista per registrarse
      * @param startView vista principal per recaudar dades de lusuari
      * @param boardView vista on es fa tota la logica del joc
      * @param menuView vista del menu principal del joc
      */
-    public MainView(LoginView loginView, LogoutView logoutView, SignupView signupView,
+    public MainView(LoginView loginView, SignupView signupView,
                     StartView startView, BoardView boardView, MenuView menuView, RankingView rankingView) {
         this.startView = startView;
         this.loginView = loginView;
-        this.logoutView = logoutView;
         this.signupView = signupView;
         this.boardView = boardView;
         this.menuView = menuView;
@@ -69,11 +66,10 @@ public class MainView extends JFrame {
         this.setLayout(cardLayout);     //asignamos a esta ventana el cardlayout
         //this.add(MainView.BOARD_VIEW, boardView);
         //this.add(String.valueOf(CardEnum.MENU_VIEW), menuView);
-        this.add(String.valueOf(CardEnum.START_VIEW), startView);
-        this.add(String.valueOf(CardEnum.LOGIN_VIEW), loginView);    //le asginamos una vista con una frase y cuando le pasamos la frase pasa la vista asociada
-        this.add(String.valueOf(CardEnum.SIGNUP_VIEW), signupView);
-        this.add(String.valueOf(CardEnum.LOGOUT_VIEW), logoutView);
-        this.add(String.valueOf(CardEnum.MENU_VIEW), menuView);
+        this.add(MainView.START_VIEW, startView);
+        this.add(MainView.LOGIN_VIEW, loginView);    //le asginamos una vista con una frase y cuando le pasamos la frase pasa la vista asociada
+        this.add(MainView.SIGNUP_VIEW, signupView);
+        this.add(MainView.MENU_VIEW, menuView);
         this.add(MainView.BOARD_VIEW, boardView);
         this.add(MainView.RANKING_VIEW, rankingView);
     }
@@ -84,6 +80,8 @@ public class MainView extends JFrame {
      */
     public void switchView(String view) {
         cardLayout.show(getContentPane(),view);
+        loginView.clear();
+        signupView.clear();
     }
 
     /**
@@ -92,10 +90,8 @@ public class MainView extends JFrame {
      */
     public void setListeners(ActionListener listener){
         loginView.registerController(listener);
-        logoutView.registerController(listener);
         startView.registerController(listener);
         signupView.registerController(listener);
-        menuView.registerController(listener);
         rankingView.registerController(listener);
 
     }

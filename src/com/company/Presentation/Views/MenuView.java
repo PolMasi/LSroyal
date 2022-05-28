@@ -1,5 +1,7 @@
 package com.company.Presentation.Views;
 
+import com.company.Presentation.MainView;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -11,11 +13,13 @@ public class MenuView extends JPanel {
     private JButton reproduce;
     private JButton ranking;
     private JButton exit;
+    private JButton delete;
 
     public static final String PLAYGAME_BTN = "PLAYGAME_BTN";
     public static final String REPRODUCE_BTN = "REPRODUCE_BTN";
     public static final String RANKING_BTN = "RANKING_BTN";
-    public static final String EXIT_BTN = "EXIT_BTN";
+    public static final String LOGOUT_BTN = "LOGOUT_BTN";
+    public static final String DELETE_BTN = "DELETE_BTN";
 
     public MenuView(){
 
@@ -60,7 +64,7 @@ public class MenuView extends JPanel {
 
         //BUTTONS
         playGame = new JButton("Play");
-        playGame.setActionCommand(String.valueOf(CardEnum.PLAYGAME_BTN));
+        playGame.setActionCommand(MenuView.PLAYGAME_BTN);
         playGame.setFont(new Font("Helvetica", Font.PLAIN, 20));
         buttons.add(playGame);
         /*
@@ -75,7 +79,7 @@ public class MenuView extends JPanel {
          */
 
         reproduce = new JButton("Reproduce game");
-        reproduce.setActionCommand(String.valueOf(CardEnum.REPRODUCE_BTN));
+        reproduce.setActionCommand(MenuView.REPRODUCE_BTN);
         reproduce.setFont(new Font("Helvetica", Font.PLAIN, 20));
         buttons.add(reproduce);
 
@@ -91,25 +95,32 @@ public class MenuView extends JPanel {
          */
 
         ranking = new JButton("Ranking");
-        ranking.setActionCommand(String.valueOf(CardEnum.RANKING_BTN));
+        ranking.setActionCommand(MenuView.RANKING_BTN);
         ranking.setFont(new Font("Helvetica", Font.PLAIN, 20));
         buttons.add(ranking);
         center.add(buttons,BorderLayout.NORTH);
 
-        JPanel logoutPanel = new JPanel();
+        JPanel logoutPanel = new JPanel(new FlowLayout());
         logoutPanel.setBackground(Color.DARK_GRAY);
-
         JPanel Panelvacio = new JPanel();
         Panelvacio.setBackground(Color.DARK_GRAY);
         //center.add(Box.createRigidArea(new Dimension(100, 1000)), BorderLayout.NORTH);
         center.add(Panelvacio, BorderLayout.NORTH);
         //TODO FER QUE SIGUI LOGOUT
+
         exit = new JButton("Log out");
-        exit.setActionCommand(String.valueOf(CardEnum.EXIT_BTN));
+        exit.setActionCommand(LOGOUT_BTN);
         exit.setFont(new Font("Helvetica", Font.PLAIN, 20));
         exit.setBackground(Color.RED);
         exit.setBorderPainted(true);
         logoutPanel.add(exit);
+
+        delete = new JButton("Delete Account");
+        delete.setActionCommand(DELETE_BTN);
+        delete.setFont(new Font("Helvetica", Font.PLAIN, 20));
+        delete.setBackground(Color.RED);
+        delete.setBorderPainted(true);
+        logoutPanel.add(delete);
         center.add(logoutPanel,BorderLayout.SOUTH);
 
 
@@ -136,6 +147,8 @@ public class MenuView extends JPanel {
         playGame.addActionListener(listener);
         reproduce.addActionListener(listener);
         ranking.addActionListener(listener);
+        exit.addActionListener(listener);
+        delete.addActionListener(listener);
     }
 
     public void registerBoardController(ActionListener listener) {
@@ -143,7 +156,5 @@ public class MenuView extends JPanel {
     }
 
 
-    public void registerController(ActionListener listener) {
-        exit.addActionListener(listener);                               //preguntar edu ja que ni havia goBck
-    }
+
 }

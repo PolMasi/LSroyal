@@ -58,10 +58,9 @@ public class UserModel {
 
         switch(userOption.validSignUp(user, password, passwordConfirmation, email)) {
             case UserOption.EVERYTHING_OK:
-                System.out.println("Holaaaaaaaa");
 
                  if(!userDAO.checkUserName(user)){
-                     System.out.println("Adioooos");
+
                     return UserOption.DUPLICATED_LOGIN;
                 }
 
@@ -94,7 +93,9 @@ public class UserModel {
      * LOGOUT
      */
     public void logout() {
+        userDAO.logOutUserID();
         userName = null;
+
     }
 
     public boolean delete(String userName){

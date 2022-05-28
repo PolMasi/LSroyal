@@ -246,6 +246,19 @@ public class UserSQL implements UserDAO {
 
 
     }
+    public void logOutUserID(){
+
+        try {
+            PrintWriter writer = new PrintWriter(userIDpath);
+            writer.print(0);
+            writer.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
     public ArrayList<String[]> getRanking() {
 

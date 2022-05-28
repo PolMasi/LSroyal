@@ -61,12 +61,11 @@ public class Main {
         LoginView loginView = new LoginView();
         SignupView signupView = new SignupView();
         StartView startView = new StartView();
-        LogoutView logoutView = new LogoutView();
         BoardView boardView = new BoardView();
         MenuView menuView = new MenuView();
         RankingView rankingView = new RankingView();
 
-        MainView mainView = new MainView(loginView,logoutView,signupView, startView, boardView, menuView, rankingView);
+        MainView mainView = new MainView(loginView, signupView, startView, boardView, menuView, rankingView);
         MainController mainController = new MainController(mainView);
 
         UserOption userOption = new UserOption();
@@ -75,10 +74,8 @@ public class Main {
 
         LoginController loginController = new LoginController(loginModel, loginView, mainController);
         SignUpController signUpController = new SignUpController(loginModel, signupView, mainController);
-        LogoutController logoutController = new LogoutController(loginModel, logoutView, mainController);
         BoardController boardController = new BoardController(logicModel,boardView, mainController);
         MenuController menuController = new MenuController(menuView, loginModel, mainController, rankingView);
-        startView.registerDeleteController(logoutController);
 
         mainView.setVisible(true);
 
