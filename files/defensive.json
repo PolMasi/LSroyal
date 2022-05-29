@@ -1,0 +1,44 @@
+[
+  {
+    "name": "fio",
+    "health": 1000,
+    "cost": 4,
+    "rank": 1,
+    "damage": 300,
+    "currentHealth": 1000,
+    "lastCoordinate": [
+      -1,
+      0
+    ],
+    "player": false,
+    "fight": false
+  },
+  {
+    "name": "retro",
+    "health": 1500,
+    "cost": 6,
+    "rank": 2,
+    "damage": 400,
+    "currentHealth": 1500,
+    "lastCoordinate": [
+      -1,
+      0
+    ],
+    "player": false,
+    "fight": false
+  },
+  {
+    "name": "defeo",
+    "health": 200,
+    "cost": 4,
+    "rank": 2,
+    "damage": 500,
+    "currentHealth": 200,
+    "lastCoordinate": [
+      -1,
+      0
+    ],
+    "player": false,
+    "fight": false
+  }
+]
