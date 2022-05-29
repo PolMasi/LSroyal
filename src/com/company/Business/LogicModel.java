@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+/**
+ * La logica de la partida del jugador y de la cpu
+ */
 public class LogicModel implements Runnable {
     private ArrayList<Offensive> listOffensive;
     private ArrayList<Defensive> listDefensive;
@@ -31,10 +34,21 @@ public class LogicModel implements Runnable {
     private ArrayList <String [][][]>  repeatMatrix;
     private Iterator <String [][][]> repeatIterator;
 
+    /**
+     * getter del diner actual
+     * @return el diner actual
+     */
     public int getUserMoney() {
         return userMoney;
     }
 
+    /**
+     * Contructor de la logica de la partida
+     * @param listOffensive arraylsit amb la llista de tropes ofensives
+     * @param listDefensive arraylsit amb la llista de tropes defensives
+     * @param gamedao control del DAO del joc
+     * @param userDAO control del DAO del usuari
+     */
     public LogicModel(ArrayList<Offensive> listOffensive, ArrayList<Defensive> listDefensive, GameDAO gamedao, UserDAO userDAO) {
         this.listOffensive = listOffensive;
         this.listDefensive = listDefensive;
@@ -44,6 +58,10 @@ public class LogicModel implements Runnable {
         startGame();
     }
 
+    /**
+     * Posar tropa defensiva
+     * @return un array de strings amb la info de la tropa defensiva
+     */
     public String[] setDefensiveCards() {
         String[] defString = new String[listDefensive.size()*3];
         int j = 0;
@@ -59,6 +77,10 @@ public class LogicModel implements Runnable {
         return defString;
     }
 
+    /**
+     * Posar tropa ofensiva
+     * @return un array de strings amb la info de la tropa ofensiva
+     */
     public String[] setOffensiveCards() {
         String[] offString = new String[listOffensive.size()*3];
         int j = 0;
@@ -75,7 +97,9 @@ public class LogicModel implements Runnable {
     }
 
 
-
+    /**
+     * Funcio pel començament de la partida
+     */
     public void startGame() {
 
         computerMoney = 5;
@@ -87,6 +111,9 @@ public class LogicModel implements Runnable {
 
     }
 
+    /**
+     * invocar les tropes a la partida
+     */
     public void invokeTowers(){
         Troop tower = new Tower("torres", 1000,0,2, 300);
 
@@ -106,6 +133,15 @@ public class LogicModel implements Runnable {
 
     }
 
+    /**
+     *
+     * control de la tropa invocada
+     * @param numCard la carta invocada
+     * @param type el tipus de carta
+     * @param player el tipo de jugador
+     * @param coords les cordinades de la torpa
+     * @return si o no
+     */
     public boolean invokeTroop(int numCard, boolean type, boolean player,String coords) {
 
         Troop troop;
@@ -144,6 +180,12 @@ public class LogicModel implements Runnable {
         return true;
     }
 
+    /**
+     * selecionar una carta a usar
+     * @param numCard la carta a invocar
+     * @param type el tipus de carta
+     * @return si o no pels diners
+     */
     public boolean canSelectTroop(int numCard, boolean type) {
         if(type) {
             return listDefensive.get(numCard-1).getCost() <= userMoney;
@@ -151,6 +193,12 @@ public class LogicModel implements Runnable {
         return listOffensive.get(numCard-1).getCost() <= userMoney;
     }
 
+    /**
+     * Obtenir el cost de les cartes
+     * @param numCard la carta demanda
+     * @param type el tipus de carta
+     * @return
+     */
     public int getCost(int numCard, boolean type) {
         if(type) {
             return listDefensive.get(numCard-1).getCost();
@@ -158,6 +206,11 @@ public class LogicModel implements Runnable {
         return listOffensive.get(numCard-1).getCost();
     }
 
+    /**
+     * incrementar el diner per poder invocar mes tropes
+     * @param money enter amb el diner actual
+     * @param player si es la CPU o el jugador
+     */
     private void addMoney(int money, boolean player) {
 
         if(player) {
@@ -168,6 +221,12 @@ public class LogicModel implements Runnable {
         }
     }
 
+    /**
+     * Gastarse el dinero
+     * @param numCard el numero de carta seleccionat
+     * @param type el tipo de carta
+     * @param player la CPU o el jugador
+     */
     public void spendMoney(int numCard, boolean type, boolean player) {
         int cost;
 
@@ -176,6 +235,9 @@ public class LogicModel implements Runnable {
 
     }
 
+    /**
+     * fer corre la partida
+     */
     @Override
     public void run() {
         System.out.println(counter);
@@ -201,6 +263,9 @@ public class LogicModel implements Runnable {
 
     }
 
+    /**
+     * controla el moviment de les cartes
+     */
     synchronized void moveTroops() {
         final Troop[][] troop = new Troop[BoardView.ROWS][BoardView.COLUMNS];
 
@@ -220,7 +285,9 @@ public class LogicModel implements Runnable {
         }
     }
 
-
+    /**
+     * Invocar tropes defensives de la CPU
+     */
     public void invokeDefenseCPU() {
         //System.out.println("defensa");
         int troop = selectTroop.nextInt(listDefensive.size());
@@ -258,6 +325,10 @@ public class LogicModel implements Runnable {
         //counter++;
 
     }
+
+    /**
+     * Invocar tropes ofensives de la CPU
+     */
     public void invokeAtackCPU(){
         //System.out.println("ataque");
         int troop = selectTroop.nextInt(listOffensive.size());
@@ -294,6 +365,13 @@ public class LogicModel implements Runnable {
         counter = 0;
 
     }
+
+    /**
+     * obtenir la posició actual de les tropes
+     * @param x varible del eje de abcisas
+     * @param y variable del eje de ordenadas
+     * @return las coordinadas
+     */
     private String getCoordinate(int x, int y){
         String coords;
         x = x +1;
@@ -313,14 +391,27 @@ public class LogicModel implements Runnable {
         return coords;
     }
 
+    /**
+     * getter de la vida del ordinador
+     * @return la vida de la CPU
+     */
     public int getComputerHealth() {
         return computerHealth;
     }
 
+    /**
+     * getter de la vida del jugador
+     * @return la vida del jugador
+     */
     public int getUserHealth() {
         return userHealth;
     }
 
+    /**
+     * obnteir la condirnada actual
+     * @param coordinate les coordinades
+     * @return un enter amb les cooridnades
+     */
     private int[] getIntCoordinate(String coordinate) {
 
         int[] coordinateInt;
@@ -341,12 +432,20 @@ public class LogicModel implements Runnable {
         return coordinateInt;
     }
 
+    /**
+     * Afegir una quantitat de diner
+      */
     private void passiveMoney() {
 
         addMoney(2, true);
         addMoney(2, false);
     }
 
+    /**
+     *moment de lluita de tropes
+     * @param coordinates array de enters amb les posicions
+     * @param troop la variable de la tropa
+     */
     private void fight (int[] coordinates, Troop troop) {
 
         matrixTroops[coordinates[0]][coordinates[1]].setCurrentHealth(troop.getDamage());
@@ -362,7 +461,11 @@ public class LogicModel implements Runnable {
         }
     }
 
-    //funcion que edita matriz de troops para saber donde avanza la tropa
+    /**
+     * funcion que edita matriz de troops para saber donde avanza la tropa
+     * @param coordinates  array de enters amb les posicions
+     * @param troop la variable de la tropa
+     */
    synchronized void editMatrix(int[] coordinates, Troop troop) {
 
             if (troop == null) {
@@ -393,6 +496,10 @@ public class LogicModel implements Runnable {
         //gamedao.matrixToJson(matrixTroops);
     }
 
+    /**
+     * aray triple per actualizar el taulell amb tropes
+     * @return el taulell
+     */
     public String[][][] updateBoard() {
 
         String[][][] board = new String[BoardView.ROWS][BoardView.COLUMNS][4];
@@ -415,6 +522,12 @@ public class LogicModel implements Runnable {
         return board;
     }
 
+    /**
+     * guardar la partida
+     * @param gameName el nom de la partida
+     * @param win enter per si ha guanyat o no
+     * @return la partida jugada guardada
+     */
     public boolean saveGame(String gameName, int win){
 
       return  gamedao.saveGame(userDAO.userID(), gameName, win);
@@ -422,17 +535,26 @@ public class LogicModel implements Runnable {
 
     }
 
+    /**
+     * si el usuari ha guanyat, s'afegeix un victoria
+     */
     public void addVictory() {
 
         userDAO.addVictory(userDAO.userID());
     }
 
+    /**
+     * afegir una partdia
+     */
     public void addGame() {
 
         userDAO.addGame(userDAO.userID());
     }
 
-
+    /**
+     * obtenir una partida
+     * @return la posicó on es guarda la partida
+     */
     public String [][] getGames(){
 
         ArrayList<String[]> list = gamedao.getSavedGames(userDAO.userID());
@@ -447,6 +569,10 @@ public class LogicModel implements Runnable {
 
     }
 
+    /**
+     * getter per obtenir una partida per reproduirla
+     * @param gameID el id del jugador
+     */
     public void getReplayGame(int gameID){
 
         repeatMatrix = gamedao.getReplayGame(gameID);
@@ -454,6 +580,10 @@ public class LogicModel implements Runnable {
 
     }
 
+    /**
+     * obnteir la reproduccio del moviment de la repeticio
+     * @return moviment de la repeticio
+     */
     public String [][][] getReplayMove(){
 
         if(repeatIterator.hasNext()){

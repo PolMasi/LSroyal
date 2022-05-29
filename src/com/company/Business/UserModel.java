@@ -4,6 +4,9 @@ import com.company.Persistence.UserDAO;
 
 import java.util.ArrayList;
 
+/**
+ * control de la informació d'un usuari per jugar la partida
+ */
 public class UserModel {
 
     private UserDAO userDAO;
@@ -12,17 +15,21 @@ public class UserModel {
     public String userName;
 
 
-
+    /**
+     * contructor del userModel
+     * @param userDAO control del DAO del usuari
+     * @param userOption control de la opcion del usuari
+     */
     public UserModel(UserDAO userDAO, UserOption userOption) {
         this.userDAO = userDAO;
         this.userOption= userOption;
     }
 
     /**
-     * LOGIN
-     * @param userName
-     * @param password
-     * @return
+     * LOGIN del usuario
+     * @param userName nombre del usuario
+     * @param password la contraseña
+     * @return si ha logeado correctamente
      */
     public int login(String userName, String password) {
 
@@ -45,12 +52,12 @@ public class UserModel {
     }
 
     /**
-     * SIGNUP
-     * @param password
-     * @param passwordConfirmation
-     * @param email
-     * @param user
-     * @return
+     * SIGNUP del usuari
+     * @param password la contrasenya
+     * @param passwordConfirmation la confiramcio de la contrasenya
+     * @param email el mail del usuari
+     * @param user el ususari registrat
+     * @return si ha fet el sign up correctament
      */
 
 
@@ -90,7 +97,7 @@ public class UserModel {
     }
 
     /**
-     * LOGOUT
+     * LOGOUT del usuari
      */
     public void logout() {
         userDAO.logOutUserID();
@@ -98,6 +105,11 @@ public class UserModel {
 
     }
 
+    /**
+     * esborrar el ususari
+     * @param userName el nom d'ususari
+     * @return si ho realitza  o no
+     */
     public boolean delete(String userName){
 
         if (!userOption.correctUserNameDelete(this.userName, userName)){
@@ -109,12 +121,19 @@ public class UserModel {
         return true;
     }
 
+    /**
+     * setter del nom del usuari
+     * @param userName el nom registrat
+     */
     public void setUser(String userName) {
         this.userName = userName;
     }
 
 
-    //convertimos de array list a matriz
+    /**
+     * convertimos de array list a matriz para el ranking de las partidas
+     * @return la matriu creada
+     */
     public String[][] getRanking () {
 
         ArrayList<String[]> list =userDAO.getRanking();

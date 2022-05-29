@@ -9,6 +9,9 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * Configuacion de la partida jugada
+ */
 public class Configuration implements ConfigurationDAO {
 
     private final Gson gson;
@@ -22,6 +25,12 @@ public class Configuration implements ConfigurationDAO {
     private String user;
     private String password;
 
+    /**
+     * Contructor de la configuació
+     * @param offensive informaico de la ofensiva
+     * @param defensive informaico de la defensa
+     * @param config informacio de la configuració
+     */
     public Configuration(String offensive, String defensive, String config) {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         try {
@@ -36,26 +45,49 @@ public class Configuration implements ConfigurationDAO {
         loadConfigFile();
     }
 
+    /**
+     * getter de la ip
+     * @return la ip
+     */
     public String getIP() {
         return IP;
     }
 
+    /**
+     * getter de port
+     * @return el port
+     */
     public String getPort() {
         return port;
     }
 
+    /**
+     * getter del nom
+     * @return el nom
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * getter del user
+     * @return el user
+     */
     public String getUser() {
         return user;
     }
 
+    /**
+     * getter de la contrasenya
+     * @return la contrasenya
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * descarregar la inforació de la base de dades
+     */
     @Override
     public void loadConfigFile() {
 
@@ -74,6 +106,10 @@ public class Configuration implements ConfigurationDAO {
 
     }
 
+    /**
+     * carregar les tropes offensives
+     * @return la lista de les tropes ofenisves
+     */
     @Override
     public ArrayList<Offensive> loadOffensiveTroops() {
         ArrayList<Offensive> list = new ArrayList<>();
@@ -88,6 +124,10 @@ public class Configuration implements ConfigurationDAO {
         return list;
     }
 
+    /**
+     * carregar les torpes defesnives
+     * @return la lista de les tropes defensives
+     */
     @Override
     public ArrayList<Defensive> loadDefensiveTroops() {
         ArrayList<Defensive> list = new ArrayList<>();

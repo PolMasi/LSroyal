@@ -3,6 +3,9 @@ package com.company.Business;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Control de les accions del login, signup, logout
+ */
 public class UserOption {
 
     public static final int MISMATCHING_PASS= 5;
@@ -15,7 +18,11 @@ public class UserOption {
     public  static final int INCORRECT_LOGIN = 7;
     public  static final int DUPLICATED_LOGIN= 8;
 
-
+    /**
+     * control del mail
+     * @param mail informació del mail
+     * @return si está bé escrit
+     */
     public boolean isEmail(String mail) {
         boolean result;
 
@@ -27,7 +34,11 @@ public class UserOption {
         return result;
     }
 
-
+    /**
+     * control de la contrasenya
+     * @param pass informació de la contrasenya
+     * @return si está bé escrit
+     */
     public boolean PasswordValidator (String pass) {
         boolean result;
 
@@ -38,6 +49,12 @@ public class UserOption {
         return result;
     }
 
+    /**
+     * valida si el login es correcte
+     * @param user nom del usuari
+     * @param password contrasenya del usuari
+     * @return si esta correcte o no
+     */
     public int validLogin(String user, String password) {
         if (user.equals("") || password.equals("")) {
             return EMPTY_FIELD;
@@ -47,6 +64,14 @@ public class UserOption {
         }
     }
 
+    /**
+     * valida si el sign up es correcte
+     * @param user nom del ususari
+     * @param password contrasenya del usuari
+     * @param passwordConfirmation confirmacio contrasenya del usuari
+     * @param email mail del usuari
+     * @return si es correcte o no
+     */
     public int validSignUp(String user, String password, String passwordConfirmation, String email) {
 
         if (user.equals("") || password.equals("") || email.equals("") || passwordConfirmation.equals("")) {
@@ -66,6 +91,12 @@ public class UserOption {
         return EVERYTHING_OK;
     }
 
+    /**
+     * si introduceix corrrectament el nom que es vol borrar
+     * @param userName nom
+     * @param userNameDelete nom a esborrar
+     * @return si se esborra correctament
+     */
     public boolean correctUserNameDelete(String userName, String userNameDelete){
 
         return userName.equalsIgnoreCase(userNameDelete);
