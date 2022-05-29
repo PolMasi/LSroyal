@@ -59,6 +59,7 @@ public class SignUpController implements ActionListener {
             case UserOption.INCORRECT_MAIL -> mainController.showError("That is not a valid mail!");
             case UserOption.INCORRECT_PASS -> mainController.showError("That is not a valid password!");
             case UserOption.MISMATCHING_PASS -> mainController.showError("The passwords do not match! Try again!");
+            case UserOption.DUPLICATED_LOGIN -> mainController.showError("This username/mail already exist");
         }
     }
 }

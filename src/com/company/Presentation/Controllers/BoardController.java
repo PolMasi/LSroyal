@@ -101,7 +101,7 @@ public class BoardController implements ActionListener {
     }
 
     /**
-     * Actilizar la vida de les torres
+     * Actualizar la vida de les torres
      */
     private void updateLife() {
 

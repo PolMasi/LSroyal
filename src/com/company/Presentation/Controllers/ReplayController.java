@@ -33,8 +33,8 @@ public class ReplayController implements ActionListener {
      private int computerHealth;
 
     /**
-     *
-     * @param logicModel conté la informació de com funcionen les cartes
+     *Constructor Replay Controller
+     * @param logicModel conte la informacio de com funcionen les cartes
      * @param gameListView conte informació de la vista del la lista del joc
      * @param mainController conte informació el controlador principal de les vistes
      */

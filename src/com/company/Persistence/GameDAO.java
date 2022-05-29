@@ -4,6 +4,10 @@ import com.company.Business.Entities.Troop;
 
 import java.util.ArrayList;
 
+/**
+ * GameDAO
+ */
+
 public interface GameDAO {
 
     ArrayList<String[]> getMatchList(String userName);

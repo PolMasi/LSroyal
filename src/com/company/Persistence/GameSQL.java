@@ -23,6 +23,15 @@ public class GameSQL implements GameDAO {
     private Connection con;
     private ArrayList<String> moveList;
 
+    /**
+     * Constructor
+     * @param dbName db name
+     * @param dbUser db user
+     * @param password contraseña
+     * @param dbIP dbIP
+     * @param port puerto
+     */
+
     public GameSQL(String dbName, String dbUser, String password, String dbIP, int port) {
         this.dbName = dbName;
         this.dbUser = dbUser;
@@ -34,6 +43,10 @@ public class GameSQL implements GameDAO {
         getConexion();
     }
 
+    /**
+     * Conexion
+     *
+     */
     public void getConexion() {
         try {
             con = DriverManager.getConnection(dbUrl, dbUser, password);
@@ -43,6 +56,12 @@ public class GameSQL implements GameDAO {
         }
     }
 
+    /**
+     *
+     * Lista de partidas
+     * @param userName nombre usuario
+     * @return array
+     */
     public ArrayList<String[]> getMatchList(String userName) {
 
         PreparedStatement ps;
@@ -82,7 +101,10 @@ public class GameSQL implements GameDAO {
 
     }
 
-
+    /**
+     * Matriz al Json
+     * @param matrix tabla
+     */
     public void matrixToJson(String[][][] matrix) {
 
 
@@ -99,6 +121,12 @@ public class GameSQL implements GameDAO {
 
     }
 
+    /**
+     * Matriz desde el Json
+     * @param json json
+     * @return matriz triple
+     */
+
     public String [][][] matrixFromJson(String json){
 
         Gson gson = new GsonBuilder()
@@ -112,6 +140,13 @@ public class GameSQL implements GameDAO {
 
              return  gson.fromJson(json,matrix.getClass());
     }
+
+    /**
+     *
+     * Guardar movimiento
+     * @param gameID id partida
+     * @param movement movimiento
+     */
 
 
     public void saveMovement(int gameID, String movement) {
@@ -135,6 +170,15 @@ public class GameSQL implements GameDAO {
 
     }
 
+
+    /**
+     *
+     * Guardar partida
+     * @param userID usuario id
+     * @param gameName nombre partida
+     * @param result resultado
+     * @return devuelve si se ha guardado
+     */
     @Override
     public boolean saveGame(int userID, String gameName, int result) {
 
@@ -155,6 +199,15 @@ public class GameSQL implements GameDAO {
         }
         return true;
     }
+
+    /**
+     *
+     * Crear partida
+     * @param userID id usuario
+     * @param gameName nombre partida
+     * @param result resultado
+     * @return si se ha creado
+     */
 
     public int createGame(int userID, String gameName, int result) {
 
@@ -224,7 +277,11 @@ public class GameSQL implements GameDAO {
         return result <= 0;
     }
 
-
+    /**
+     * Guardar partidas
+     * @param userID usuario id
+     * @return array de Strings
+     */
     public ArrayList<String[]> getSavedGames(int userID) {
 
         PreparedStatement ps;
@@ -262,6 +319,13 @@ public class GameSQL implements GameDAO {
 
 
     }
+
+    /**
+     *
+     * Reproducir partida
+     * @param gameID id de la partida
+     * @return array de String
+     */
 
     public ArrayList<String[][][]> getReplayGame(int gameID) {
 

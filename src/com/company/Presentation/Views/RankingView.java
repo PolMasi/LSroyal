@@ -62,6 +62,12 @@ public class RankingView extends JPanel {
         back.addActionListener(listener);
     }
 
+    /**
+     * configuracio del panel
+     * @param matrix matriz
+     * @param listener listener
+     */
+
     public void configPanel(String [][] matrix, ActionListener listener){
 
         this.removeAll();

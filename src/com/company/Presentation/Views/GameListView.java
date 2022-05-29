@@ -128,13 +128,28 @@ public class GameListView extends JPanel {
         back.addActionListener(listener);
     }
 
+    /**
+     * Game ID
+     * @return game id
+     */
+
     public int getGameID() {
         return gameID;
     }
 
+    /**
+     * Obtener partida selecionada
+     * @return partida
+     */
     public Boolean getSelectedGame() {
         return selectedGame;
     }
+
+    /**
+     *
+     * Partida selecionada
+     * @param selectedGame partida correcta
+     */
 
     public void setSelectedGame(Boolean selectedGame) {
         this.selectedGame = selectedGame;

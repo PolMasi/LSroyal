@@ -39,7 +39,7 @@ public class UserOption {
      * @param pass informació de la contrasenya
      * @return si está bé escrit
      */
-    public boolean PasswordValidator (String pass) {
+    public boolean passwordValidator(String pass) {
         boolean result;
 
         Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$");
@@ -83,9 +83,9 @@ public class UserOption {
         if (!isEmail(email)) {
             return INCORRECT_MAIL;
         }
-        if (!PasswordValidator(password)) {
-            //return INCORRECT_PASS;
-            return EVERYTHING_OK;
+        if (!passwordValidator(password)) {
+            return INCORRECT_PASS;
+
         }
 
         return EVERYTHING_OK;

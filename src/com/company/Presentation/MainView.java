@@ -72,8 +72,6 @@ public class MainView extends JFrame {
     private void configureLayout() {
         cardLayout = new CardLayout();
         this.setLayout(cardLayout);     //asignamos a esta ventana el cardlayout
-        //this.add(MainView.BOARD_VIEW, boardView);
-        //this.add(String.valueOf(CardEnum.MENU_VIEW), menuView);
         this.add(MainView.START_VIEW, startView);
         this.add(MainView.LOGIN_VIEW, loginView);    //le asginamos una vista con una frase y cuando le pasamos la frase pasa la vista asociada
         this.add(MainView.SIGNUP_VIEW, signupView);

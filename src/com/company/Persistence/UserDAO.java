@@ -2,6 +2,10 @@ package com.company.Persistence;
 
 import java.util.ArrayList;
 
+/**
+ * User DAO
+ */
+
 public interface UserDAO {
     boolean validLogin(String name, String password);
     boolean validSignUp(String user, String pass, String mail);

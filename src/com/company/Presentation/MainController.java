@@ -83,15 +83,7 @@ public class MainController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
 
-            /*case LoginView.BUTTON_LOGIN:
-                if(loginController.login()){
-                    System.out.println("OK");
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "Try again");
-                }
-                break;
-            */
+
             case StartView.START_LOGIN_BTN:
                 mainView.switchView(MainView.LOGIN_VIEW);
                 break;

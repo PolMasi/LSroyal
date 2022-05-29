@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * gestió de la base de dades
+ * gestion de la base de dados
  */
 public class UserSQL implements UserDAO {
     private final String dbName;
@@ -22,13 +22,15 @@ public class UserSQL implements UserDAO {
 
     /**
      * Constructor de la clase sql
-     * @param dbName Nom del usuari
-     * @param dbUser Usuari que ha introduit el
-     * @param password Contrasenya del usuari
-     * @param dbIP
-     * @param port
-     * @param userID
+     * @param dbName DB nombre
+     * @param dbUser Usuario que ha introducido
+     * @param password contrasenya usuario
+     * @param dbIP IP
+     * @param port el puerto para conectarse
+     * @param userID nombre usuario
      */
+
+
     public UserSQL(String dbName, String dbUser, String password, String dbIP, int port, String userID) {
         this.dbName = dbName;
         this.dbUser = dbUser;
@@ -40,6 +42,10 @@ public class UserSQL implements UserDAO {
         getConexion();
     }
 
+    /**
+     * Obtener conexion con BBDD
+     */
+
     public void getConexion() {
         try {
             con = DriverManager.getConnection(dbUrl, dbUser, password);
@@ -48,6 +54,13 @@ public class UserSQL implements UserDAO {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Iniciar sesion con usuario ya registrado
+     * @param name nombre del usuario
+     * @param password contraseña
+     * @return login correcto
+     */
 
     @Override
     public boolean validLogin(String name, String password) {
@@ -82,10 +95,18 @@ public class UserSQL implements UserDAO {
         return result > 0;
     }
 
+    /**
+     * Registrar usuario
+     * @param user nombre usuario
+     * @param pass contraseña
+     * @param mail mail
+     * @return si es correcto el signUP
+     */
+
 
     public boolean validSignUp(String user, String pass, String mail) {
         PreparedStatement ps;
-        String sql = "INSERT INTO usuarios (Usuario, Contraseña, Mail, Victorias, Partidas) VALUES (?, ?, ?, 0, 0)";
+        String sql = "INSERT INTO usuarios (Usuario, Contraseña, Mail, Victorias, Jugadas) VALUES (?, ?, ?, 0, 0)";
 
         try {
             ps = con.prepareStatement(sql);
@@ -102,6 +123,12 @@ public class UserSQL implements UserDAO {
         }
 
     }
+
+    /**
+     * Añadir victorias
+     * @param userID ID usuario
+     * @return añade victoria
+     */
 
     public boolean addVictory(int userID) {
 
@@ -123,11 +150,17 @@ public class UserSQL implements UserDAO {
 
     }
 
+    /**
+     * Añadir partidas
+     * @param userID ID usuario
+     * @return afegeix partida
+     */
+
     public boolean addGame(int userID) {
 
         PreparedStatement ps;
         //comando sql
-        String sql = "UPDATE usuarios SET Partidas = Partidas + 1 WHERE ID = ?";
+        String sql = "UPDATE usuarios SET Jugadas = Jugadas + 1 WHERE ID = ?";
 
         try {
             ps = con.prepareStatement(sql);
@@ -143,6 +176,11 @@ public class UserSQL implements UserDAO {
 
     }
 
+    /**
+     * Comprobar un usuario registrado
+     * @param name nombre usuario
+     * @return si es correcto el usuario
+     */
 
     public boolean checkUserName(String name) {
 
@@ -175,6 +213,12 @@ public class UserSQL implements UserDAO {
         return result <= 0;
     }
 
+    /**
+     * Borrar un usuario ya registrado
+     * @param user borrado del usuario
+     * @return indica si se ha borrado
+     */
+
     public boolean delete(String user){
 
         PreparedStatement ps;
@@ -193,6 +237,11 @@ public class UserSQL implements UserDAO {
         }
     }
 
+    /**
+     * Obtener el nombre del usuario que inicia sesion
+     * @param mail mail del usuario
+     * @return nombre usuario
+     */
     public String getUserName(String mail) {
 
         PreparedStatement ps;
@@ -228,6 +277,12 @@ public class UserSQL implements UserDAO {
 
     }
 
+    /**
+     *
+     * Identificador del usuario
+     * @return ID usuario
+     */
+
     @Override
     public int userID() {
 
@@ -245,6 +300,12 @@ public class UserSQL implements UserDAO {
         return 0;
     }
 
+    /**
+     *
+     * Guardar identificador del usuario
+     * @param ID identificador usuario
+     */
+
     private void saveUserID(int ID){
 
         try {
@@ -256,7 +317,10 @@ public class UserSQL implements UserDAO {
             e.printStackTrace();
         }
 
-
+/**
+ * Hacer logout del usuario
+ *
+ */
     }
     public void logOutUserID(){
 
@@ -271,6 +335,11 @@ public class UserSQL implements UserDAO {
 
 
     }
+
+    /**
+     * Obtener el ranking de los usuarios
+     * @return
+     */
 
     public ArrayList<String[]> getRanking() {
 
