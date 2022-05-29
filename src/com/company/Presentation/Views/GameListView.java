@@ -22,6 +22,8 @@ public class GameListView extends JPanel {
     private String[][] data ;
     private JTable table1;
     private JScrollPane table;
+    private Boolean selectedGame;
+    private int gameID;
     private static final String titulos[] = {"ID","Name", "Date", "Win" };
     public static final String GAMELIST_BACK = "GAMELIST_BACK";
 
@@ -40,6 +42,9 @@ public class GameListView extends JPanel {
      * @param listener paramete per saber on estem
      */
     public void configurePanel(String [][] dataM, ActionListener listener){
+
+        selectedGame = false;
+        gameID = -1;
 
         this.removeAll();
         board = new JPanel(new BorderLayout());
@@ -81,7 +86,7 @@ public class GameListView extends JPanel {
      * Actualitza la taula de dades
      * @param tableM array doble per la informació de les patides
      */
-    public void updateTable(String[][] tableM) {
+    private void updateTable(String[][] tableM) {
 
         data = tableM;
         model = new DefaultTableModel(data, titulos);
@@ -100,7 +105,9 @@ public class GameListView extends JPanel {
                     JTable target = (JTable)me.getSource();
                     int row = target.getSelectedRow(); // select a row
                     int column = target.getSelectedColumn(); // select a column
-                    JOptionPane.showMessageDialog(null, table1.getValueAt(row, column)); // get the value of a row and column.
+                    selectedGame = true;
+                    gameID = Integer.parseInt((String) table1.getValueAt(row, 0));
+                    //JOptionPane.showMessageDialog(null, table1.getValueAt(row, column)); // get the value of a row and column.
                 }
             }
         });
@@ -119,5 +126,17 @@ public class GameListView extends JPanel {
     public void  registerController(ActionListener listener) {
 
         back.addActionListener(listener);
+    }
+
+    public int getGameID() {
+        return gameID;
+    }
+
+    public Boolean getSelectedGame() {
+        return selectedGame;
+    }
+
+    public void setSelectedGame(Boolean selectedGame) {
+        this.selectedGame = selectedGame;
     }
 }

@@ -30,6 +30,41 @@ public class RankingView extends JPanel {
      */
     public RankingView() {
 
+        configPanel(data, null);
+    }
+
+    /**
+     * Actualizar el valor de la taula
+     * @param table array doble de string per situar el valor de la taula correctament
+     */
+    private void updateTable(String[][] table) {
+
+        data = table;
+
+        model = new DefaultTableModel(data, titulos);
+        table1 = new JTable(model){public boolean editCellAt(int row, int column, java.util.EventObject e) {
+            return false;
+        }
+        };
+        table1.getTableHeader().setToolTipText("Click to sort"); // si l'usuari posa el ratoli a sobre de la columna, li indica aixo
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
+        table1.setRowSorter(sorter);
+        model.fireTableDataChanged();
+        table1.repaint();
+    }
+
+    /**
+     * Cotrola un boto de sortida del panel
+     * @param listener paramete per saber on estem
+     */
+    public void  registerController(ActionListener listener) {
+
+        back.addActionListener(listener);
+    }
+
+    public void configPanel(String [][] matrix, ActionListener listener){
+
+        this.removeAll();
         board = new JPanel(new BorderLayout());
         board.setForeground(Color.PINK);
         JPanel superiorPanel = new JPanel(new BorderLayout());
@@ -44,49 +79,23 @@ public class RankingView extends JPanel {
         title.setFont(new Font("Helvetica", Font.BOLD, 50));
         superiorPanel.add(title, BorderLayout.CENTER);
 
-        JLabel refresh = new JLabel("Refresh and reorder statistics according to the pressed column!",  SwingConstants.CENTER);
-        refresh.setForeground(Color.RED);
-        refresh.setFont(new Font("Helvetica", Font.PLAIN, 15));
-        superiorPanel.add(refresh, BorderLayout.SOUTH);
 
         back = new JButton("BACK");
         back.setActionCommand(RANKING_BACK);
         superiorPanel.add(back, BorderLayout.EAST);
         board.add(superiorPanel, BorderLayout.NORTH);
 
-
-        // GERARD, HE POSAT AQUESTA STRING TAN LLARGA PER FER PROVES, REALMENT ON S'OBTE LA INFO DE LA BBDD ES EN EL METODE obtieneMariz()
-        // String data[][] = obtieneMariz();
-        model = new DefaultTableModel(data, titulos);
-        table1 = new JTable(model);
-        table1.getTableHeader().setToolTipText("Click to sort"); // si l'usuari posa el ratoli a sobre de la columna, li indica aixo
-        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
-        table1.setRowSorter(sorter);
+        updateTable(matrix);
 
         JScrollPane table = new JScrollPane(table1);
         board.add(table, BorderLayout.CENTER);
         add(board);
-    }
 
-    /**
-     * Actualizar el valor de la taula
-     * @param table array doble de string per situar el valor de la taula correctament
-     */
-    public void updateTable(String[][] table) {
+         registerController(listener);
 
-        model = new DefaultTableModel(table, titulos);
-        table1 = new JTable(model);
-        model.fireTableDataChanged();
-        table1.repaint();
-    }
 
-    /**
-     * Cotrola un boto de sortida del panel
-     * @param listener paramete per saber on estem
-     */
-    public void  registerController(ActionListener listener) {
 
-        back.addActionListener(listener);
+
     }
 
 }

@@ -11,5 +11,6 @@ public interface GameDAO {
     void saveMovement(int gameID, String movement);
     boolean saveGame(int userID, String name, int result);
     ArrayList <String []> getSavedGames(int userID);
+    ArrayList<String[][][]> getReplayGame(int gameID);
 
 }

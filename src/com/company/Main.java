@@ -80,7 +80,7 @@ public class Main {
         SignUpController signUpController = new SignUpController(loginModel, signupView, mainController);
         BoardController boardController = new BoardController(logicModel,boardView, mainController);
         MenuController menuController = new MenuController(menuView, loginModel, mainController, rankingView);
-        GameListController gameListController = new GameListController(logicModel, gameListView, mainController);
+        ReplayController gameListController = new ReplayController(logicModel, gameListView, mainController, boardView);
         mainView.setVisible(true);
 
     }

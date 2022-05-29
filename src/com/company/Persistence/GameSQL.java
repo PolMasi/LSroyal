@@ -3,6 +3,7 @@ package com.company.Persistence;
 import com.company.Business.Entities.Offensive;
 import com.company.Business.Entities.Troop;
 import com.company.Business.UserModel;
+import com.company.Presentation.Views.BoardView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -42,11 +43,11 @@ public class GameSQL implements GameDAO {
         }
     }
 
-    public ArrayList<String[]> getMatchList (String userName){
+    public ArrayList<String[]> getMatchList(String userName) {
 
         PreparedStatement ps;
         ResultSet rs;
-        ArrayList <String[]> result =new ArrayList();
+        ArrayList<String[]> result = new ArrayList();
 
         String sql = "SELECT partidas.* from partidas join usuarios where partidas.usuario_ID = usuarios.ID and usuarios.Usuario like ?";
 
@@ -58,16 +59,15 @@ public class GameSQL implements GameDAO {
             rs = ps.executeQuery();
 
 
-
             while (rs.next()) {
 
-               String [] res = new String[4];
-               res[0] = String.valueOf(rs.getInt("ID"));
-               res[1] = (rs.getString("nombre"));
-               res[2] = String.valueOf((rs.getDate("fecha")));
-               res[3] = String.valueOf((rs.getInt("resultado")));
+                String[] res = new String[4];
+                res[0] = String.valueOf(rs.getInt("ID"));
+                res[1] = (rs.getString("nombre"));
+                res[2] = String.valueOf((rs.getDate("fecha")));
+                res[3] = String.valueOf((rs.getInt("resultado")));
 
-               result.add(res);
+                result.add(res);
 
             }
 
@@ -80,12 +80,10 @@ public class GameSQL implements GameDAO {
         return result;
 
 
-
     }
 
 
-
-    public void matrixToJson(String[][][] matrix){
+    public void matrixToJson(String[][][] matrix) {
 
 
         Gson gson = new GsonBuilder()
@@ -101,9 +99,22 @@ public class GameSQL implements GameDAO {
 
     }
 
+    public String [][][] matrixFromJson(String json){
 
-    public void saveMovement(int gameID, String movement){
+        Gson gson = new GsonBuilder()
+                //.registerTypeAdapter(Id.class, new IdTypeAdapter())
+                .enableComplexMapKeySerialization()
+                .serializeNulls()
+                .setPrettyPrinting()
+                .create();
 
+        String [][][] matrix = new String [BoardView.ROWS][BoardView.COLUMNS][4];
+
+             return  gson.fromJson(json,matrix.getClass());
+    }
+
+
+    public void saveMovement(int gameID, String movement) {
 
 
         PreparedStatement ps;
@@ -114,7 +125,6 @@ public class GameSQL implements GameDAO {
             ps.setInt(1, gameID);
             ps.setString(2, movement);
             ps.execute();
-
 
 
         } catch (SQLException throwables) {
@@ -129,24 +139,24 @@ public class GameSQL implements GameDAO {
     public boolean saveGame(int userID, String gameName, int result) {
 
 
-        if(!checkGameName(gameName)){
+        if (!checkGameName(gameName)) {
 
             return false;
 
         }
 
-        int gameID = createGame(userID, gameName,result);
+        int gameID = createGame(userID, gameName, result);
 
 
-        for (String movement: moveList) {
+        for (String movement : moveList) {
 
             saveMovement(gameID, movement);
 
         }
-              return true;
+        return true;
     }
 
-    public int createGame(int userID, String gameName, int result){
+    public int createGame(int userID, String gameName, int result) {
 
         PreparedStatement ps;
         ResultSet rs;
@@ -156,19 +166,19 @@ public class GameSQL implements GameDAO {
         try {
 
             ps = con.prepareStatement(sql);
-            ps.setString(1, "'" + gameName + "'" );
+            ps.setString(1, "'" + gameName + "'");
             ps.setInt(2, result);
-            ps.setInt(3,userID);
+            ps.setInt(3, userID);
             ps.execute();
 
             sql = "SELECT ID FROM partidas WHERE usuario_ID = ? AND nombre LIKE ?";
 
             ps = con.prepareStatement(sql);
-            ps.setInt(1,userID);
-            ps.setString(2,"'" + gameName + "'");
+            ps.setInt(1, userID);
+            ps.setString(2, "'" + gameName + "'");
             rs = ps.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
 
                 ID = rs.getInt("ID");
 
@@ -181,7 +191,7 @@ public class GameSQL implements GameDAO {
 
         }
 
-            return ID;
+        return ID;
     }
 
     private boolean checkGameName(String name) {
@@ -215,47 +225,75 @@ public class GameSQL implements GameDAO {
     }
 
 
-  public ArrayList <String []> getSavedGames(int userID){
+    public ArrayList<String[]> getSavedGames(int userID) {
 
-      PreparedStatement ps;
-      ResultSet rs;
-      ArrayList<String[]> result = new ArrayList<>();
+        PreparedStatement ps;
+        ResultSet rs;
+        ArrayList<String[]> result = new ArrayList<>();
 
-      String sql = "SELECT ID, nombre, fecha, resultado FROM partidas WHERE usuario_ID = ?;";
+        String sql = "SELECT ID, nombre, fecha, resultado FROM partidas WHERE usuario_ID = ?;";
 
-      try {
-          ps = con.prepareStatement(sql);
-          ps.setInt(1, userID);
-          rs = ps.executeQuery();
-
-
-
-          while (rs.next()) {
-              String[] results = new String[4];
-
-              results[0] = String.valueOf(rs.getInt("ID"));
-              results[1] = rs.getString("nombre");
-              results[2] = rs.getString("fecha");
-              results[3] = String.valueOf(rs.getInt("resultado"));
-
-              result.add(results);
-          }
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, userID);
+            rs = ps.executeQuery();
 
 
-      } catch (SQLException throwables) {
+            while (rs.next()) {
+                String[] results = new String[4];
 
-          throwables.printStackTrace();
-          return null;
+                results[0] = String.valueOf(rs.getInt("ID"));
+                results[1] = rs.getString("nombre");
+                results[2] = rs.getString("fecha");
+                results[3] = String.valueOf(rs.getInt("resultado"));
 
-      }
-
-      return result;
-
-
-  }
-
+                result.add(results);
+            }
 
 
+        } catch (SQLException throwables) {
+
+            throwables.printStackTrace();
+            return null;
+
+        }
+
+        return result;
+
+
+    }
+
+    public ArrayList<String[][][]> getReplayGame(int gameID) {
+
+        PreparedStatement ps;
+        ResultSet rs;
+        ArrayList<String[][][]> result = new ArrayList<>();
+
+        String sql = "SELECT estado FROM movimientos WHERE partida_ID = ?;";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, gameID);
+            rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+                result.add(matrixFromJson(rs.getString("estado")));
+            }
+
+
+        } catch (SQLException throwables) {
+
+            throwables.printStackTrace();
+            return null;
+
+        }
+
+        return result;
+
+
+    }
 
 
 }

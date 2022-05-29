@@ -35,8 +35,10 @@ public class BoardView extends JPanel {
      * Constructor del joc
      */
     public BoardView() {
+
         grids = new JPanel[ROWS][COLUMNS];
         timer = new Timer(500, null);
+        timer.stop();
         gridButton = new JButton[ROWS][COLUMNS];
     }
 
@@ -364,7 +366,6 @@ public class BoardView extends JPanel {
         infoTrops.add(pBtropesIA);
         add(informacion);
 
-        timer.start();
 
     }
     // http://www.chuidiang.org/java/layout/GridBagLayout/GridBagLayout.php

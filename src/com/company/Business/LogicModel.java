@@ -9,7 +9,7 @@ import com.company.Persistence.UserDAO;
 import com.company.Presentation.Views.BoardView;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Iterator;
 import java.util.Random;
 
 public class LogicModel implements Runnable {
@@ -28,6 +28,8 @@ public class LogicModel implements Runnable {
 
     //matriz de posicion de tropas
     private Troop[][] matrixTroops;
+    private ArrayList <String [][][]>  repeatMatrix;
+    private Iterator <String [][][]> repeatIterator;
 
     public int getUserMoney() {
         return userMoney;
@@ -72,21 +74,17 @@ public class LogicModel implements Runnable {
         return offString;
     }
 
-    public String troopName(int numCard, boolean type) {
-        if (type) {
-            return listDefensive.get(numCard).getTroopName();
-        }
-        return listOffensive.get(numCard).getTroopName();
-    }
+
 
     public void startGame() {
+
         computerMoney = 5;
         computerHealth = 4000;
         userMoney = 5;
         userHealth = 4000;
         matrixTroops = new Troop[BoardView.ROWS][BoardView.COLUMNS];
         invokeTowers();
-        System.out.println(userDAO.userID());
+
     }
 
     public void invokeTowers(){
@@ -191,12 +189,12 @@ public class LogicModel implements Runnable {
         }
 
         if(counter == 3) {
-           defenseTroop();
+           invokeDefenseCPU();
            moveTroops();
         }
 
         if(counter == 4){
-            invokeComputerAtack();
+            invokeAtackCPU();
             passiveMoney();
         }
 
@@ -223,7 +221,7 @@ public class LogicModel implements Runnable {
     }
 
 
-    public void defenseTroop() {
+    public void invokeDefenseCPU() {
         //System.out.println("defensa");
         int troop = selectTroop.nextInt(listDefensive.size());
         boolean invoked = false;
@@ -260,7 +258,7 @@ public class LogicModel implements Runnable {
         //counter++;
 
     }
-    public void invokeComputerAtack(){
+    public void invokeAtackCPU(){
         //System.out.println("ataque");
         int troop = selectTroop.nextInt(listOffensive.size());
         boolean invoked = false;
@@ -377,16 +375,14 @@ public class LogicModel implements Runnable {
             }
 
             if (troop.isFight()) {
-                System.out.println(troop.getTroopName()+"is fighting");
+
                 fight(coordinates,troop );
                 if(matrixTroops[coordinates[0]][coordinates[1]].getCurrentHealth() <= 0) {
                     //si esta muerta la elimnamos
                     matrixTroops[coordinates[0]][coordinates[1]] = null;
-                    System.out.println("muerto");
+
                 }
-                System.out.println(troop.getDamage());
                 matrixTroops[troop.getLastCoordinate()[0]][troop.getLastCoordinate()[1]] = troop;
-                System.out.println("tropa quedar"+troop.getLastCoordinate()[0]+troop.getLastCoordinate()[1]);
 
             } else {
                 troop.setLastCoordinate(coordinates);
@@ -398,6 +394,7 @@ public class LogicModel implements Runnable {
     }
 
     public String[][][] updateBoard() {
+
         String[][][] board = new String[BoardView.ROWS][BoardView.COLUMNS][4];
 
         for (int i = 0; i < BoardView.ROWS; i++) {
@@ -446,6 +443,26 @@ public class LogicModel implements Runnable {
             matrix[i] = list.get(i);
         }
         return matrix;
+
+
+    }
+
+    public void getReplayGame(int gameID){
+
+        repeatMatrix = gamedao.getReplayGame(gameID);
+        repeatIterator = repeatMatrix.iterator();
+
+    }
+
+    public String [][][] getReplayMove(){
+
+        if(repeatIterator.hasNext()){
+
+            return repeatIterator.next();
+
+        }
+
+        return null;
 
 
     }

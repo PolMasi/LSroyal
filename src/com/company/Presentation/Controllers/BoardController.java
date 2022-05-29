@@ -59,6 +59,7 @@ public class BoardController implements ActionListener {
      * Actulitza el taulell
      */
     private void updateTable() {
+
         String[][][] board = logicModel.updateBoard();
         JPanel[][] panels = boardView.getGrids();
         JButton[][] buttons = boardView.getGridButton();
@@ -70,18 +71,23 @@ public class BoardController implements ActionListener {
             for (int j = 0; j < BoardView.COLUMNS; j++) {
                 if(board[i][j] == null) {
                     panels[i][j].setBackground(Color.WHITE);
+                    buttons[i][j].setBackground(Color.WHITE);
                     buttons[i][j].setIcon(null);
                 }
                 else {
                     buttons[i][j].setIcon(new ImageIcon(BoardView.ICON_PATH+board[i][j][0]+BoardView.ICON_EXT));
                     if(board[i][j][2] == "true") {
-                        panels[i][j].setBackground(Color.GREEN);        //nosotros carta
+                        panels[i][j].setBackground(Color.GREEN);
+                        buttons[i][j].setBackground(Color.GREEN);
+                        //nosotros carta
                         if (i != 7) {
                             userTroops++;
                         }
                     }
                     else {
-                        panels[i][j].setBackground(Color.RED);          //carta enemigo
+                        panels[i][j].setBackground(Color.RED);
+                        buttons[i][j].setBackground(Color.RED);
+                        //carta enemigo
                         if (i != 0) {
                             computerTroops++;
                         }
@@ -98,6 +104,7 @@ public class BoardController implements ActionListener {
      * Actilizar la vida de les torres
      */
     private void updateLife() {
+
         int userHealth = logicModel.getUserHealth();
         int computerHealth = logicModel.getComputerHealth();
 
@@ -166,9 +173,11 @@ public class BoardController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getActionCommand().equals(MenuView.PLAYGAME_BTN)) {
+
             endGame = false;
             boardView.setTimer(true);
             logicModel.startGame();
+
             if (mainController.showConfirm(INSTRUCTIONS, CONFIRM) == 0) {
                 timer = Executors.newScheduledThreadPool(1);
                 timer.scheduleAtFixedRate(this.logicModel, 0, 1, TimeUnit.SECONDS);
@@ -186,6 +195,7 @@ public class BoardController implements ActionListener {
 
         if(e.getActionCommand().equals(BoardView.BOARD_TIMER)) {
             boardView.updateMoney(logicModel.getUserMoney());
+
             updateTable();
             updateLife();
         }

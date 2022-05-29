@@ -68,11 +68,17 @@ public class MenuController implements ActionListener {
                     mainController.switchView(MainView.START_VIEW);
                 }
                 break;
-            case MenuView.RANKING_BTN : rankingView.updateTable(userModel.getRanking()) ;
+
+            case MenuView.RANKING_BTN : rankingView.configPanel(userModel.getRanking(), this);
             mainController.switchView(MainView.RANKING_VIEW);
             break;
 
+            case RankingView.RANKING_BACK: mainController.switchView(MainView.MENU_VIEW);
+            break;
+
             case MenuView.REPRODUCE_BTN:  mainController.switchView(MainView.GAMELIST_VIEW);
+
+
 
         }
 
