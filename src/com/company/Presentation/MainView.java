@@ -21,17 +21,13 @@ public class MainView extends JFrame {
     private CardLayout cardLayout;      // gestionaremos como una baraja de cartas y este tendra todas las vista(cartas)
 
     public static final String LOGIN_VIEW = "LOGIN_VIEW";
-    public static final String LOGOUT_VIEW = "LOGOUT_VIEW";
     public static final String SIGNUP_VIEW = "SIGNUP_VIEW";
     public static final String START_VIEW = "START_VIEW";
     public static final String BOARD_VIEW = "BOARD_VIEW";
     public static final String MENU_VIEW = "MENU_VIEW";
     public static final String RANKING_VIEW = "RANKING_VIEW";
     public static final String GAMELIST_VIEW = "GAMELIST_VIEW";
-
-
     public static final String TITLE = "LSROYAL";
-    public static final String DELETE_MSG = "If you want to delete an account. Please enter your username:";
 
     /**
      * Constructor on inicialitzem totes les vistes
@@ -123,7 +119,6 @@ public class MainView extends JFrame {
 
 
     }
-
 
 
     /**

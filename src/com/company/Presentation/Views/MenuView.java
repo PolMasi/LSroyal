@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
  */
 public class MenuView extends JPanel {
 
-
     private JButton playGame;
     private JButton reproduce;
     private JButton ranking;
@@ -29,16 +28,11 @@ public class MenuView extends JPanel {
      * Contructor de la funció on es configura el panel
      */
     public MenuView(){
-
-
         this.setLayout(new BorderLayout()); // la interfaz tendra un layout
 
         JLabel title1 = new JLabel("MAIN MENU", SwingConstants.CENTER);
 
-
-        //GridBagConstraints constraints = new GridBagConstraints(); // necesario para el layout
         this.setBackground(Color.DARK_GRAY);
-
         this.add(title1, BorderLayout.NORTH);
         title1.setForeground(Color.YELLOW);
         title1.setFont(new Font("Helvetica", Font.BOLD, 100));
@@ -90,15 +84,10 @@ public class MenuView extends JPanel {
         logoutPanel.add(delete);
         center.add(logoutPanel,BorderLayout.SOUTH);
 
-
-
         this.add(buttons, BorderLayout.CENTER);
         this.add(logoutPanel, BorderLayout.SOUTH);
         add(Box.createRigidArea(new Dimension(300, 300)), BorderLayout.EAST);
         add(Box.createRigidArea(new Dimension(300, 300)), BorderLayout.WEST);
-        //add(Box.createRigidArea(new Dimension(300, 300)), BorderLayout.SOUTH);
-
-
     }
 
     /**
@@ -130,7 +119,5 @@ public class MenuView extends JPanel {
         reproduce.addActionListener(listener);
 
     }
-
-
 
 }

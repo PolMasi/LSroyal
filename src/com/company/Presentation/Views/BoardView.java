@@ -88,141 +88,17 @@ public class BoardView extends JPanel {
 
         setLayout(new GridLayout(1,2));
 
-
         game = new JPanel(new BorderLayout());
 
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLUMNS; j++) {
-                String button;
-                Integer num = i+1;
-
-                switch (j) {
-                    case 0 -> button = num.toString()+"a";
-                    case 1 -> button = num.toString()+"b";
-                    case 2 -> button = num.toString()+"c";
-                    case 3 -> button = num.toString()+"d";
-                    case 4 -> button = num.toString()+"e";
-                    case 5 -> button = num.toString()+"f";
-                    case 6 -> button = num.toString()+"g";
-                    default -> button = "0";
-                }
-
-                grids[i][j] = new JPanel(new BorderLayout());
-
-                gridButton[i][j] = new JButton();
-                gridButton[i][j].setActionCommand(button);
-                gridButton[i][j].addActionListener(listener);
-
-                grids[i][j].add(gridButton[i][j], BorderLayout.CENTER);
-                board.add(grids[i][j], BorderLayout.CENTER);
-            }
-        }
-
-        game.add(board);
-        board.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 20));
+        configureGrid(listener);
 
         add(game, BorderLayout.WEST);
-        //add(title, BorderLayout.NORTH);
         JPanel informacion = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         informacion.setBackground(Color.DARK_GRAY);
 
-        // Jpanels vacio
-        JPanel jpvacio = new JPanel();
-        jpvacio.setBackground(Color.DARK_GRAY);
-        constraints.gridx = 0;
-        constraints.gridy =0;
-        constraints.gridwidth =1; // el area que ocupa ancho
-        constraints.gridheight =11; // el area que ocupa alto
-        constraints.weighty = 1.0;
-        //constraints.weighty = 1.0;
-        informacion.add(jpvacio, constraints);
-        constraints.weighty = 0.0;
-        //constraints.weighty = 0.0;
-
-        // Jpanels vacio
-        JPanel jpvacio1 = new JPanel();
-        jpvacio1.setBackground(Color.DARK_GRAY);
-        constraints.gridx = 16;
-        constraints.gridy =0;
-        constraints.gridwidth =1; // el area que ocupa ancho
-        constraints.gridheight =11; // el area que ocupa alto
-        //constraints.weighty = 1.0;
-        constraints.weighty = 1.0;
-        informacion.add(jpvacio1, constraints);
-        constraints.weighty = 0.0;
-        //constraints.weighty = 0.0;
-
-        // Jpanels vacio
-        JPanel jpvacio2 = new JPanel();
-        jpvacio2.setBackground(Color.DARK_GRAY);
-        constraints.fill = GridBagConstraints.BOTH;
-        constraints.gridx = 0;
-        constraints.gridy =0;
-        constraints.gridwidth =17; // el area que ocupa ancho
-        constraints.gridheight =1; // el area que ocupa alto
-        informacion.add(jpvacio2, constraints);
-        constraints.weighty = 0.0;
-
-
-
-        // Jpanels vacio
-        JPanel jpvacio3 = new JPanel(new BorderLayout());
-        jpvacio3.setBackground(Color.DARK_GRAY);
-        constraints.gridx =0;
-        constraints.gridy =10;
-        constraints.gridwidth =17; // el area que ocupa ancho
-        constraints.gridheight =1; // el area que ocupa alto
-        constraints.weightx = 1.0;
-        informacion.add(jpvacio3, constraints);
-        constraints.weightx = 0.0;
-
-        // Go back
-        back = new JButton("Go back");
-        back.setActionCommand(BOARD_BACK);
-        back.addActionListener(listener);
-        back.setBackground(Color.WHITE);
-        back.setBorderPainted(false);
-        jpvacio3.add(back, BorderLayout.EAST);
-
-
-        // Titulo
-        JLabel lblinfo = new JLabel("Information",SwingConstants.CENTER);
-        lblinfo.setForeground(Color.YELLOW);
-        lblinfo.setFont(new Font("Helvetica", Font.BOLD, 50));
-        constraints.gridx =2;
-        constraints.gridy =1;
-        constraints.gridwidth =13; // el area que ocupa ancho
-        constraints.gridheight =1; // el area que ocupa alto
-        constraints.weightx = 1.0;
-        //constraints.weighty = 1.0;
-        informacion.add(lblinfo, constraints);
-        constraints.weightx = 0.0;
-        //constraints.weighty = 0.0;
-
-        //LBL LIFES
-        JLabel lblLifes = new JLabel("LIFES",SwingConstants.CENTER);
-        lblLifes.setForeground(Color.YELLOW);
-        lblLifes.setFont(new Font("Helvetica", Font.BOLD, 20));
-        constraints.gridx =1;
-        constraints.gridy =3;
-        constraints.gridwidth =5; // el area que ocupa ancho
-        constraints.gridheight =1; // el area que ocupa alto
-        constraints.weightx = 1.0;
-        informacion.add(lblLifes, constraints);
-        constraints.weightx = 0.0;
-
-        //LBL TROPS
-        JLabel lblTropes = new JLabel("TROPES",SwingConstants.CENTER);
-        lblTropes.setForeground(Color.YELLOW);
-        lblTropes.setFont(new Font("Helvetica", Font.BOLD, 20));
-        constraints.gridx =10;
-        constraints.gridy =3;
-        constraints.gridwidth =5; // el area que ocupa ancho
-        constraints.gridheight =1; // el area que ocupa alto
-        constraints.weightx = 1.0;
-        informacion.add(lblTropes, constraints);
-        constraints.weightx = 0.0;
+        configurePadding(constraints, informacion, listener);
+        configureLabels(constraints, informacion);
 
         // Panel tropas
         JPanel infoTrops = new JPanel(new GridLayout(1, 1));
@@ -250,50 +126,6 @@ public class BoardView extends JPanel {
         constraints.weightx = 0.0;
         constraints.weighty = 0.0;
 
-        //LBL TROPS_PLAYER
-        JLabel lblTropesPlayer = new JLabel("X"); // Aqui en X valor de trops del jugador
-        lblTropesPlayer.setForeground(Color.WHITE);
-        lblTropesPlayer.setFont(new Font("Helvetica", Font.BOLD, 20));
-        constraints.gridx =11;
-        constraints.gridy =5;
-        constraints.gridwidth =2; // el area que ocupa ancho
-        constraints.gridheight =1; // el area que ocupa alto
-        //constraints.weightx = 1.0;
-        informacion.add(lblTropesPlayer, constraints);
-
-        //LBL TROPS_IA
-        JLabel lblTropesIA = new JLabel("XIA",SwingConstants.RIGHT); // Aqui en XIA valor de trops de la IA
-        lblTropesIA.setForeground(Color.WHITE);
-        lblTropesIA.setFont(new Font("Helvetica", Font.BOLD, 20));
-        constraints.gridx =13;
-        constraints.gridy =5;
-        constraints.gridwidth =2; // el area que ocupa ancho
-        constraints.gridheight =1; // el area que ocupa alto
-        //constraints.weightx = 1.0;
-        informacion.add(lblTropesIA, constraints);
-
-        //LBL LIFES_PLAYER
-        JLabel lblLifesPlayer = new JLabel("X",SwingConstants.RIGHT); // Aqui en X valor de vidas del Jugador
-        lblLifesPlayer.setForeground(Color.WHITE);
-        lblLifesPlayer.setFont(new Font("Helvetica", Font.BOLD, 20));
-        constraints.gridx =2;
-        constraints.gridy =5;
-        constraints.gridwidth =2; // el area que ocupa ancho
-        constraints.gridheight =1; // el area que ocupa alto
-        //constraints.weightx = 1.0;
-        informacion.add(lblLifesPlayer, constraints);
-
-        //LBL LIFES_IA
-        JLabel lblLifesIA = new JLabel("XIA"); // Aqui en XIA valor de vidas de la IA
-        lblLifesIA.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblLifesIA.setForeground(Color.WHITE);
-        lblLifesIA.setFont(new Font("Helvetica", Font.BOLD, 20));
-        constraints.gridx =4;
-        constraints.gridy =5;
-        constraints.gridwidth =2; // el area que ocupa ancho
-        constraints.gridheight =1; // el area que ocupa alto
-        //constraints.weightx = 1.0;
-        informacion.add(lblLifesIA, constraints);
 
         // Panel dinero
         JPanel infoMoney = new JPanel();
@@ -307,15 +139,6 @@ public class BoardView extends JPanel {
         informacion.add(infoMoney, constraints);
         constraints.weightx = 0.0;
 
-        //LBL dinero
-        JLabel lblMoney = new JLabel("MONEY",SwingConstants.CENTER); // aqui valor del dinero
-        lblMoney.setForeground(Color.YELLOW);
-        lblMoney.setFont(new Font("Helvetica", Font.BOLD, 20));
-        constraints.gridx =7;
-        constraints.gridy =6;
-        constraints.gridwidth =2; // el area que ocupa ancho
-        constraints.gridheight =1; // el area que ocupa alto
-        informacion.add(lblMoney, constraints);
         this.add(informacion);
 
         // LBL dinero total
@@ -334,8 +157,6 @@ public class BoardView extends JPanel {
         JProgressBar pBlivesPlayer = new JProgressBar(mLivesPLayer); // AQUI EN EL TASK VA VINCULAT AMB EL JOC EN DIRECTE
         pBlivesPlayer.setStringPainted(true);
         pBlivesPlayer.setOrientation(SwingConstants.VERTICAL);
-        //pBlivesPlayer.setBackground(Color.CYAN);
-       // pBlivesPlayer.setOpaque(true);
         infoLifes.add(pBlivesPlayer);
 
         mLivesIA = new DefaultBoundedRangeModel();
@@ -366,9 +187,186 @@ public class BoardView extends JPanel {
         infoTrops.add(pBtropesIA);
         add(informacion);
 
-
     }
-    // http://www.chuidiang.org/java/layout/GridBagLayout/GridBagLayout.php
+
+    private void configureLabels(GridBagConstraints constraints, JPanel informacion) {
+        // Titulo
+        JLabel lblinfo = new JLabel("Information",SwingConstants.CENTER);
+        lblinfo.setForeground(Color.YELLOW);
+        lblinfo.setFont(new Font("Helvetica", Font.BOLD, 50));
+        constraints.gridx =2;
+        constraints.gridy =1;
+        constraints.gridwidth =13; // el area que ocupa ancho
+        constraints.gridheight =1; // el area que ocupa alto
+        constraints.weightx = 1.0;
+        informacion.add(lblinfo, constraints);
+        constraints.weightx = 0.0;
+
+        //LBL LIFES
+        JLabel lblLifes = new JLabel("LIFES",SwingConstants.CENTER);
+        lblLifes.setForeground(Color.YELLOW);
+        lblLifes.setFont(new Font("Helvetica", Font.BOLD, 20));
+        constraints.gridx =1;
+        constraints.gridy =3;
+        constraints.gridwidth =5; // el area que ocupa ancho
+        constraints.gridheight =1; // el area que ocupa alto
+        constraints.weightx = 1.0;
+        informacion.add(lblLifes, constraints);
+        constraints.weightx = 0.0;
+
+        //LBL TROPS
+        JLabel lblTropes = new JLabel("TROPES",SwingConstants.CENTER);
+        lblTropes.setForeground(Color.YELLOW);
+        lblTropes.setFont(new Font("Helvetica", Font.BOLD, 20));
+        constraints.gridx =10;
+        constraints.gridy =3;
+        constraints.gridwidth =5; // el area que ocupa ancho
+        constraints.gridheight =1; // el area que ocupa alto
+        constraints.weightx = 1.0;
+        informacion.add(lblTropes, constraints);
+        constraints.weightx = 0.0;
+
+        //LBL TROPS_PLAYER
+        JLabel lblTropesPlayer = new JLabel("X"); // Aqui en X valor de trops del jugador
+        lblTropesPlayer.setForeground(Color.WHITE);
+        lblTropesPlayer.setFont(new Font("Helvetica", Font.BOLD, 20));
+        constraints.gridx =11;
+        constraints.gridy =5;
+        constraints.gridwidth =2; // el area que ocupa ancho
+        constraints.gridheight =1; // el area que ocupa alto
+        informacion.add(lblTropesPlayer, constraints);
+
+        //LBL TROPS_IA
+        JLabel lblTropesIA = new JLabel("XIA",SwingConstants.RIGHT); // Aqui en XIA valor de trops de la IA
+        lblTropesIA.setForeground(Color.WHITE);
+        lblTropesIA.setFont(new Font("Helvetica", Font.BOLD, 20));
+        constraints.gridx =13;
+        constraints.gridy =5;
+        constraints.gridwidth =2; // el area que ocupa ancho
+        constraints.gridheight =1; // el area que ocupa alto
+        informacion.add(lblTropesIA, constraints);
+
+        //LBL LIFES_PLAYER
+        JLabel lblLifesPlayer = new JLabel("X",SwingConstants.RIGHT); // Aqui en X valor de vidas del Jugador
+        lblLifesPlayer.setForeground(Color.WHITE);
+        lblLifesPlayer.setFont(new Font("Helvetica", Font.BOLD, 20));
+        constraints.gridx =2;
+        constraints.gridy =5;
+        constraints.gridwidth =2; // el area que ocupa ancho
+        constraints.gridheight =1; // el area que ocupa alto
+        informacion.add(lblLifesPlayer, constraints);
+
+        //LBL LIFES_IA
+        JLabel lblLifesIA = new JLabel("XIA"); // Aqui en XIA valor de vidas de la IA
+        lblLifesIA.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblLifesIA.setForeground(Color.WHITE);
+        lblLifesIA.setFont(new Font("Helvetica", Font.BOLD, 20));
+        constraints.gridx =4;
+        constraints.gridy =5;
+        constraints.gridwidth =2; // el area que ocupa ancho
+        constraints.gridheight =1; // el area que ocupa alto
+        informacion.add(lblLifesIA, constraints);
+
+        //LBL dinero
+        JLabel lblMoney = new JLabel("MONEY",SwingConstants.CENTER); // aqui valor del dinero
+        lblMoney.setForeground(Color.YELLOW);
+        lblMoney.setFont(new Font("Helvetica", Font.BOLD, 20));
+        constraints.gridx =7;
+        constraints.gridy =6;
+        constraints.gridwidth =2; // el area que ocupa ancho
+        constraints.gridheight =1; // el area que ocupa alto
+        informacion.add(lblMoney, constraints);
+    }
+
+    private void configurePadding(GridBagConstraints constraints, JPanel informacion, ActionListener listener) {
+
+        // Jpanels vacio
+        JPanel jpvacio = new JPanel();
+        jpvacio.setBackground(Color.DARK_GRAY);
+        constraints.gridx = 0;
+        constraints.gridy =0;
+        constraints.gridwidth =1; // el area que ocupa ancho
+        constraints.gridheight =11; // el area que ocupa alto
+        constraints.weighty = 1.0;
+        informacion.add(jpvacio, constraints);
+        constraints.weighty = 0.0;
+
+        // Jpanels vacio
+        JPanel jpvacio1 = new JPanel();
+        jpvacio1.setBackground(Color.DARK_GRAY);
+        constraints.gridx = 16;
+        constraints.gridy =0;
+        constraints.gridwidth =1; // el area que ocupa ancho
+        constraints.gridheight =11; // el area que ocupa alto
+        constraints.weighty = 1.0;
+        informacion.add(jpvacio1, constraints);
+        constraints.weighty = 0.0;
+
+        // Jpanels vacio
+        JPanel jpvacio2 = new JPanel();
+        jpvacio2.setBackground(Color.DARK_GRAY);
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.gridx = 0;
+        constraints.gridy =0;
+        constraints.gridwidth =17; // el area que ocupa ancho
+        constraints.gridheight =1; // el area que ocupa alto
+        informacion.add(jpvacio2, constraints);
+        constraints.weighty = 0.0;
+
+
+        // Jpanels vacio
+        JPanel jpvacio3 = new JPanel(new BorderLayout());
+        jpvacio3.setBackground(Color.DARK_GRAY);
+        constraints.gridx =0;
+        constraints.gridy =10;
+        constraints.gridwidth =17; // el area que ocupa ancho
+        constraints.gridheight =1; // el area que ocupa alto
+        constraints.weightx = 1.0;
+        informacion.add(jpvacio3, constraints);
+        constraints.weightx = 0.0;
+
+        // Go back
+        back = new JButton("Go back");
+        back.setActionCommand(BOARD_BACK);
+        back.addActionListener(listener);
+        back.setBackground(Color.WHITE);
+        back.setBorderPainted(false);
+        jpvacio3.add(back, BorderLayout.EAST);
+    }
+
+    private void configureGrid(ActionListener listener) {
+
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                String button;
+                Integer num = i+1;
+
+                switch (j) {
+                    case 0 -> button = num.toString()+"a";
+                    case 1 -> button = num.toString()+"b";
+                    case 2 -> button = num.toString()+"c";
+                    case 3 -> button = num.toString()+"d";
+                    case 4 -> button = num.toString()+"e";
+                    case 5 -> button = num.toString()+"f";
+                    case 6 -> button = num.toString()+"g";
+                    default -> button = "0";
+                }
+
+                grids[i][j] = new JPanel(new BorderLayout());
+
+                gridButton[i][j] = new JButton();
+                gridButton[i][j].setActionCommand(button);
+                gridButton[i][j].addActionListener(listener);
+
+                grids[i][j].add(gridButton[i][j], BorderLayout.CENTER);
+                board.add(grids[i][j], BorderLayout.CENTER);
+            }
+        }
+
+        game.add(board);
+        board.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 20));
+    }
+
 
     /**
      * Actulitza la vida de les torres de la partida
@@ -460,8 +458,6 @@ public class BoardView extends JPanel {
         defBox.add(new JLabel("DEFENSIVES"));
         defBox.add(defPanel);
 
-       // defBox.setBorder(BorderFactory.createEmptyBorder(0, 100, 0, 0));
-
         flowLayout.add(offBox);
         flowLayout.add(defBox);
 
@@ -477,4 +473,38 @@ public class BoardView extends JPanel {
         lblMoneyTotal.setText(String.valueOf(money));
     }
 
+    /**
+     * acutalizar tabla
+     * @param i recorrer
+     * @param j recorrer
+     * @param board tabla
+     * @param panels paneles
+     * @param buttons botones
+     * @param userTroops tropas usuario
+     * @param computerTroops tropar computer
+     */
+    public void updateTable(int i, int j, String[][][] board, JPanel[][] panels, JButton[][] buttons,  int userTroops,  int computerTroops) {
+        if(board[i][j] == null) {
+            panels[i][j].setBackground(Color.WHITE);
+            buttons[i][j].setBackground(Color.WHITE);
+            buttons[i][j].setIcon(null);
+        }
+        else {
+            buttons[i][j].setIcon(new ImageIcon(BoardView.ICON_PATH+board[i][j][0]+BoardView.ICON_EXT));
+            if(board[i][j][2] == "true") {
+                panels[i][j].setBackground(Color.GREEN);
+                buttons[i][j].setBackground(Color.GREEN);
+                if (i != 7) {
+                    userTroops++;
+                }
+            }
+            else {
+                panels[i][j].setBackground(Color.RED);
+                buttons[i][j].setBackground(Color.RED);
+                if (i != 0) {
+                    computerTroops++;
+                }
+            }
+        }
+    }
 }

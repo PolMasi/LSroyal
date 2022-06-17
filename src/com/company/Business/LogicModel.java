@@ -296,9 +296,7 @@ public class LogicModel implements Runnable {
         String coordinates;
 
         Defensive defTroop = listDefensive.get(troop);
-        //System.out.println("1." + defTroop.getCost());
         if(defTroop.getCost() > computerMoney){
-       //     Collections.shuffle(listDefensive);
             for (int i = 0; i < listDefensive.size(); i++) {
 
                 if(listDefensive.get(i).getCost() <= computerMoney && !invoked){
@@ -308,8 +306,6 @@ public class LogicModel implements Runnable {
 
                    }while (!invoked);
                     addMoney(-defTroop.getCost(), false);
-
-                    //System.out.println("2. new "+ d.getCost());
                 }
             }
         }
@@ -319,29 +315,21 @@ public class LogicModel implements Runnable {
                 invoked = invokeTroop(troop+1, true, false, coordinates);
             }while (!invoked);
             addMoney(-defTroop.getCost(), false);
-
-
         }
-        //counter++;
-
     }
 
     /**
      * Invocar tropes ofensives de la CPU
      */
     public void invokeAtackCPU(){
-        //System.out.println("ataque");
         int troop = selectTroop.nextInt(listOffensive.size());
         boolean invoked = false;
         Random coords = new Random();
         String coordinates;
 
         Offensive offensive = listOffensive.get(troop);
-        //System.out.println("1." + defTroop.getCost());
         if(offensive.getCost() > computerMoney){
-          //  Collections.shuffle(listDefensive);
             for (int i = 0; i < listOffensive.size(); i++) {
-
                 if(listOffensive.get(i).getCost() <= computerMoney && !invoked){
                     do{
                         coordinates = getCoordinate(coords.nextInt(4), coords.nextInt(7) );
@@ -349,8 +337,6 @@ public class LogicModel implements Runnable {
 
                     }while (!invoked);
                     addMoney(-offensive.getCost(), false);
-
-                                        //System.out.println("2. new "+ d.getCost());
                 }
             }
         }
@@ -478,12 +464,9 @@ public class LogicModel implements Runnable {
             }
 
             if (troop.isFight()) {
-
                 fight(coordinates,troop );
                 if(matrixTroops[coordinates[0]][coordinates[1]].getCurrentHealth() <= 0) {
-                    //si esta muerta la elimnamos
                     matrixTroops[coordinates[0]][coordinates[1]] = null;
-
                 }
                 matrixTroops[troop.getLastCoordinate()[0]][troop.getLastCoordinate()[1]] = troop;
 
@@ -492,8 +475,6 @@ public class LogicModel implements Runnable {
                 //actualizar posicion
                 matrixTroops[coordinates[0]][coordinates[1]] = troop;
             }
-
-        //gamedao.matrixToJson(matrixTroops);
     }
 
     /**
@@ -593,8 +574,6 @@ public class LogicModel implements Runnable {
         }
 
         return null;
-
-
     }
 }
 

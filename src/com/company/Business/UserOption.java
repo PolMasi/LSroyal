@@ -27,7 +27,6 @@ public class UserOption {
         boolean result;
 
         Pattern pattern = Pattern.compile("^(.+)@(\\S+)$");
-        //Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[.A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         Matcher matcher = pattern.matcher(mail);
         result = matcher.find();
 

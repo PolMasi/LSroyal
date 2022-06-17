@@ -45,7 +45,6 @@ public class GameSQL implements GameDAO {
 
     /**
      * Conexion
-     *
      */
     public void getConexion() {
         try {
@@ -92,13 +91,9 @@ public class GameSQL implements GameDAO {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-
-
         }
 
         return result;
-
-
     }
 
     /**
@@ -166,8 +161,6 @@ public class GameSQL implements GameDAO {
             throwables.printStackTrace();
 
         }
-
-
     }
 
 
@@ -182,18 +175,13 @@ public class GameSQL implements GameDAO {
     @Override
     public boolean saveGame(int userID, String gameName, int result) {
 
-
         if (!checkGameName(gameName)) {
-
             return false;
-
         }
 
         int gameID = createGame(userID, gameName, result);
 
-
         for (String movement : moveList) {
-
             saveMovement(gameID, movement);
 
         }

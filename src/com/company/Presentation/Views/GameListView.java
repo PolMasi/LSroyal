@@ -61,15 +61,10 @@ public class GameListView extends JPanel {
         title.setFont(new Font("Helvetica", Font.BOLD, 50));
         superiorPanel.add(title, BorderLayout.CENTER);
 
-
         back = new JButton("BACK");
         back.setActionCommand(GAMELIST_BACK);
         superiorPanel.add(back, BorderLayout.EAST);
         board.add(superiorPanel, BorderLayout.NORTH);
-
-
-        // GERARD, HE POSAT AQUESTA STRING TAN LLARGA PER FER PROVES, REALMENT ON S'OBTE LA INFO DE LA BBDD ES EN EL METODE obtieneMariz()
-        // String data[][] = obtieneMariz();
 
         updateTable(dataM);
 
@@ -77,8 +72,6 @@ public class GameListView extends JPanel {
         board.add(table, BorderLayout.CENTER);
         add(board);
         registerController(listener);
-
-
 
     }
 
@@ -104,10 +97,8 @@ public class GameListView extends JPanel {
                 if (me.getClickCount() == 2) {     // to detect doble click events
                     JTable target = (JTable)me.getSource();
                     int row = target.getSelectedRow(); // select a row
-                    int column = target.getSelectedColumn(); // select a column
                     selectedGame = true;
                     gameID = Integer.parseInt((String) table1.getValueAt(row, 0));
-                    //JOptionPane.showMessageDialog(null, table1.getValueAt(row, column)); // get the value of a row and column.
                 }
             }
         });

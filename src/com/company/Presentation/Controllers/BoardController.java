@@ -69,30 +69,7 @@ public class BoardController implements ActionListener {
 
         for (int i = 0; i < BoardView.ROWS; i++) {
             for (int j = 0; j < BoardView.COLUMNS; j++) {
-                if(board[i][j] == null) {
-                    panels[i][j].setBackground(Color.WHITE);
-                    buttons[i][j].setBackground(Color.WHITE);
-                    buttons[i][j].setIcon(null);
-                }
-                else {
-                    buttons[i][j].setIcon(new ImageIcon(BoardView.ICON_PATH+board[i][j][0]+BoardView.ICON_EXT));
-                    if(board[i][j][2] == "true") {
-                        panels[i][j].setBackground(Color.GREEN);
-                        buttons[i][j].setBackground(Color.GREEN);
-                        //nosotros carta
-                        if (i != 7) {
-                            userTroops++;
-                        }
-                    }
-                    else {
-                        panels[i][j].setBackground(Color.RED);
-                        buttons[i][j].setBackground(Color.RED);
-                        //carta enemigo
-                        if (i != 0) {
-                            computerTroops++;
-                        }
-                    }
-                }
+                boardView.updateTable(i, j, board, panels, buttons, userTroops, computerTroops);
             }
         }
 
@@ -121,7 +98,6 @@ public class BoardController implements ActionListener {
                 logicModel.addVictory();
                 endGame(1);
 
-
             }else{
 
                 endGame(0);
@@ -149,17 +125,12 @@ public class BoardController implements ActionListener {
         text = text + SAVE;
 
         if (mainController.showConfirm(text, SAVE_OPTIONS) == 0) {
-
             System.out.println("Saving game");
             String gameName = mainController.showInput(GAME_NAME);
             while(!logicModel.saveGame(gameName, win)){
 
                 gameName = mainController.showInput(GAME_NAME_EXIST);
-
-
             }
-
-
         }
 
         mainController.switchView(MainView.MENU_VIEW);

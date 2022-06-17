@@ -95,8 +95,6 @@ public class SignupView extends JPanel {
         panel.add(bottomPanel, BorderLayout.SOUTH);
         add(title, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
-
-
     }
 
     /**

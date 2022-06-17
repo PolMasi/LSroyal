@@ -11,8 +11,7 @@ public class UserModel {
 
     private UserDAO userDAO;
     private UserOption userOption;
-
-    public String userName;
+    private String userName;
 
 
     /**
@@ -106,11 +105,19 @@ public class UserModel {
     }
 
     /**
+     * Comprobar si el usuario ha puesto bien el nombre que quiere borrar
+     * @param name nombre
+     * @return devuele un Boolean de si es correcto
+     */
+    public boolean checkDeleteUserName(String name) {
+        return name.equalsIgnoreCase(userName);
+    }
+
+    /**
      * esborrar el ususari
-     * @param userName el nom d'ususari
      * @return si ho realitza  o no
      */
-    public boolean delete(String userName){
+    public boolean delete(){
 
         if (!userOption.correctUserNameDelete(this.userName, userName)){
 

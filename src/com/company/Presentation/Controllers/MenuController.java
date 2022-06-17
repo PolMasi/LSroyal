@@ -62,9 +62,8 @@ public class MenuController implements ActionListener {
                 }
             break;
             case MenuView.DELETE_BTN:
-                System.out.println(userModel.userName);
-                if(mainController.showInput(DELETE_TEXT).equalsIgnoreCase(userModel.userName)) {
-                    userModel.delete(userModel.userName);
+                if(userModel.checkDeleteUserName(mainController.showInput(DELETE_TEXT))) {
+                    userModel.delete();
                     mainController.switchView(MainView.START_VIEW);
                 }
                 break;
@@ -78,11 +77,6 @@ public class MenuController implements ActionListener {
 
             case MenuView.REPRODUCE_BTN:  mainController.switchView(MainView.GAMELIST_VIEW);
 
-
-
         }
-
-
-
     }
 }
