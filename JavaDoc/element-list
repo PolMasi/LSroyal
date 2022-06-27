@@ -1,0 +1,7 @@
+com.company
+com.company.Business
+com.company.Business.Entities
+com.company.Persistence
+com.company.Presentation
+com.company.Presentation.Controllers
+com.company.Presentation.Views
